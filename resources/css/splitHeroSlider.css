@@ -1,0 +1,226 @@
+  #splitHero {
+    --open-width: 69.02%;
+    --closed-width: 30.98%;
+    --open-height: 69%;
+    --closed-height: 31%;
+    --hero-transition: 900ms cubic-bezier(0.77, 0, 0.175, 1);
+    --image-fade: 760ms ease;
+    --image-zoom: 1200ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #openImageStage {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  #openImageStage .hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.06);
+    transition: opacity var(--image-fade), transform var(--image-zoom);
+    will-change: opacity, transform;
+    backface-visibility: hidden;
+  }
+
+  #openImageStage .hero-image.is-active {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .hero-panel {
+    transition:
+      width var(--hero-transition),
+      height var(--hero-transition),
+      left var(--hero-transition),
+      right var(--hero-transition),
+      top var(--hero-transition),
+      bottom var(--hero-transition),
+      transform var(--hero-transition);
+    will-change: width, height, left, right, top, bottom, transform;
+  }
+
+  #splitHeroToggle,
+  #openTopWrap,
+  #openContentWrap,
+  #closedPanel > div {
+    transition:
+      transform var(--hero-transition),
+      opacity 400ms ease,
+      left var(--hero-transition),
+      right var(--hero-transition),
+      top var(--hero-transition),
+      bottom var(--hero-transition);
+  }
+
+  #openPanel [id*="Logo"],
+  #openPanel [id*="Eyebrow"],
+  #openPanel [id*="Title"],
+  #openPanel [id*="Text"],
+  #openPanel [id*="Button"],
+  #closedPanel [id*="Logo"],
+  #closedPanel [id*="Eyebrow"],
+  #closedPanel [id*="Title"],
+  #closedPanel [id*="Text"],
+  #closedPanel [id*="Button"],
+  #openMenu {
+    transition: opacity 300ms ease, transform 500ms ease;
+  }
+
+  /* desktop / tablet horizontal */
+  @media (min-width: 768px) {
+    #splitHero.state-open-left #openPanel {
+      left: 0;
+      top: 0;
+      width: var(--open-width);
+      height: 100%;
+    }
+
+    #splitHero.state-open-left #closedPanel {
+      right: 0;
+      top: 0;
+      width: var(--closed-width);
+      height: 100%;
+    }
+
+    #splitHero.state-open-right #openPanel {
+      right: 0;
+      left: auto;
+      top: 0;
+      width: var(--open-width);
+      height: 100%;
+    }
+
+    #splitHero.state-open-right #closedPanel {
+      left: 0;
+      right: auto;
+      top: 0;
+      width: var(--closed-width);
+      height: 100%;
+    }
+
+    #splitHero.state-open-left #openTopWrap,
+    #splitHero.state-open-left #openContentWrap {
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    #splitHero.state-open-right #openTopWrap,
+    #splitHero.state-open-right #openContentWrap {
+      align-self: flex-end;
+      text-align: left;
+    }
+
+    #splitHero.state-open-right #openMenu {
+      justify-content: flex-end;
+    }
+
+    #splitHero.state-open-left #openMenu {
+      justify-content: flex-start;
+    }
+
+    #splitHero.state-open-left #splitHeroToggle {
+      left: var(--open-width);
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #splitHero.state-open-right #splitHeroToggle {
+      left: var(--closed-width);
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #splitHero.state-open-left #splitHeroIcon {
+      transform: rotate(180deg);
+    }
+
+    #splitHero.state-open-right #splitHeroIcon {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* mobile vertical */
+  @media (max-width: 767px) {
+    #splitHero {
+      min-height: 100svh;
+    }
+
+    #splitHero.state-open-left #openPanel,
+    #splitHero.state-open-right #openPanel {
+      left: 0;
+      width: 100%;
+      height: var(--open-height);
+    }
+
+    #splitHero.state-open-left #closedPanel,
+    #splitHero.state-open-right #closedPanel {
+      left: 0;
+      width: 100%;
+      height: var(--closed-height);
+    }
+
+    #splitHero.state-open-left #openPanel {
+      top: 0;
+    }
+
+    #splitHero.state-open-left #closedPanel {
+      bottom: 0;
+      top: auto;
+    }
+
+    #splitHero.state-open-right #closedPanel {
+      top: 0;
+      bottom: auto;
+    }
+
+    #splitHero.state-open-right #openPanel {
+      bottom: 0;
+      top: auto;
+    }
+
+    #splitHero.state-open-left #splitHeroToggle {
+      left: 50%;
+      top: var(--open-height);
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    #splitHero.state-open-right #splitHeroToggle {
+      left: 50%;
+      top: var(--closed-height);
+      transform: translate(-50%, -50%) rotate(-90deg);
+    }
+
+    #openPanel .text-\[44px\],
+    #closedPanel .text-\[44px\] {
+      font-size: 36px;
+      line-height: 1.05;
+    }
+
+    #openMenu {
+      display: none !important;
+    }
+  }
+
+  /* motion polish */
+  #splitHero.is-animating #openImageStage .hero-image.is-active {
+    transform: scale(1.03);
+  }
+
+  #splitHero.is-animating #openPanel [id*="Logo"],
+  #splitHero.is-animating #openPanel [id*="Eyebrow"],
+  #splitHero.is-animating #openPanel [id*="Title"],
+  #splitHero.is-animating #openPanel [id*="Text"],
+  #splitHero.is-animating #openPanel [id*="Button"],
+  #splitHero.is-animating #closedPanel [id*="Logo"],
+  #splitHero.is-animating #closedPanel [id*="Eyebrow"],
+  #splitHero.is-animating #closedPanel [id*="Title"],
+  #splitHero.is-animating #closedPanel [id*="Text"],
+  #splitHero.is-animating #closedPanel [id*="Button"],
+  #splitHero.is-animating #openMenu {
+    opacity: 0.82;
+  }

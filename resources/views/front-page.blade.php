@@ -100,7 +100,7 @@
 
         <!-- DIVIDER TOGGLE -->
         <button id="splitHeroToggle" type="button" aria-label="Switch hero panels"
-            class="absolute z-30 grid h-[58px] w-[58px] place-items-center rounded-full bg-[#e6c15a] text-[#2b220f] shadow-xl transition hover:scale-105">
+            class="absolute z-30 grid h-14.5 w-14.5 place-items-center rounded-full bg-[#e6c15a] text-[#2b220f] shadow-xl transition hover:scale-105">
             <svg id="splitHeroIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-700"
                 fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
@@ -144,7 +144,7 @@
             <div class="relative z-10 mt-16 flex justify-center md:mt-20">
                 <div class="w-full max-w-186 overflow-hidden shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
                     <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1600&auto=format&fit=crop"
-                        alt="Family moving into a new home" class="h-62.5 w-full object-cover md:h-[320px]" />
+                        alt="Family moving into a new home" class="h-62.5 w-full object-cover md:h-80" />
                 </div>
             </div>
         </div>
@@ -195,7 +195,7 @@
                                 We Simplify
                             </h4>
 
-                            <p class="mt-5 max-w-[220px] text-[16px] leading-7 text-white/55 md:text-[15px]">
+                            <p class="mt-5 max-w-55 text-[16px] leading-7 text-white/55 md:text-[15px]">
                                 Clear advice, no jargon, tailored options.
                             </p>
                         </div>
@@ -214,7 +214,7 @@
                                 We Guide
                             </h4>
 
-                            <p class="mt-5 max-w-[240px] text-[16px] leading-7 text-white/55 md:text-[15px]">
+                            <p class="mt-5 max-w-60 text-[16px] leading-7 text-white/55 md:text-[15px]">
                                 From application to approval (and beyond).
                             </p>
                         </div>
@@ -241,7 +241,7 @@
         </div>
     </section>
     <section class="bg-[#efefef] text-[#3d2e12]">
-        <div class="mx-auto max-w-[1280px] px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
+        <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
             <h2 class="text-center text-[42px] font-light leading-[1.1] tracking-[-0.02em] md:text-[58px]">
                 What our customers are saying…
             </h2>
@@ -268,8 +268,8 @@
         </div>
 
         <div
-            class="relative z-10 mx-auto flex min-h-[360px] max-w-[1280px] items-center justify-center px-6 py-16 text-center md:min-h-[420px] md:px-10 lg:px-16">
-            <div class="max-w-[860px]">
+            class="relative z-10 mx-auto flex min-h-90 max-w-7xl items-center justify-center px-6 py-16 text-center md:min-h-105 md:px-10 lg:px-16">
+            <div class="max-w-215">
                 <h2 class="text-[42px] font-light leading-[1.15] text-white md:text-[64px]">
                     Your home. Your family. Your future.<br />
                     Let’s protect it together.
@@ -277,12 +277,12 @@
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="#"
-                        class="inline-flex min-w-[140px] items-center justify-center bg-white px-6 py-3 text-[12px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:bg-[#e6c15a]">
+                        class="inline-flex min-w-35 items-center justify-center bg-white px-6 py-3 text-[12px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:bg-[#e6c15a]">
                         Mortgage
                     </a>
 
                     <a href="#"
-                        class="inline-flex min-w-[140px] items-center justify-center bg-[#e6c15a] px-6 py-3 text-[12px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:bg-white">
+                        class="inline-flex min-w-35 items-center justify-center bg-[#e6c15a] px-6 py-3 text-[12px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:bg-white">
                         Insurance
                     </a>
                 </div>
@@ -298,7 +298,7 @@
     @endphp
 
     <section class="bg-[#efefef] text-[#3d2e12]">
-        <div class="mx-auto max-w-[1280px] px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
+        <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
             <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
                     <span class="text-[12px] uppercase tracking-[0.22em] text-[#b89a56]">Latest insights</span>
@@ -320,7 +320,7 @@
                     <article
                         class="group overflow-hidden bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
                         <a href="{{ get_permalink($post) }}" class="block">
-                            <div class="aspect-[16/10] overflow-hidden bg-[#ddd]">
+                            <div class="aspect-16/10 overflow-hidden bg-[#ddd]">
                                 @if (has_post_thumbnail($post))
                                     {!! get_the_post_thumbnail($post, 'large', [
                                         'class' => 'h-full w-full object-cover transition duration-500 group-hover:scale-105',
@@ -338,7 +338,7 @@
                             <div class="flex items-center gap-3 text-[12px] uppercase tracking-[0.12em] text-[#b89a56]">
                                 <span>{{ get_the_date('d M Y', $post) }}</span>
                                 @if (get_the_category($post))
-                                    <span class="h-[3px] w-[3px] rounded-full bg-[#b89a56]"></span>
+                                    <span class="h-0.75 w-0.75 rounded-full bg-[#b89a56]"></span>
                                     <span>{{ get_the_category($post)[0]->name }}</span>
                                 @endif
                             </div>
@@ -366,8 +366,8 @@
         </div>
     </section>
     <section class="bg-[linear-gradient(90deg,#2f2309_0%,#4a360a_50%,#2f2309_100%)] text-white">
-        <div class="mx-auto max-w-[1280px] px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
-            <div class="mx-auto max-w-[900px] text-center">
+        <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
+            <div class="mx-auto max-w-225 text-center">
                 <span class="text-[12px] uppercase tracking-[0.22em] text-[#e6c15a]">Our impact</span>
                 <h2 class="mt-3 text-[42px] font-light leading-[1.08] md:text-[58px]">
                     Numbers that matter

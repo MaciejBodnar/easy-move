@@ -73,7 +73,7 @@
 
 @section('content')
     <section class="bg-[#efefef] text-[#3d2e12]">
-        <div class="mx-auto max-w-[1040px] px-6 pt-14 pb-0 md:px-10 md:pt-16 lg:px-12 lg:pt-20">
+        <div class="mx-auto max-w-260 px-6 pt-14 pb-0 md:px-10 md:pt-16 lg:px-12 lg:pt-20">
             {{-- Breadcrumbs --}}
             <nav aria-label="Breadcrumb" class="mb-4 text-[13px] leading-none text-[#b9a36b]">
                 <ol class="flex flex-wrap items-center gap-1">
@@ -102,7 +102,7 @@
             </nav>
 
             {{-- Title --}}
-            <header class="max-w-[780px]">
+            <header class="max-w-195">
                 <h1 class="text-[44px] font-light leading-[1.05] tracking-[-0.02em] md:text-[64px]">
                     {{ $pageTitle }}
                 </h1>
@@ -131,12 +131,12 @@
                 <div class="overflow-hidden bg-[#ddd]">
                     @if ($heroImageUrl)
                         <img src="{{ esc_url($heroImageUrl) }}" alt="{{ esc_attr($pageTitle) }}"
-                            class="h-[260px] w-full object-cover md:h-[360px]" />
+                            class="h-65 w-full object-cover md:h-90" />
                     @elseif (has_post_thumbnail())
                         {!! get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'h-[260px] w-full object-cover md:h-[360px]']) !!}
                     @else
                         <div
-                            class="flex h-[260px] w-full items-center justify-center bg-[linear-gradient(90deg,#2f2309_0%,#4a360a_50%,#2f2309_100%)] text-white/80 md:h-[360px]">
+                            class="flex h-65 w-full items-center justify-center bg-[linear-gradient(90deg,#2f2309_0%,#4a360a_50%,#2f2309_100%)] text-white/80 md:h-90">
                             <span class="text-[12px] uppercase tracking-[0.2em]">Service image</span>
                         </div>
                     @endif
@@ -147,7 +147,7 @@
         {{-- Bottom related section --}}
         <div
             class="-mt-12 bg-[linear-gradient(90deg,#2f2309_0%,#4a360a_50%,#2f2309_100%)] pt-24 pb-16 md:-mt-16 md:pt-32 md:pb-20">
-            <div class="mx-auto max-w-[1040px] px-6 md:px-10 lg:px-12">
+            <div class="mx-auto max-w-260 px-6 md:px-10 lg:px-12">
                 <h2 class="text-center text-[42px] font-light leading-none text-[#e6c15a] md:text-[58px]">
                     More mortgages!
                 </h2>
@@ -167,10 +167,9 @@
                             <a href="{{ esc_url($url) }}" class="block overflow-hidden bg-[#ddd]">
                                 @if ($image)
                                     <img src="{{ esc_url($image) }}" alt="{{ esc_attr($title) }}"
-                                        class="h-[260px] w-full object-cover transition duration-500 group-hover:scale-105" />
+                                        class="h-65 w-full object-cover transition duration-500 group-hover:scale-105" />
                                 @else
-                                    <div
-                                        class="flex h-[260px] w-full items-center justify-center bg-white/10 text-white/70">
+                                    <div class="flex h-65 w-full items-center justify-center bg-white/10 text-white/70">
                                         <span class="text-[12px] uppercase tracking-[0.2em]">No image</span>
                                     </div>
                                 @endif
@@ -183,7 +182,7 @@
 
                                 <div class="mt-8">
                                     <a href="{{ esc_url($url) }}"
-                                        class="inline-flex min-w-[132px] items-center justify-center bg-white px-6 py-3 text-[12px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:bg-[#e6c15a]">
+                                        class="inline-flex min-w-33 items-center justify-center bg-white px-6 py-3 text-[12px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:bg-[#e6c15a]">
                                         {{ $buttonText }}
                                     </a>
                                 </div>

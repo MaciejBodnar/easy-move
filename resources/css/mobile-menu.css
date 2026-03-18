@@ -1,0 +1,27 @@
+@layer components {
+  .mobile-parent-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .mobile-parent-row > a {
+    flex: 1 1 auto;
+  }
+
+  .mobile-submenu-toggle {
+    display: inline-flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    color: #d2bb7b;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .mobile-menu .menu-item-has-children.is-open > .mobile-parent-row .mobile-submenu-toggle {
+    transform: rotate(180deg);
+    color: #fff;
+  }
+}

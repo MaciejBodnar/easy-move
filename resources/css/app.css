@@ -1,3 +1,77 @@
 @import "tailwindcss";
 
 @import './splitHeroSlider.css';
+@import './cf7.css';
+@import './header.css';
+@import './mobile-menu.css';
+
+a {
+	text-decoration: none !important;
+}
+
+.screen-reader-response {
+    display: none !important;
+}
+
+.wpcf7-form .hidden-fields-container,
+.wpcf7-form .wpcf7-response-output {
+  display: none !important;
+}
+
+@layer components {
+  .nav-links {
+    @apply flex items-center justify-center gap-2;
+  }
+
+  .page-numbers {
+    @apply inline-flex h-10 min-w-10 items-center justify-center px-2 text-[15px] text-[#9b9388] transition;
+  }
+
+  .page-numbers.current,
+  .page-numbers:hover {
+    @apply text-[#4a3910];
+  }
+
+  .page-numbers.prev,
+  .page-numbers.next {
+    @apply text-[#4a3910];
+  }
+
+  .page-numbers.dots {
+    @apply pointer-events-none;
+  }
+}
+
+@layer components {
+  .blog-post-content h2,
+  .blog-post-content h3,
+  .blog-post-content h4 {
+    color: #b78d2f;
+  }
+
+  .blog-post-content ul,
+  .blog-post-content ol {
+    padding-left: 1.25rem;
+  }
+
+  .blog-post-content li::marker {
+    color: #8c816d;
+  }
+}
+
+@layer components {
+  .footer-link-block {
+    display: block;
+    padding: 0 0 0.95rem 0;
+    margin-bottom: 0.95rem;
+    border-bottom: 1px solid rgba(199, 173, 106, 0.55);
+    color: #c7b07a;
+    font-size: 17px;
+    line-height: 1.45;
+    transition: color 0.2s ease, opacity 0.2s ease;
+  }
+
+  .footer-link-block:hover {
+    color: #efc75d;
+  }
+}

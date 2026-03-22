@@ -10,20 +10,13 @@
             <div class="flex flex-wrap items-center gap-4 md:gap-8">
                 <a href="tel:{{ $phoneHref }}"
                     class="inline-flex items-center gap-2 text-[15px] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.75 w-3.75" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M2.003 5.884l3.172-.793a1 1 0 011.11.417l1.518 2.53a1 1 0 01-.241 1.287l-1.547 1.236a11.042 11.042 0 005.292 5.292l1.236-1.547a1 1 0 011.287-.241l2.53 1.518a1 1 0 01.417 1.11l-.793 3.172a1 1 0 01-.97.757C7.477 20 0 12.523 0 3.97a1 1 0 01.757-.97h1.246z" />
-                    </svg>
+                    <i class="fa-solid fa-phone text-[14px]"></i>
                     <span>{{ $phone }}</span>
                 </a>
 
                 <a href="mailto:{{ $email }}"
                     class="inline-flex items-center gap-2 text-[15px] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.75 w-3.75" fill="currentColor"
-                        viewBox="0 0 20 20">
-                        <path d="M2.94 6.34A2 2 0 014.5 5.5h11a2 2 0 011.56.84L10 10.88 2.94 6.34z" />
-                        <path d="M18 8.12l-7.46 4.79a1 1 0 01-1.08 0L2 8.12V13.5a2 2 0 002 2h12a2 2 0 002-2V8.12z" />
-                    </svg>
+                    <i class="fa-solid fa-envelope text-[14px]"></i>
                     <span>{{ $email }}</span>
                 </a>
             </div>

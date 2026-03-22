@@ -6,23 +6,18 @@
 
 @section('content')
     <div class="bg-[#f6f6f4] text-[#4b3b12]">
-        {{-- Top content section --}}
         <section class="mx-auto max-w-275 px-6 pb-0 pt-10 md:px-8 md:pt-14 lg:px-10">
-            {{-- Breadcrumb --}}
-            <div class="mb-4 text-[12px] text-[#b7a16a] md:mb-6">
+            <div class="mb-4 text-[18px] text-[#b7a16a] md:mb-6">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span class="mx-1">-</span>
                 <span class="text-[#7c6a3b]">About us</span>
             </div>
 
-            {{-- Title --}}
             <h1 class="mb-10 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-14 md:text-[56px]">
                 About us
             </h1>
 
-            {{-- Two-column intro --}}
             <div class="grid grid-cols-1 gap-y-10 gap-x-12 md:grid-cols-2 lg:gap-x-20">
-                {{-- Left column --}}
                 <div>
                     <div class="mb-10">
                         <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
@@ -53,7 +48,6 @@
                     </div>
                 </div>
 
-                {{-- Right column --}}
                 <div>
                     <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                         Our mission
@@ -78,9 +72,7 @@
             </div>
         </section>
 
-        {{-- Lower highlighted section --}}
-        <section class="relative mt-14 bg-[#3c2c05] pb-0 pt-27.5 md:mt-20 md:pt-37.5 lg:pt-45">
-            {{-- Floating image --}}
+        <section class="relative mt-50 bg-[#3c2c05] pb-0 pt-27.5 lg:pt-45">
             <div
                 class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] px-6 md:px-8 lg:px-10">
                 <div class="overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
@@ -90,20 +82,16 @@
             </div>
 
             <div class="mx-auto max-w-275 px-6 md:px-8 lg:px-10">
-                {{-- Heading --}}
                 <div class="text-center">
                     <h2 class="text-[42px] font-light leading-tight text-white md:text-[56px]">
                         Why choose us?
                     </h2>
                 </div>
 
-                {{-- Feature cards --}}
                 <div class="mt-14 grid grid-cols-1 gap-10 pb-14 md:mt-16 md:grid-cols-3 md:gap-6 lg:gap-10 lg:pb-16">
-                    {{-- Item 1 --}}
                     <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                         <div class="mb-5 flex justify-center md:justify-start">
                             <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                {{-- Chat icon --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="1.5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -121,11 +109,9 @@
                         </p>
                     </div>
 
-                    {{-- Item 2 --}}
                     <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                         <div class="mb-5 flex justify-center md:justify-start">
                             <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                {{-- Hand / info icon --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="1.5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -143,11 +129,9 @@
                         </p>
                     </div>
 
-                    {{-- Item 3 --}}
                     <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                         <div class="mb-5 flex justify-center md:justify-start">
                             <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                {{-- Guide / signpost icon --}}
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="1.5">
                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -166,7 +150,6 @@
                     </div>
                 </div>
 
-                {{-- CTA strip --}}
                 <div class="bg-[#e4bf62] px-5 py-5 md:px-8">
                     <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
                         <span class="text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
@@ -189,9 +172,7 @@
                 </div>
             </div>
         </section>
-        {{-- Testimonials plugin + stats section --}}
         <section class="bg-[#f6f6f4]">
-            {{-- Testimonials / plugin area --}}
             <div class="mx-auto max-w-350 px-6 pb-16 pt-16 md:px-8 md:pb-20 md:pt-20 lg:px-10 lg:pb-24">
                 <div class="mx-auto max-w-245 text-center">
                     <h2
@@ -200,20 +181,16 @@
                     </h2>
                 </div>
 
-                {{-- Plugin output wrapper --}}
                 <div class="relative mt-10 md:mt-14">
                     {!! do_shortcode('[your-testimonials-plugin-shortcode]') !!}
                 </div>
             </div>
 
-            {{-- Stats section --}}
             <div class="relative overflow-hidden bg-[#3c2c05]">
-                {{-- Soft gold vignette --}}
                 <div
                     class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(196,150,37,0.22),transparent_28%),radial-gradient(circle_at_50%_50%,rgba(196,150,37,0.18),transparent_30%),radial-gradient(circle_at_80%_50%,rgba(196,150,37,0.22),transparent_28%)]">
                 </div>
 
-                {{-- Background letters / decorative layer --}}
                 <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
                     <div
                         class="select-none text-[180px] font-light tracking-[0.18em] text-[#e0b84f] md:text-[260px] lg:text-[340px]">

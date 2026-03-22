@@ -21,15 +21,25 @@
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.06);
-    transition: opacity var(--image-fade), transform var(--image-zoom);
+    transform: scale(1.06) translateX(0);
+    transition: opacity var(--image-fade), transform var(--hero-transition);
     will-change: opacity, transform;
     backface-visibility: hidden;
   }
 
   #openImageStage .hero-image.is-active {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateX(0);
+  }
+
+  /* Slide images in from right when opening left */
+  #splitHero.state-open-left #openImageStage .hero-image:not(.is-active) {
+    transform: scale(1.06) translateX(100%);
+  }
+
+  /* Slide images in from left when opening right */
+  #splitHero.state-open-right #openImageStage .hero-image:not(.is-active) {
+    transform: scale(1.06) translateX(-100%);
   }
 
   .hero-panel {
@@ -208,7 +218,7 @@
 
   /* motion polish */
   #splitHero.is-animating #openImageStage .hero-image.is-active {
-    transform: scale(1.03);
+    transform: scale(1.03) translateX(0);
   }
 
   #splitHero.is-animating #openPanel [id*="Logo"],

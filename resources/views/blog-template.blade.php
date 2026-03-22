@@ -16,9 +16,9 @@ Template Name: Blog Template
         ]);
     @endphp
 
-    <section class="bg-[#f6f6f4]">
+    <section class="">
         <div class="mx-auto max-w-295 px-6 pb-16 pt-10 md:px-8 md:pb-20 md:pt-14 lg:px-10 lg:pb-24">
-            <div class="mb-3 text-[12px] text-[#b7a16a]">
+            <div class="mb-3 text-[18px] text-[#b7a16a]">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span class="mx-1">-</span>
                 <span class="text-[#7c6a3b]">Blog</span>
@@ -51,8 +51,8 @@ Template Name: Blog Template
                             </a>
 
                             <div
-                                class="mt-4 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.06em] text-[#9a9488]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.25 w-3.25 shrink-0" fill="none"
+                                class="mt-4 flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.06em] text-[#9a9488]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4.25 w-4.25 shrink-0" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M8 7V3m8 4V3m-9 8h10m-13 9h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z" />
@@ -65,14 +65,14 @@ Template Name: Blog Template
 
                             <h2
                                 class="mt-3 max-w-[95%] text-[18px] font-normal leading-[1.55] text-[#6a6257] md:text-[17px] lg:text-[18px]">
-                                <a href="{{ get_permalink() }}" class="transition hover:text-[#4a3910]">
+                                <a href="{{ get_permalink() }}" class="transition hover:text-[#F9CF6C]">
                                     {{ get_the_title() }}
                                 </a>
                             </h2>
 
                             <div class="mt-5">
                                 <a href="{{ get_permalink() }}"
-                                    class="inline-flex min-h-11 items-center justify-center bg-[#efede8] px-5 py-3 text-[14px] font-medium uppercase tracking-[0.03em] text-[#4a3910] transition hover:bg-[#e4dfd5]">
+                                    class="inline-flex min-h-11 items-center justify-center bg-[#F5F5F5] px-5 py-3 text-[16px] font-medium uppercase tracking-[0.03em] text-[#4a3910] transition hover:bg-[#DAD5C6] active:bg-[#423616]">
                                     Read more
                                 </a>
                             </div>

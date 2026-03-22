@@ -5,21 +5,18 @@ Template Name: Contact Template
 @extends('layouts.app')
 
 @section('content')
-    <section class="bg-[#f6f6f4]">
+    <section class="">
         <div class="mx-auto max-w-295 px-6 pb-16 pt-10 md:px-8 md:pb-20 md:pt-14 lg:px-10 lg:pb-24">
-            {{-- Breadcrumbs --}}
-            <div class="mb-3 text-[12px] text-[#b7a16a]">
+            <div class="mb-3 text-[18px] text-[#b7a16a]">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span class="mx-1">-</span>
                 <span class="text-[#7c6a3b]">Contact</span>
             </div>
 
-            {{-- Title --}}
             <h1 class="mb-12 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-16 md:text-[56px]">
                 Contact
             </h1>
 
-            {{-- Contact info --}}
             <div class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10 lg:gap-16">
                 <div>
                     <h2 class="mb-6 text-[20px] font-normal text-[#b8841e]">
@@ -97,7 +94,6 @@ Template Name: Contact Template
                 </div>
             </div>
 
-            {{-- Form heading --}}
             <div class="mt-14 md:mt-16">
                 <h2 class="mb-8 text-[20px] font-normal text-[#b8841e]">
                     Leave a message

@@ -62,7 +62,7 @@ a {
 @layer components {
   .footer-link-block {
     display: block;
-    padding: 0 0 0.95rem 0;
+    padding: 1rem 0 0.95rem 0;
     margin-bottom: 0.95rem;
     border-bottom: 1px solid rgba(199, 173, 106, 0.55);
     color: #c7b07a;

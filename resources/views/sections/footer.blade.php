@@ -1,9 +1,7 @@
 <footer class="mt-auto">
-    {{-- Top footer --}}
-    <div class="bg-[#4b3a12] text-[#c7ad6a]">
+    <div class="bg-[#564A2C] text-[#c7ad6a]">
         <div class="mx-auto max-w-295 px-6 py-14 md:px-8 md:py-16 lg:px-10 lg:py-20">
             <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-                {{-- Head office --}}
                 <div>
                     <h3 class="mb-8 text-[18px] font-normal text-[#efc75d]">
                         Head Office
@@ -79,7 +77,6 @@
                     </div>
                 </div>
 
-                {{-- Mortgages --}}
                 <div>
                     <h3 class="mb-8 text-[18px] font-normal text-[#efc75d]">
                         Mortgages
@@ -93,7 +90,6 @@
                     </nav>
                 </div>
 
-                {{-- Insurance --}}
                 <div>
                     <h3 class="mb-8 text-[18px] font-normal text-[#efc75d]">
                         Insurance
@@ -107,7 +103,6 @@
                     </nav>
                 </div>
 
-                {{-- Company --}}
                 <div>
                     <h3 class="mb-8 text-[18px] font-normal text-[#efc75d]">
                         Company
@@ -123,7 +118,6 @@
         </div>
     </div>
 
-    {{-- Bottom footer --}}
     <div class="bg-[#f6f6f4] text-[#b9a067]">
         <div class="mx-auto max-w-295 px-6 py-10 md:px-8 md:py-12 lg:px-10 lg:py-14">
             <div class="max-w-270 text-[16px] leading-[1.75] md:text-[17px]">

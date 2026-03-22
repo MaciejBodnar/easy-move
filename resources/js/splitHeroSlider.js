@@ -1,10 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
   const hero = document.getElementById('splitHero');
   const toggle = document.getElementById('splitHeroToggle');
+  const heroDataEl = document.getElementById('splitHeroData');
 
   if (!hero || !toggle) return;
 
-  const data = {
+  let acfData = {};
+
+  if (heroDataEl) {
+    try {
+      acfData = JSON.parse(heroDataEl.textContent);
+    } catch (error) {
+      console.warn('Invalid split hero JSON data', error);
+    }
+  }
+
+  const fallbackData = {
     mortgages: {
       menuLabel: 'Mortgages',
       menuHref: '#',
@@ -33,6 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
+  const data = {
+    mortgages: {
+      ...fallbackData.mortgages,
+      ...(acfData.mortgages || {}),
+    },
+    insurance: {
+      ...fallbackData.insurance,
+      ...(acfData.insurance || {}),
+    },
+  };
+
   const els = {
     openImageA: document.getElementById('openImageA'),
     openImageB: document.getElementById('openImageB'),
@@ -49,9 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closedTitle: document.getElementById('closedTitle'),
     closedText: document.getElementById('closedText'),
     closedButton: document.getElementById('closedButton'),
-
-    menuService: document.querySelector('.menu-service'),
-    menuHome: document.querySelector('.menu-home'),
+    heroMenuItems: document.querySelectorAll('#openMenu [data-hero-menu-item]'),
   };
 
   if (!els.openImageA || !els.openImageB) return;
@@ -68,6 +88,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function preloadImage(src) {
     return new Promise((resolve) => {
+      if (!src) {
+        resolve();
+        return;
+      }
+
       const img = new Image();
       let settled = false;
 
@@ -89,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function setOpenImageInstant(src) {
+    if (!src) return;
+
     const activeLayer = imageLayers[activeImageIndex];
     const idleLayer = imageLayers[activeImageIndex === 0 ? 1 : 0];
 
@@ -101,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function crossfadeOpenImage(src) {
+    if (!src) return;
+
     const activeLayer = imageLayers[activeImageIndex];
 
     if (activeLayer.dataset.src === src) {
@@ -128,28 +157,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function fillOpen(item) {
-    els.openLogoTop.textContent = item.logoTop;
-    els.openLogoBottom.textContent = item.logoBottom;
-    els.openEyebrow.textContent = item.eyebrow;
-    els.openTitle.innerHTML = item.title;
-    els.openText.innerHTML = item.text;
-    els.openButton.textContent = item.buttonText;
-    els.openButton.href = item.buttonUrl;
+    els.openLogoTop.textContent = item.logoTop || '';
+    els.openLogoBottom.textContent = item.logoBottom || '';
+    els.openEyebrow.textContent = item.eyebrow || '';
+    els.openTitle.innerHTML = item.title || '';
+    els.openText.innerHTML = item.text || '';
+    els.openButton.textContent = item.buttonText || '';
+    els.openButton.href = item.buttonUrl || '#';
+  }
 
-    if (els.menuService) {
-      els.menuService.textContent = item.menuLabel;
-      els.menuService.href = item.menuHref;
+  function syncHeroMenuGroups() {
+    if (!els.heroMenuItems || !els.heroMenuItems.length) {
+      return;
     }
+
+    els.heroMenuItems.forEach((menuItem) => {
+      const group = menuItem.dataset.heroMenuGroup || 'general';
+      const shouldHide =
+        (openKey === 'mortgages' && group === 'insurance') ||
+        (openKey === 'insurance' && group === 'mortgage');
+
+      menuItem.classList.toggle('hidden', shouldHide);
+
+      if (!shouldHide) {
+        return;
+      }
+
+      const dialog = menuItem.querySelector('.hero-submenu-dialog');
+      const toggle = menuItem.querySelector('.hero-submenu-toggle');
+
+      if (dialog) {
+        dialog.classList.add('invisible', 'translate-y-1', 'opacity-0');
+        dialog.classList.remove('visible', 'translate-y-0', 'opacity-100');
+      }
+
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
 
   function fillClosed(item) {
-    els.closedLogoTop.textContent = item.logoTop;
-    els.closedLogoBottom.textContent = item.logoBottom;
-    els.closedEyebrow.textContent = item.eyebrow;
-    els.closedTitle.innerHTML = item.title;
-    els.closedText.innerHTML = item.text;
-    els.closedButton.textContent = item.buttonText;
-    els.closedButton.href = item.buttonUrl;
+    els.closedLogoTop.textContent = item.logoTop || '';
+    els.closedLogoBottom.textContent = item.logoBottom || '';
+    els.closedEyebrow.textContent = item.eyebrow || '';
+    els.closedTitle.innerHTML = item.title || '';
+    els.closedText.innerHTML = item.text || '';
+    els.closedButton.textContent = item.buttonText || '';
+    els.closedButton.href = item.buttonUrl || '#';
   }
 
   function render() {
@@ -158,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fillOpen(currentOpen);
     fillClosed(currentClosed);
+    syncHeroMenuGroups();
 
     if (hasRendered) {
       crossfadeOpenImage(currentOpen.image);
@@ -166,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
       hasRendered = true;
     }
 
-    // Preload the next image so the next toggle is immediate.
     preloadImage(currentClosed.image);
 
     hero.classList.remove('state-open-left', 'state-open-right');

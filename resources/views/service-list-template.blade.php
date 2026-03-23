@@ -8,65 +8,6 @@
      */
     $homeUrl = home_url('/');
     $homeLabel = get_bloginfo('name');
-
-    /**
-     * Example fallback data.
-     * Replace with ACF/get_field() data if needed.
-     */
-    $mortgageItems =
-        function_exists('get_field') && get_field('mortgage_items')
-            ? get_field('mortgage_items')
-            : [
-                [
-                    'title' => 'First Time Buyer',
-                    'text' =>
-                        'First-time buyers often face challenges such as saving for a down payment, understanding mortgage options and managing credit scores. Affordability concerns, navigating the home search process and budgeting for closing costs are also common issues. Additionally, understanding legal aspects, managing emotional stress and evaluating property conditions are critical considerations.',
-                    'button' => [
-                        'title' => 'Read More',
-                        'url' => '#',
-                    ],
-                    'image' =>
-                        'https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=1200&auto=format&fit=crop',
-                ],
-                [
-                    'title' => 'Remortgage',
-                    'text' =>
-                        'Remortgagors commonly encounter challenges such as understanding various refinancing options, navigating changes in interest rates, and managing associated fees and closing costs. Assessing the potential benefits versus costs, managing documentation and legal aspects, and ensuring the process aligns with financial goals must also be taken into account.',
-                    'button' => [
-                        'title' => 'Read More',
-                        'url' => '#',
-                    ],
-                    'image' =>
-                        'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop',
-                ],
-                [
-                    'title' => 'Home Movers Mortgage',
-                    'text' =>
-                        'One of the main concerns people looking for residential mortgage may have is getting the best interest rates and affordable monthly payments, understanding loan terms, job stability, current market conditions and overall impact on their financial future.',
-                    'button' => [
-                        'title' => 'Read More',
-                        'url' => '#',
-                    ],
-                    'image' =>
-                        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop',
-                ],
-                [
-                    'title' => 'Buy to Let',
-                    'text' =>
-                        'When considering a buy-to-let mortgage, you might be concerned about securing favourable interest rates and managing higher deposit requirements. Ensuring that your rental income will cover mortgage payments and other expenses is crucial.',
-                    'button' => [
-                        'title' => 'Read More',
-                        'url' => '#',
-                    ],
-                    'image' =>
-                        'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop',
-                ],
-            ];
-
-    /**
-     * Current page title
-     */
-    $pageTitle = get_the_title();
 @endphp
 
 @extends('layouts.app')
@@ -82,10 +23,10 @@
                         </a>
                     </li>
 
-                    @if (!empty($pageTitle))
+                    @if (!empty($services['pageTitle']))
                         <li aria-hidden="true">-</li>
                         <li class="text-[#6d6047]">
-                            {{ $pageTitle }}
+                            {{ $services['pageTitle'] }}
                         </li>
                     @endif
                 </ol>
@@ -93,12 +34,12 @@
 
             <header class="mb-12 md:mb-16">
                 <h1 class="text-[44px] font-light leading-none tracking-[-0.02em] md:text-[64px]">
-                    {{ $pageTitle }}
+                    {{ $services['pageTitle'] ?? get_the_title() }}
                 </h1>
             </header>
 
             <div class="space-y-8 md:space-y-10">
-                @foreach ($mortgageItems as $item)
+                @foreach ($services['items'] ?? [] as $item)
                     @php
                         $itemTitle = $item['title'] ?? '';
                         $itemText = $item['text'] ?? '';

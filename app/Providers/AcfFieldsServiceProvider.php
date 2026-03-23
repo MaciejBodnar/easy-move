@@ -841,5 +841,111 @@ class AcfFieldsServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
+
+        acf_add_local_field_group([
+            'key' => 'group_service_list',
+            'title' => 'Service List Template',
+            'location' => [
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'service-list-template.blade.php',
+                    ],
+                ],
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'service-list-template',
+                    ],
+                ],
+            ],
+            'menu_order' => 2,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => [],
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => false,
+            'fields' => [
+                // TAB: Service Items
+                [
+                    'key' => 'tab_service_items',
+                    'label' => 'Service Items',
+                    'name' => 'tab_service_items',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_service_items',
+                    'label' => 'Service Items',
+                    'name' => 'service_items',
+                    'type' => 'repeater',
+                    'instructions' => 'Add mortgage or service types with descriptions and links',
+                    'required' => 0,
+                    'max' => '',
+                    'min' => 0,
+                    'layout' => 'block',
+                    'button_label' => 'Add Service Item',
+                    'collapsed' => '',
+                    'rows' => false,
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_service_item_title',
+                            'label' => 'Service Title',
+                            'name' => 'title',
+                            'type' => 'text',
+                            'required' => 0,
+                        ],
+                        [
+                            'key' => 'field_service_item_text',
+                            'label' => 'Service Description',
+                            'name' => 'text',
+                            'type' => 'textarea',
+                            'required' => 0,
+                            'rows' => 4,
+                        ],
+                        [
+                            'key' => 'field_service_item_image',
+                            'label' => 'Service Image',
+                            'name' => 'image',
+                            'type' => 'image',
+                            'required' => 0,
+                            'return_format' => 'array',
+                            'preview_size' => 'thumbnail',
+                            'library' => 'all',
+                        ],
+                        [
+                            'key' => 'field_service_item_button',
+                            'label' => 'Button',
+                            'name' => 'button',
+                            'type' => 'group',
+                            'layout' => 'block',
+                            'sub_fields' => [
+                                [
+                                    'key' => 'field_service_item_button_title',
+                                    'label' => 'Button Text',
+                                    'name' => 'title',
+                                    'type' => 'text',
+                                    'required' => 0,
+                                    'default_value' => 'Read More',
+                                ],
+                                [
+                                    'key' => 'field_service_item_button_url',
+                                    'label' => 'Button URL',
+                                    'name' => 'url',
+                                    'type' => 'text',
+                                    'required' => 0,
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ]);
     }
 }

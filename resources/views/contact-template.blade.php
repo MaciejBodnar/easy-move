@@ -38,14 +38,16 @@ Template Name: Contact Template
 
                 <div class="md:pt-13">
                     <div class="space-y-3 text-[18px] leading-[1.7] text-[#766f63]">
-                        <a href="tel:{{ preg_replace('/\s+/', '', $contact['phone']) }}" class="flex items-center gap-3 transition hover:opacity-80">
+                        <a href="tel:{{ preg_replace('/\s+/', '', $contact['phone']) }}"
+                            class="flex items-center gap-3 transition hover:opacity-80">
                             <span class="shrink-0 text-[#b7a16a]">
                                 <i class="fa-solid fa-phone text-[16px]"></i>
                             </span>
                             <span>{{ $contact['phone'] }}</span>
                         </a>
 
-                        <a href="mailto:{{ $contact['email'] }}" class="flex items-center gap-3 transition hover:opacity-80">
+                        <a href="mailto:{{ $contact['email'] }}"
+                            class="flex items-center gap-3 transition hover:opacity-80">
                             <span class="shrink-0 text-[#b7a16a]">
                                 <i class="fa-solid fa-envelope text-[16px]"></i>
                             </span>
@@ -57,19 +59,22 @@ Template Name: Contact Template
                 <div class="md:pt-13">
                     <div class="flex items-center gap-6 text-[#b7a16a]">
                         @if ($contact['socialLinks']['facebook'])
-                            <a href="{{ esc_url($contact['socialLinks']['facebook']) }}" aria-label="Facebook" class="transition hover:opacity-80">
+                            <a href="{{ esc_url($contact['socialLinks']['facebook']) }}" aria-label="Facebook"
+                                class="transition hover:opacity-80">
                                 <i class="fa-brands fa-facebook-f text-[18px]"></i>
                             </a>
                         @endif
 
                         @if ($contact['socialLinks']['instagram'])
-                            <a href="{{ esc_url($contact['socialLinks']['instagram']) }}" aria-label="Instagram" class="transition hover:opacity-80">
+                            <a href="{{ esc_url($contact['socialLinks']['instagram']) }}" aria-label="Instagram"
+                                class="transition hover:opacity-80">
                                 <i class="fa-brands fa-instagram text-[18px]"></i>
                             </a>
                         @endif
 
                         @if ($contact['socialLinks']['linkedin'])
-                            <a href="{{ esc_url($contact['socialLinks']['linkedin']) }}" aria-label="LinkedIn" class="transition hover:opacity-80">
+                            <a href="{{ esc_url($contact['socialLinks']['linkedin']) }}" aria-label="LinkedIn"
+                                class="transition hover:opacity-80">
                                 <i class="fa-brands fa-linkedin-in text-[18px]"></i>
                             </a>
                         @endif

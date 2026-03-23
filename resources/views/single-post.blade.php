@@ -7,8 +7,7 @@
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span> - </span>
 
-                <a href="{{ $post['blogUrl'] }}"
-                    class="transition hover:opacity-80">
+                <a href="{{ $post['blogUrl'] }}" class="transition hover:opacity-80">
                     Blog
                 </a>
                 <span> - </span>

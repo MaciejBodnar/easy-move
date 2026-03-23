@@ -21,34 +21,38 @@
                 <div>
                     <div class="mb-10">
                         <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
-                            {{ $about[‘whyUs’][‘heading’] ?? ‘Why us?’ }}
+                            {{ $about['whyUs']['heading'] ?? 'Why us?' }}
                         </h2>
                         <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
-                            {!! $about[‘whyUs’][‘text’] ?? ‘We are passionate and experienced financial advisors dedicated to helping individuals and families achieve their financial goals through strategic mortgage and planning. By using our services, you gain access to personalised advice and a wide range of mortgage options. Choosing our services ensures that your dreams of owning a home will be fulfilled by trusted professionals.’ !!}
+                            {!! $about['whyUs']['text'] ??
+                                'We are passionate and experienced financial advisors dedicated to helping individuals and families achieve their financial goals through strategic mortgage and planning. By using our services, you gain access to personalised advice and a wide range of mortgage options. Choosing our services ensures that your dreams of owning a home will be fulfilled by trusted professionals.' !!}
                         </p>
                     </div>
 
                     <div>
                         <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
-                            {{ $about[‘howWeHelp’][‘heading’] ?? ‘How can we help?’ }}
+                            {{ $about['howWeHelp']['heading'] ?? 'How can we help?' }}
                         </h2>
                         <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
-                            {!! $about[‘howWeHelp’][‘text’] ?? ‘We understand that navigating the path to homeownership can be overwhelming. Whether you\’re a first-time buyer or looking to refinance, our team of experts is here to guide you every step of the way. Need a free, personalised consultation? We\’re happy to answer any of your questions.’ !!}
+                            {!! $about['howWeHelp']['text'] ??
+                                'We understand that navigating the path to homeownership can be overwhelming. Whether you\’re a first-time buyer or looking to refinance, our team of experts is here to guide you every step of the way. Need a free, personalised consultation? We\’re happy to answer any of your questions.' !!}
                         </p>
                     </div>
                 </div>
 
                 <div>
                     <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
-                        {{ $about[‘mission’][‘heading’] ?? ‘Our mission’ }}
+                        {{ $about['mission']['heading'] ?? 'Our mission' }}
                     </h2>
 
                     <p class="mb-5 max-w-117.5 text-[18px] font-semibold leading-[1.8] text-[#7d705d]">
-                        {!! $about[‘mission’][‘highlight’] ?? ‘Provide exceptional mortgage solutions tailored to each client\’s unique needs, ensuring a seamless and empowering experience on their journey to homeownership’ !!}
+                        {!! $about['mission']['highlight'] ??
+                            'Provide exceptional mortgage solutions tailored to each client\’s unique needs, ensuring a seamless and empowering experience on their journey to homeownership' !!}
                     </p>
 
                     <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
-                        {!! $about[‘mission’][‘text’] ?? ‘Empowering individuals and families to achieve their dreams of homeownership is at the heart of our mission. By offering personalised mortgage solutions tailored to your specific needs and goals, we strive to provide a seamless and rewarding experience. With a commitment to transparency, expertise and unwavering support, we aim to guide you through every step of the process, ensuring your journey to owning a home is as smooth and successful as possible.’ !!}
+                        {!! $about['mission']['text'] ??
+                            'Empowering individuals and families to achieve their dreams of homeownership is at the heart of our mission. By offering personalised mortgage solutions tailored to your specific needs and goals, we strive to provide a seamless and rewarding experience. With a commitment to transparency, expertise and unwavering support, we aim to guide you through every step of the process, ensuring your journey to owning a home is as smooth and successful as possible.' !!}
                     </p>
                 </div>
             </div>
@@ -75,8 +79,8 @@
                         <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                             <div class="mb-5 flex justify-center md:justify-start">
                                 <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
                                     </svg>
@@ -95,8 +99,8 @@
                         <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                             <div class="mb-5 flex justify-center md:justify-start">
                                 <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
                                     </svg>
@@ -115,8 +119,8 @@
                         <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                             <div class="mb-5 flex justify-center md:justify-start">
                                 <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M12 6.75h.008v.008H12V6.75zM10.5 10.5h1.5v4.5h1.5M3.75 15.75l4.28-1.07a2.25 2.25 0 011.01 0l2.46.615a2.25 2.25 0 00.91 0l4.688-1.172a1.875 1.875 0 012.322 1.819V16.5a1.5 1.5 0 01-1.136 1.455l-6.14 1.535a6.75 6.75 0 01-2.877.07l-5.518-1.104V15.75zM7.5 15V9.75A2.25 2.25 0 019.75 7.5h4.5a2.25 2.25 0 012.25 2.25V12" />
                                     </svg>
@@ -135,8 +139,8 @@
                         <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                             <div class="mb-5 flex justify-center md:justify-start">
                                 <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                        stroke="currentColor" stroke-width="1.5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M12 3v18M12 5.25h6.878a.75.75 0 01.53 1.28L16.5 9.438l2.908 2.908a.75.75 0 01-.53 1.28H12m0-8.376H6.375a.75.75 0 00-.53 1.28L8.25 9l-2.405 2.47a.75.75 0 00.53 1.28H12" />
                                     </svg>

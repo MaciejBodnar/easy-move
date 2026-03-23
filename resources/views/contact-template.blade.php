@@ -10,17 +10,17 @@ Template Name: Contact Template
             <div class="mb-3 text-[18px] text-[#b7a16a]">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span class="mx-1">-</span>
-                <span class="text-[#7c6a3b]">Contact</span>
+                <span class="text-[#7c6a3b]">{{ $contact['heading'] }}</span>
             </div>
 
             <h1 class="mb-12 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-16 md:text-[56px]">
-                Contact
+                {{ $contact['heading'] }}
             </h1>
 
             <div class="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-10 lg:gap-16">
                 <div>
                     <h2 class="mb-6 text-[20px] font-normal text-[#b8841e]">
-                        Head Office
+                        {{ $contact['office']['heading'] }}
                     </h2>
 
                     <div class="space-y-5 text-[18px] leading-[1.7] text-[#766f63]">
@@ -30,8 +30,7 @@ Template Name: Contact Template
                             </span>
 
                             <p>
-                                Rose Garth, Kingston Avenue,<br>
-                                Ripon, England, HG4 1TJ
+                                {!! $contact['office']['address'] !!}
                             </p>
                         </div>
                     </div>
@@ -39,46 +38,52 @@ Template Name: Contact Template
 
                 <div class="md:pt-13">
                     <div class="space-y-3 text-[18px] leading-[1.7] text-[#766f63]">
-                        <a href="tel:07555641081" class="flex items-center gap-3 transition hover:opacity-80">
+                        <a href="tel:{{ preg_replace('/\s+/', '', $contact['phone']) }}" class="flex items-center gap-3 transition hover:opacity-80">
                             <span class="shrink-0 text-[#b7a16a]">
                                 <i class="fa-solid fa-phone text-[16px]"></i>
                             </span>
-                            <span>07555 641 081</span>
+                            <span>{{ $contact['phone'] }}</span>
                         </a>
 
-                        <a href="mailto:tomasz@emove-fs.co.uk" class="flex items-center gap-3 transition hover:opacity-80">
+                        <a href="mailto:{{ $contact['email'] }}" class="flex items-center gap-3 transition hover:opacity-80">
                             <span class="shrink-0 text-[#b7a16a]">
                                 <i class="fa-solid fa-envelope text-[16px]"></i>
                             </span>
-                            <span>tomasz@emove-fs.co.uk</span>
+                            <span>{{ $contact['email'] }}</span>
                         </a>
                     </div>
                 </div>
 
                 <div class="md:pt-13">
                     <div class="flex items-center gap-6 text-[#b7a16a]">
-                        <a href="#" aria-label="Facebook" class="transition hover:opacity-80">
-                            <i class="fa-brands fa-facebook-f text-[18px]"></i>
-                        </a>
+                        @if ($contact['socialLinks']['facebook'])
+                            <a href="{{ esc_url($contact['socialLinks']['facebook']) }}" aria-label="Facebook" class="transition hover:opacity-80">
+                                <i class="fa-brands fa-facebook-f text-[18px]"></i>
+                            </a>
+                        @endif
 
-                        <a href="#" aria-label="Instagram" class="transition hover:opacity-80">
-                            <i class="fa-brands fa-instagram text-[18px]"></i>
-                        </a>
+                        @if ($contact['socialLinks']['instagram'])
+                            <a href="{{ esc_url($contact['socialLinks']['instagram']) }}" aria-label="Instagram" class="transition hover:opacity-80">
+                                <i class="fa-brands fa-instagram text-[18px]"></i>
+                            </a>
+                        @endif
 
-                        <a href="#" aria-label="LinkedIn" class="transition hover:opacity-80">
-                            <i class="fa-brands fa-linkedin-in text-[18px]"></i>
-                        </a>
+                        @if ($contact['socialLinks']['linkedin'])
+                            <a href="{{ esc_url($contact['socialLinks']['linkedin']) }}" aria-label="LinkedIn" class="transition hover:opacity-80">
+                                <i class="fa-brands fa-linkedin-in text-[18px]"></i>
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
 
             <div class="mt-14 md:mt-16">
                 <h2 class="mb-8 text-[20px] font-normal text-[#b8841e]">
-                    Leave a message
+                    {{ $contact['formHeading'] }}
                 </h2>
 
                 <div class="contact-form-wrap">
-                    {!! do_shortcode('[contact-form-7 id="98d3aa4" title="Contact"]') !!}
+                    {!! do_shortcode($contact['formShortcode']) !!}
                 </div>
             </div>
         </div>

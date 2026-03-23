@@ -1180,5 +1180,162 @@ class AcfFieldsServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
+
+        acf_add_local_field_group([
+            'key' => 'group_contact',
+            'title' => 'Contact Template',
+            'location' => [
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'contact-template.blade.php',
+                    ],
+                ],
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'contact-template',
+                    ],
+                ],
+            ],
+            'menu_order' => 5,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => [],
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => false,
+            'fields' => [
+                // TAB: Page Settings
+                [
+                    'key' => 'tab_contact_settings',
+                    'label' => 'Page Settings',
+                    'name' => 'tab_contact_settings',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_contact_page_heading',
+                    'label' => 'Page Heading',
+                    'name' => 'contact_page_heading',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Contact',
+                ],
+                // TAB: Office Information
+                [
+                    'key' => 'tab_contact_office',
+                    'label' => 'Office Information',
+                    'name' => 'tab_contact_office',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_contact_office_heading',
+                    'label' => 'Office Section Heading',
+                    'name' => 'office_heading',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Head Office',
+                ],
+                [
+                    'key' => 'field_contact_office_address',
+                    'label' => 'Office Address',
+                    'name' => 'office_address',
+                    'type' => 'textarea',
+                    'instructions' => 'HTML tags like <br> are supported',
+                    'required' => 0,
+                    'rows' => 3,
+                    'default_value' => 'Rose Garth, Kingston Avenue,<br>Ripon, England, HG4 1TJ',
+                ],
+                // TAB: Contact Information
+                [
+                    'key' => 'tab_contact_info',
+                    'label' => 'Contact Information',
+                    'name' => 'tab_contact_info',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_contact_phone',
+                    'label' => 'Phone Number',
+                    'name' => 'contact_phone',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => '07555 641 081',
+                ],
+                [
+                    'key' => 'field_contact_email',
+                    'label' => 'Email Address',
+                    'name' => 'contact_email',
+                    'type' => 'email',
+                    'required' => 0,
+                    'default_value' => 'tomasz@emove-fs.co.uk',
+                ],
+                // TAB: Social Media
+                [
+                    'key' => 'tab_contact_social',
+                    'label' => 'Social Media',
+                    'name' => 'tab_contact_social',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_contact_social_facebook',
+                    'label' => 'Facebook URL',
+                    'name' => 'social_facebook',
+                    'type' => 'text',
+                    'required' => 0,
+                ],
+                [
+                    'key' => 'field_contact_social_instagram',
+                    'label' => 'Instagram URL',
+                    'name' => 'social_instagram',
+                    'type' => 'text',
+                    'required' => 0,
+                ],
+                [
+                    'key' => 'field_contact_social_linkedin',
+                    'label' => 'LinkedIn URL',
+                    'name' => 'social_linkedin',
+                    'type' => 'text',
+                    'required' => 0,
+                ],
+                // TAB: Contact Form
+                [
+                    'key' => 'tab_contact_form',
+                    'label' => 'Contact Form',
+                    'name' => 'tab_contact_form',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 1,
+                ],
+                [
+                    'key' => 'field_contact_form_heading',
+                    'label' => 'Form Section Heading',
+                    'name' => 'contact_form_heading',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Leave a message',
+                ],
+                [
+                    'key' => 'field_contact_form_shortcode',
+                    'label' => 'Contact Form Shortcode',
+                    'name' => 'contact_form_shortcode',
+                    'type' => 'text',
+                    'instructions' => 'Shortcode for your contact form plugin (e.g., Contact Form 7)',
+                    'required' => 0,
+                    'default_value' => '[contact-form-7 id="98d3aa4" title="Contact"]',
+                ],
+            ],
+        ]);
     }
 }

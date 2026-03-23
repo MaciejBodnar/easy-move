@@ -8,6 +8,7 @@ use App\View\Composers\About;
 use App\View\Composers\ServiceList;
 use App\View\Composers\Service;
 use App\View\Composers\Post;
+use App\View\Composers\Contact;
 
 class ThemeServiceProvider extends SageServiceProvider
 {
@@ -35,6 +36,7 @@ class ThemeServiceProvider extends SageServiceProvider
             ->composer(['about-template', 'about-template.blade.php'], About::class)
             ->composer(['service-list-template', 'service-list-template.blade.php'], ServiceList::class)
             ->composer(['service-template', 'service-template.blade.php'], Service::class)
-            ->composer(['single-post', 'single-post.blade.php'], Post::class);
+            ->composer(['single-post', 'single-post.blade.php'], Post::class)
+            ->composer(['contact-template', 'contact-template.blade.php'], Contact::class);
     }
 }

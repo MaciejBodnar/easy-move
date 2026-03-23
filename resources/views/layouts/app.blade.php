@@ -13,7 +13,7 @@
     <meta property="og:description" content="{{ esc_attr(get_bloginfo('description')) }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ esc_url(home_url('/')) }}">
-    <meta property="og:image" content="{{ esc_url(get_theme_file_uri('/resources/images/ogpng')) }}">
+    <meta property="og:image" content="{{ esc_url(get_theme_file_uri('/resources/images/og.png')) }}">
     @php(do_action('get_header'))
     @php(wp_head())
     <link rel="stylesheet" href="https://use.typekit.net/xpt0tkw.css">

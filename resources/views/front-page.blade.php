@@ -4,9 +4,9 @@
 
 @extends('layouts.app')
 @php
-    $phone = '07555 641 081';
+    $phone = $main['contact']['phone'] ?? '07555 641 081';
     $phoneHref = preg_replace('/\s+/', '', $phone);
-    $email = 'tomasz@emove-fs.co.uk';
+    $email = $main['contact']['email'] ?? 'tomasz@emove-fs.co.uk';
 @endphp
 
 
@@ -16,47 +16,42 @@
             <div class="flex flex-wrap items-center gap-4 md:gap-8">
                 <a href="tel:{{ $phoneHref }}"
                     class="inline-flex items-center gap-2 text-[15px] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.75 w-3.75" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M2.003 5.884l3.172-.793a1 1 0 011.11.417l1.518 2.53a1 1 0 01-.241 1.287l-1.547 1.236a11.042 11.042 0 005.292 5.292l1.236-1.547a1 1 0 011.287-.241l2.53 1.518a1 1 0 01.417 1.11l-.793 3.172a1 1 0 01-.97.757C7.477 20 0 12.523 0 3.97a1 1 0 01.757-.97h1.246z" />
-                    </svg>
+                    <i class="fa-solid fa-phone text-[14px]"></i>
                     <span>{{ $phone }}</span>
                 </a>
 
                 <a href="mailto:{{ $email }}"
                     class="inline-flex items-center gap-2 text-[15px] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.75 w-3.75" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2.94 6.34A2 2 0 014.5 5.5h11a2 2 0 011.56.84L10 10.88 2.94 6.34z" />
-                        <path d="M18 8.12l-7.46 4.79a1 1 0 01-1.08 0L2 8.12V13.5a2 2 0 002 2h12a2 2 0 002-2V8.12z" />
-                    </svg>
+                    <i class="fa-solid fa-envelope text-[14px]"></i>
                     <span>{{ $email }}</span>
                 </a>
             </div>
 
             <div class="hidden items-center gap-5 md:flex">
-                <a href="#" aria-label="Facebook" class="text-[#d2bb7b] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.6-1.6h1.7V4.8c-.3 0-1.3-.1-2.5-.1-2.5 0-4.3 1.5-4.3 4.4V11H7v3h2.5v8h4z" />
-                    </svg>
-                </a>
+                @if (!empty($main['contact']['socialLinks']['facebook']))
+                    <a href="{{ esc_url($main['contact']['socialLinks']['facebook']) }}" aria-label="Facebook"
+                        class="text-[#d2bb7b] transition hover:text-white">
+                        <i class="fa-brands fa-facebook-f text-[15px]"></i>
+                    </a>
+                @endif
 
-                <a href="#" aria-label="Instagram" class="text-[#d2bb7b] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2.2A2.8 2.8 0 004.2 7v10A2.8 2.8 0 007 19.8h10a2.8 2.8 0 002.8-2.8V7A2.8 2.8 0 0017 4.2H7zm10.25 1.65a.85.85 0 110 1.7.85.85 0 010-1.7zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2.2A2.8 2.8 0 1014.8 12 2.8 2.8 0 0012 9.2z" />
-                    </svg>
-                </a>
+                @if (!empty($main['contact']['socialLinks']['instagram']))
+                    <a href="{{ esc_url($main['contact']['socialLinks']['instagram']) }}" aria-label="Instagram"
+                        class="text-[#d2bb7b] transition hover:text-white">
+                        <i class="fa-brands fa-instagram text-[15px]"></i>
+                    </a>
+                @endif
 
-                <a href="#" aria-label="LinkedIn" class="text-[#d2bb7b] transition hover:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                        <path
-                            d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 3A2 2 0 103 5a2 2 0 002.25-2zM20.44 13.03c0-3.44-1.84-5.03-4.29-5.03-1.98 0-2.87 1.09-3.36 1.85V8.5H9.41c.04.89 0 11.5 0 11.5h3.38v-6.42c0-.34.02-.68.13-.92.27-.68.87-1.39 1.89-1.39 1.33 0 1.86 1.01 1.86 2.49V20h3.38z" />
-                    </svg>
-                </a>
+                @if (!empty($main['contact']['socialLinks']['linkedin']))
+                    <a href="{{ esc_url($main['contact']['socialLinks']['linkedin']) }}" aria-label="LinkedIn"
+                        class="text-[#d2bb7b] transition hover:text-white">
+                        <i class="fa-brands fa-linkedin-in text-[15px]"></i>
+                    </a>
+                @endif
 
                 <div class="flex items-center gap-2 text-[15px] text-[#e8e0c6]">
-                    <span>🇬🇧</span>
+                    <img src="https://kapowaz.github.io/circle-flags/flags/uk.svg" alt="Easy Move Financial logo"
+                        class="h-5 w-auto object-contain" />
                     <span>eng</span>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
@@ -324,31 +319,36 @@
         <div class="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
             <div class="max-w-107.5">
                 <h2 class="text-[42px] font-light leading-[1.12] tracking-[-0.02em] md:text-[60px]">
-                    Confused by mortgages?<br />
-                    Unsure about insurance?
+                    {!! $main['confused']['heading'] ?? 'Confused by mortgages?<br />Unsure about insurance?' !!}
                 </h2>
             </div>
 
             <div class="max-w-130 pt-2 text-[18px] leading-8 text-[#c1a15a]">
                 <ul class="space-y-1">
-                    <li class="flex items-start gap-4">
-                        <span class="mt-2.5 text-[10px] leading-none">○</span>
-                        <span>Not sure which mortgage deal is right for you?</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <span class="mt-2.5 text-[10px] leading-none">○</span>
-                        <span>Wondering how to protect your family or income if the unexpected happens?</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <span class="mt-2.5 text-[10px] leading-none">○</span>
-                        <span>Tired of financial jargon and sales pressure?</span>
-                    </li>
+                    @forelse ($main['confused']['bullets'] ?? [] as $bullet)
+                        <li class="flex items-start gap-4">
+                            <span class="mt-2.5 text-[10px] leading-none">○</span>
+                            <span>{{ $bullet['text'] ?? '' }}</span>
+                        </li>
+                    @empty
+                        <li class="flex items-start gap-4">
+                            <span class="mt-2.5 text-[10px] leading-none">○</span>
+                            <span>Not sure which mortgage deal is right for you?</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="mt-2.5 text-[10px] leading-none">○</span>
+                            <span>Wondering how to protect your family or income if the unexpected happens?</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="mt-2.5 text-[10px] leading-none">○</span>
+                            <span>Tired of financial jargon and sales pressure?</span>
+                        </li>
+                    @endforelse
                 </ul>
 
                 <p class="mt-4 max-w-130 leading-8">
-                    At Easy Move Mortgages, we cut through the confusion. Whether it’s securing your first home,
-                    remortgaging, or protecting your loved ones, our mission is to give you
-                    <span class="font-semibold">clarity, confidence, and complete peace of mind.</span>
+                    {!! $main['confused']['text'] ??
+                        'At Easy Move Mortgages, we cut through the confusion. Whether it\’s securing your first home, remortgaging, or protecting your loved ones, our mission is to give you <span class="font-semibold">clarity, confidence, and complete peace of mind.</span>' !!}
                 </p>
             </div>
         </div>
@@ -366,70 +366,92 @@
         <div class="mx-auto max-w-275 px-6 md:px-8 lg:px-10">
             <div class="text-center">
                 <h2 class="text-[42px] font-light leading-tight text-white md:text-[56px]">
-                    Why choose us?
+                    {{ $main['whyChooseUs']['heading'] ?? 'Why choose us?' }}
                 </h2>
             </div>
 
             <div class="mt-14 grid grid-cols-1 gap-10 pb-14 md:mt-16 md:grid-cols-3 md:gap-6 lg:gap-10 lg:pb-16">
-                <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                    <div class="mb-5 flex justify-center md:justify-start">
-                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
-                            </svg>
+                @forelse ($main['whyChooseUs']['features'] ?? [] as $feature)
+                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                        <div class="mb-5 flex justify-center md:justify-start">
+                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
+                                </svg>
+                            </div>
                         </div>
+
+                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            {{ $feature['title'] ?? '' }}
+                        </h3>
+
+                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                            {{ $feature['description'] ?? '' }}
+                        </p>
+                    </div>
+                @empty
+                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                        <div class="mb-5 flex justify-center md:justify-start">
+                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            We listen
+                        </h3>
+
+                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                            Your goals, your story, your future.
+                        </p>
                     </div>
 
-                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                        We listen
-                    </h3>
-
-                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                        Your goals, your story, your future.
-                    </p>
-                </div>
-
-                <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                    <div class="mb-5 flex justify-center md:justify-start">
-                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 6.75h.008v.008H12V6.75zM10.5 10.5h1.5v4.5h1.5M3.75 15.75l4.28-1.07a2.25 2.25 0 011.01 0l2.46.615a2.25 2.25 0 00.91 0l4.688-1.172a1.875 1.875 0 012.322 1.819V16.5a1.5 1.5 0 01-1.136 1.455l-6.14 1.535a6.75 6.75 0 01-2.877.07l-5.518-1.104V15.75zM7.5 15V9.75A2.25 2.25 0 019.75 7.5h4.5a2.25 2.25 0 012.25 2.25V12" />
-                            </svg>
+                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                        <div class="mb-5 flex justify-center md:justify-start">
+                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 6.75h.008v.008H12V6.75zM10.5 10.5h1.5v4.5h1.5M3.75 15.75l4.28-1.07a2.25 2.25 0 011.01 0l2.46.615a2.25 2.25 0 00.91 0l4.688-1.172a1.875 1.875 0 012.322 1.819V16.5a1.5 1.5 0 01-1.136 1.455l-6.14 1.535a6.75 6.75 0 01-2.877.07l-5.518-1.104V15.75zM7.5 15V9.75A2.25 2.25 0 019.75 7.5h4.5a2.25 2.25 0 012.25 2.25V12" />
+                                </svg>
+                            </div>
                         </div>
+
+                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            We simplify
+                        </h3>
+
+                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                            Clear advice, no jargon, tailored options.
+                        </p>
                     </div>
 
-                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                        We simplify
-                    </h3>
-
-                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                        Clear advice, no jargon, tailored options.
-                    </p>
-                </div>
-
-                <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                    <div class="mb-5 flex justify-center md:justify-start">
-                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M12 3v18M12 5.25h6.878a.75.75 0 01.53 1.28L16.5 9.438l2.908 2.908a.75.75 0 01-.53 1.28H12m0-8.376H6.375a.75.75 0 00-.53 1.28L8.25 9l-2.405 2.47a.75.75 0 00.53 1.28H12" />
-                            </svg>
+                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                        <div class="mb-5 flex justify-center md:justify-start">
+                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 3v18M12 5.25h6.878a.75.75 0 01.53 1.28L16.5 9.438l2.908 2.908a.75.75 0 01-.53 1.28H12m0-8.376H6.375a.75.75 0 00-.53 1.28L8.25 9l-2.405 2.47a.75.75 0 00.53 1.28H12" />
+                                </svg>
+                            </div>
                         </div>
+
+                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            We guide
+                        </h3>
+
+                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                            From application to approval (and beyond).
+                        </p>
                     </div>
-
-                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                        We guide
-                    </h3>
-
-                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                        From application to approval (and beyond).
-                    </p>
-                </div>
+                @endforelse
             </div>
 
             <div class="bg-[#e4bf62] px-5 py-5 md:px-8">
@@ -438,17 +460,19 @@
                         Give us a call
                     </span>
 
-                    <a href="tel:07555641081"
+                    @php
+                        $contactPhone = $main['contact']['phone'] ?? '07555 641 081';
+                        $contactPhoneHref = preg_replace('/\s+/', '', $contactPhone);
+                    @endphp
+
+                    <a href="tel:{{ $contactPhoneHref }}"
                         class="inline-flex items-center gap-2 text-[16px] font-medium text-[#4a3910] transition hover:opacity-80">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M2.003 5.884l3.172-.793a1 1 0 011.11.417l1.518 2.53a1 1 0 01-.241 1.287l-1.547 1.236a11.042 11.042 0 005.292 5.292l1.236-1.547a1 1 0 011.287-.241l2.53 1.518a1 1 0 01.417 1.11l-.793 3.172a1 1 0 01-.97.757C7.477 20 0 12.523 0 3.97a1 1 0 01.757-.97h1.246z" />
-                        </svg>
-                        07555 641 081
+                        <i class="fa-solid fa-phone text-[14px]"></i>
+                        {{ $contactPhone }}
                     </a>
 
                     <span class="text-[15px] text-[#4a3910]">
-                        Open Mon-Fri, 9:00-17:00
+                        {{ $main['contact']['hours'] ?? 'Open Mon-Fri, 9:00-17:00' }}
                     </span>
                 </div>
             </div>
@@ -457,12 +481,12 @@
     <section class="bg-[#efefef] text-[#3d2e12]">
         <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
             <h2 class="text-center text-[42px] font-light leading-[1.1] tracking-[-0.02em] md:text-[58px]">
-                What our customers are saying…
+                {{ $main['reviews']['heading'] ?? 'What our customers are saying…' }}
             </h2>
 
             <div class="mt-12 md:mt-16">
                 <div class="reviews-plugin-wrap relative">
-                    {!! do_shortcode('[your_reviews_plugin_shortcode_here]') !!}
+                    {!! do_shortcode($main['reviews']['shortcode'] ?? '[your_reviews_plugin_shortcode_here]') !!}
                 </div>
             </div>
         </div>
@@ -478,17 +502,16 @@
             class="relative z-10 mx-auto flex min-h-90 max-w-7xl items-center justify-center px-6 py-16 text-center md:min-h-135 md:px-10 lg:px-16">
             <div class="max-w-215">
                 <h2 class="text-[42px] font-light leading-[1.15] text-white md:text-[60px]">
-                    Your home. Your family. Your future.<br />
-                    Let’s protect it together.
+                    {!! $main['protect']['heading'] ?? 'Your home. Your family. Your future.<br />Let\’s protect it together.' !!}
                 </h2>
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="#"
+                    <a href="{{ esc_url($main['protect']['buttons']['mortgage'] ?? '#') }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
                         Mortgage
                     </a>
 
-                    <a href="#"
+                    <a href="{{ esc_url($main['protect']['buttons']['insurance'] ?? '#') }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
                         Insurance
                     </a>
@@ -499,7 +522,7 @@
     @php
         $latestPosts = get_posts([
             'post_type' => 'post',
-            'posts_per_page' => 3,
+            'posts_per_page' => $main['blog']['postsCount'] ?? 3,
             'post_status' => 'publish',
         ]);
     @endphp
@@ -509,7 +532,7 @@
             <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
                     <h2 class="mt-3 text-[42px] font-light leading-[1.08] tracking-[-0.02em] md:text-[58px]">
-                        Blog & Articles
+                        {{ $main['blog']['heading'] ?? 'Blog & Articles' }}
                     </h2>
                 </div>
             </div>
@@ -586,41 +609,52 @@
 
         <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">
             <div class="grid grid-cols-2 gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
-                <div>
-                    <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                        15
+                @forelse ($main['statistics'] ?? [] as $statistic)
+                    <div>
+                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                            {{ $statistic['number'] ?? '' }}
+                        </div>
+                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                            {!! $statistic['label'] ?? '' !!}
+                        </p>
                     </div>
-                    <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                        Years of <br class="hidden sm:block"> experience
-                    </p>
-                </div>
+                @empty
+                    <div>
+                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                            15
+                        </div>
+                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                            Years of <br class="hidden sm:block"> experience
+                        </p>
+                    </div>
 
-                <div>
-                    <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                        100
+                    <div>
+                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                            100
+                        </div>
+                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                            Lenders available
+                        </p>
                     </div>
-                    <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                        Lenders available
-                    </p>
-                </div>
 
-                <div>
-                    <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                        8000
+                    <div>
+                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                            8000
+                        </div>
+                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                            Different <br class="hidden sm:block"> mortgages
+                        </p>
                     </div>
-                    <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                        Different <br class="hidden sm:block"> mortgages
-                    </p>
-                </div>
 
-                <div>
-                    <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                        100%
+                    <div>
+                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                            100%
+                        </div>
+                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                            Happy <br class="hidden sm:block"> customers
+                        </p>
                     </div>
-                    <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                        Happy <br class="hidden sm:block"> customers
-                    </p>
-                </div>
+                @endforelse
             </div>
         </div>
     </section>

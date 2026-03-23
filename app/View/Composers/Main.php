@@ -20,7 +20,14 @@ class Main extends Composer
     private function getMainData()
     {
         return [
+            'contact' => $this->getContactData(),
             'hero' => $this->getHeroData(),
+            'confused' => $this->getConfusedSectionData(),
+            'whyChooseUs' => $this->getWhyChooseUsData(),
+            'protect' => $this->getProtectTogetherData(),
+            'statistics' => $this->getStatisticsData(),
+            'reviews' => $this->getReviewsData(),
+            'blog' => $this->getBlogData(),
         ];
     }
 
@@ -56,6 +63,145 @@ class Main extends Composer
             ],
             'logo_fin' => $this->getAcfImageSafe('hero_logo_fin', $postId, 'full', get_template_directory_uri() . '/resources/images/logo1.png'),
             'logo_pro' => $this->getAcfImageSafe('hero_logo_pro', $postId, 'full', get_template_directory_uri() . '/resources/images/logo.png'),
+        ];
+    }
+
+    private function getContactData()
+    {
+        $postId = get_the_ID();
+
+        return [
+            'phone' => $this->getAcfFieldSafe('contact_phone', $postId, '07555 641 081'),
+            'email' => $this->getAcfFieldSafe('contact_email', $postId, 'tomasz@emove-fs.co.uk'),
+            'hours' => $this->getAcfFieldSafe('contact_hours', $postId, 'Open Mon-Fri, 9:00-17:00'),
+            'socialLinks' => [
+                'facebook' => $this->getAcfFieldSafe('social_facebook', $postId, '#'),
+                'instagram' => $this->getAcfFieldSafe('social_instagram', $postId, '#'),
+                'linkedin' => $this->getAcfFieldSafe('social_linkedin', $postId, '#'),
+            ],
+        ];
+    }
+
+    private function getConfusedSectionData()
+    {
+        $postId = get_the_ID();
+        $bullets = [];
+
+        if (function_exists('get_field')) {
+            $bulletRows = \get_field('confused_bullets', $postId);
+            if ($bulletRows) {
+                $bullets = $bulletRows;
+            }
+        }
+
+        // Fallback bullets if none are set
+        if (empty($bullets)) {
+            $bullets = [
+                ['text' => 'Not sure which mortgage deal is right for you?'],
+                ['text' => 'Wondering how to protect your family or income if the unexpected happens?'],
+                ['text' => 'Tired of financial jargon and sales pressure?'],
+            ];
+        }
+
+        return [
+            'heading' => $this->getAcfFieldSafe('confused_heading', $postId, 'Confused by mortgages?<br />Unsure about insurance?'),
+            'bullets' => $bullets,
+            'text' => $this->getAcfFieldSafe('confused_text', $postId, 'At Easy Move Mortgages, we cut through the confusion. Whether it\'s securing your first home, remortgaging, or protecting your loved ones, our mission is to give you <span class="font-semibold">clarity, confidence, and complete peace of mind.</span>'),
+        ];
+    }
+
+    private function getWhyChooseUsData()
+    {
+        $postId = get_the_ID();
+        $features = [];
+
+        if (function_exists('get_field')) {
+            $featureRows = \get_field('why_choose_features', $postId);
+            if ($featureRows) {
+                $features = $featureRows;
+            }
+        }
+
+        // Fallback features if none are set
+        if (empty($features)) {
+            $features = [
+                [
+                    'title' => 'We listen',
+                    'description' => 'Your goals, your story, your future.',
+                ],
+                [
+                    'title' => 'We simplify',
+                    'description' => 'Clear advice, no jargon, tailored options.',
+                ],
+                [
+                    'title' => 'We guide',
+                    'description' => 'From application to approval (and beyond).',
+                ],
+            ];
+        }
+
+        return [
+            'heading' => $this->getAcfFieldSafe('why_choose_heading', $postId, 'Why choose us?'),
+            'features' => $features,
+        ];
+    }
+
+    private function getProtectTogetherData()
+    {
+        $postId = get_the_ID();
+
+        return [
+            'heading' => $this->getAcfFieldSafe('protect_heading', $postId, 'Your home. Your family. Your future.<br />Let\'s protect it together.'),
+            'description' => $this->getAcfFieldSafe('protect_description', $postId, ''),
+            'buttons' => [
+                'mortgage' => $this->formatUrl($this->getAcfFieldSafe('protect_mortgage_url', $postId, '#')),
+                'insurance' => $this->formatUrl($this->getAcfFieldSafe('protect_insurance_url', $postId, '#')),
+            ],
+        ];
+    }
+
+    private function getStatisticsData()
+    {
+        $postId = get_the_ID();
+        $statistics = [];
+
+        if (function_exists('get_field')) {
+            $statisticsRows = \get_field('statistics', $postId);
+            if ($statisticsRows) {
+                $statistics = $statisticsRows;
+            }
+        }
+
+        // Fallback statistics if none are set
+        if (empty($statistics)) {
+            $statistics = [
+                ['number' => '15', 'label' => 'Years of<br class="hidden sm:block"> experience'],
+                ['number' => '100', 'label' => 'Lenders available'],
+                ['number' => '8000', 'label' => 'Different<br class="hidden sm:block"> mortgages'],
+                ['number' => '100%', 'label' => 'Happy<br class="hidden sm:block"> customers'],
+            ];
+        }
+
+        return $statistics;
+    }
+
+    private function getReviewsData()
+    {
+        $postId = get_the_ID();
+
+        return [
+            'heading' => $this->getAcfFieldSafe('reviews_heading', $postId, 'What our customers are saying…'),
+            'shortcode' => $this->getAcfFieldSafe('reviews_shortcode', $postId, '[your_reviews_plugin_shortcode_here]'),
+        ];
+    }
+
+    private function getBlogData()
+    {
+        $postId = get_the_ID();
+
+        return [
+            'heading' => $this->getAcfFieldSafe('blog_heading', $postId, 'Blog & Articles'),
+            'postsCount' => (int) $this->getAcfFieldSafe('blog_posts_count', $postId, 3),
         ];
     }
 

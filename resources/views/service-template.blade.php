@@ -3,70 +3,8 @@
 --}}
 
 @php
-    $homeUrl = home_url('/');
-    $homeLabel = get_bloginfo('name');
-    $pageTitle = get_the_title();
-
-    /**
-     * Parent page for breadcrumb.
-     * Works if the current page has a parent in WordPress.
-     */
-    $parentId = wp_get_post_parent_id(get_the_ID());
-    $parentTitle = $parentId ? get_the_title($parentId) : null;
-    $parentUrl = $parentId ? get_permalink($parentId) : null;
-
-    /**
-     * Main content fields
-     */
-    $introLeft = function_exists('get_field') ? get_field('intro_left') : '';
-    $introRight = function_exists('get_field') ? get_field('intro_right') : '';
-    $highlight = function_exists('get_field') ? get_field('highlight_text') : '';
-    $heroImage = function_exists('get_field') ? get_field('hero_image') : '';
-
-    $heroImageUrl = is_array($heroImage) ? $heroImage['url'] ?? '' : $heroImage;
-
-    /**
-     * Related services/cards
-     */
-    $relatedServices =
-        function_exists('get_field') && get_field('related_services')
-            ? get_field('related_services')
-            : [
-                [
-                    'title' => 'Remortgage',
-                    'url' => '#',
-                    'image' =>
-                        'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=1200&auto=format&fit=crop',
-                    'button_text' => 'Read More',
-                ],
-                [
-                    'title' => 'Home Movers Mortgage',
-                    'url' => '#',
-                    'image' =>
-                        'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1200&auto=format&fit=crop',
-                    'button_text' => 'Read More',
-                ],
-                [
-                    'title' => 'Buy to Let',
-                    'url' => '#',
-                    'image' =>
-                        'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1200&auto=format&fit=crop',
-                    'button_text' => 'Read More',
-                ],
-            ];
-
-    /**
-     * Fallback text if ACF is not yet set
-     */
-    $introLeft =
-        $introLeft ?:
-        'First-time home buying shouldn’t be shrouded in mystery! We understand the complexities of navigating the mortgage process. Our team of dedicated professionals will break down your financing options into clear and concise terms, ensuring you make informed decisions towards achieving homeownership. Buying a home is a significant financial decision, and we’re here to help you make an informed one.';
-
-    $introRight =
-        $introRight ?:
-        'We have extensive experience in helping first-time homebuyers and experienced homeowners achieve their financial goals. We take the time to understand your unique financial situation and goals, tailoring our recommendations to fit your needs. We work with a variety of lenders to offer you a wide range of mortgage products, ensuring you find the best fit for your circumstances. We handle all the paperwork and negotiations, making the mortgage process as smooth and stress-free as possible.';
-
-    $highlight = $highlight ?: 'LET US PAVE THE PATH TO YOUR DREAM HOME WITH CLARITY, CONFIDENCE AND PEACE OF MIND!';
+    $homeUrl = home_url(‘ / ’);
+    $homeLabel = get_bloginfo(‘name’);
 @endphp
 
 @extends('layouts.app')
@@ -82,19 +20,19 @@
                         </a>
                     </li>
 
-                    @if ($parentTitle && $parentUrl)
+                    @if ($service['parentTitle'] && $service['parentUrl'])
                         <li aria-hidden="true">-</li>
                         <li>
-                            <a href="{{ $parentUrl }}" class="transition hover:text-[#3d2e12]">
-                                {{ $parentTitle }}
+                            <a href="{{ $service['parentUrl'] }}" class="transition hover:text-[#3d2e12]">
+                                {{ $service['parentTitle'] }}
                             </a>
                         </li>
                     @endif
 
-                    @if ($pageTitle)
+                    @if ($service['pageTitle'])
                         <li aria-hidden="true">-</li>
                         <li class="text-[#8b7a57]">
-                            {{ $pageTitle }}
+                            {{ $service['pageTitle'] }}
                         </li>
                     @endif
                 </ol>
@@ -102,30 +40,30 @@
 
             <header class="max-w-195">
                 <h1 class="text-[44px] font-light leading-[1.05] tracking-[-0.02em] md:text-[64px]">
-                    {{ $pageTitle }}
+                    {{ $service['pageTitle'] }}
                 </h1>
             </header>
 
             <div class="mt-12 grid gap-8 md:mt-14 md:grid-cols-2 md:gap-10 lg:gap-14">
                 <div class="text-[15px] leading-8 text-[#6d6047]">
-                    <p>{{ $introLeft }}</p>
+                    <p>{{ $service['intro']['left'] }}</p>
                 </div>
 
                 <div class="text-[15px] leading-8 text-[#6d6047]">
-                    <p>{{ $introRight }}</p>
+                    <p>{{ $service['intro']['right'] }}</p>
                 </div>
             </div>
 
             <div class="mt-10 md:mt-12">
                 <p class="text-[18px] font-medium uppercase tracking-[0.06em] text-[#7b6944] md:text-[20px]">
-                    {{ $highlight }}
+                    {{ $service['highlight'] }}
                 </p>
             </div>
 
             <div class="relative z-10 mt-12 md:mt-16">
                 <div class="overflow-hidden bg-[#ddd]">
-                    @if ($heroImageUrl)
-                        <img src="{{ esc_url($heroImageUrl) }}" alt="{{ esc_attr($pageTitle) }}"
+                    @if ($service['heroImage'])
+                        <img src="{{ esc_url($service['heroImage']) }}" alt="{{ esc_attr($service['pageTitle']) }}"
                             class="h-65 w-full object-cover md:h-90" />
                     @elseif (has_post_thumbnail())
                         {!! get_the_post_thumbnail(get_the_ID(), 'full', ['class' => 'h-[260px] w-full object-cover md:h-[360px]']) !!}
@@ -147,7 +85,7 @@
                 </h2>
 
                 <div class="mt-12 grid gap-8 md:mt-14 md:grid-cols-3 md:gap-4 lg:gap-6">
-                    @foreach ($relatedServices as $item)
+                    @foreach ($service['relatedServices'] as $item)
                         @php
                             $title = $item['title'] ?? '';
                             $url = $item['url'] ?? '#';
@@ -205,19 +143,18 @@
             class="relative z-10 mx-auto flex min-h-90 max-w-7xl items-center justify-center px-6 py-16 text-center md:min-h-135 md:px-10 lg:px-16">
             <div class="max-w-215">
                 <h2 class="text-[42px] font-light leading-[1.15] text-white md:text-[60px]">
-                    Your home. Your family. Your future.<br />
-                    Let’s protect it together.
+                    {!! $service[‘cta’][‘heading’] !!}
                 </h2>
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="#"
+                    <a href="{{ esc_url($service[‘cta’][‘mortgageUrl’]) }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
-                        Mortgage
+                        {{ $service[‘cta’][‘mortgageText’] }}
                     </a>
 
-                    <a href="#"
+                    <a href="{{ esc_url($service[‘cta’][‘insuranceUrl’]) }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
-                        Insurance
+                        {{ $service[‘cta’][‘insuranceText’] }}
                     </a>
                 </div>
             </div>

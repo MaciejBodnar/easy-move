@@ -6,6 +6,7 @@ use Roots\Acorn\Sage\SageServiceProvider;
 use App\View\Composers\Main;
 use App\View\Composers\About;
 use App\View\Composers\ServiceList;
+use App\View\Composers\Service;
 
 class ThemeServiceProvider extends SageServiceProvider
 {
@@ -31,6 +32,7 @@ class ThemeServiceProvider extends SageServiceProvider
         $this->app->make('view')
             ->composer(['front-page', 'front-page.blade.php'], Main::class)
             ->composer(['about-template', 'about-template.blade.php'], About::class)
-            ->composer(['service-list-template', 'service-list-template.blade.php'], ServiceList::class);
+            ->composer(['service-list-template', 'service-list-template.blade.php'], ServiceList::class)
+            ->composer(['service-template', 'service-template.blade.php'], Service::class);
     }
 }

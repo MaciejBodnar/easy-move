@@ -1337,5 +1337,81 @@ class AcfFieldsServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
+
+        acf_add_local_field_group([
+            'key' => 'group_blog',
+            'title' => 'Blog Template',
+            'location' => [
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'blog-template.blade.php',
+                    ],
+                ],
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'blog-template',
+                    ],
+                ],
+            ],
+            'menu_order' => 6,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => [],
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => false,
+            'fields' => [
+                [
+                    'key' => 'field_blog_page_title',
+                    'label' => 'Page Title',
+                    'name' => 'blog_page_title',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Blog',
+                ],
+                [
+                    'key' => 'field_blog_page_description',
+                    'label' => 'Page Description',
+                    'name' => 'blog_page_description',
+                    'type' => 'textarea',
+                    'instructions' => 'Optional description text shown above the blog posts',
+                    'required' => 0,
+                    'rows' => 3,
+                ],
+                [
+                    'key' => 'field_blog_posts_per_page',
+                    'label' => 'Posts Per Page',
+                    'name' => 'blog_posts_per_page',
+                    'type' => 'number',
+                    'instructions' => 'Number of posts to display per page',
+                    'required' => 0,
+                    'default_value' => 9,
+                    'min' => 1,
+                    'max' => 100,
+                ],
+                [
+                    'key' => 'field_blog_read_more_text',
+                    'label' => 'Read More Button Text',
+                    'name' => 'blog_read_more_text',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Read more',
+                ],
+                [
+                    'key' => 'field_blog_no_posts_text',
+                    'label' => 'No Posts Message',
+                    'name' => 'blog_no_posts_text',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'No posts found.',
+                ],
+            ],
+        ]);
     }
 }

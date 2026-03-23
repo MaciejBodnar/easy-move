@@ -11,7 +11,7 @@ Template Name: Blog Template
         $blogQuery = new WP_Query([
             'post_type' => 'post',
             'post_status' => 'publish',
-            'posts_per_page' => 9,
+            'posts_per_page' => $blog['postsPerPage'],
             'paged' => $paged,
         ]);
     @endphp
@@ -21,12 +21,18 @@ Template Name: Blog Template
             <div class="mb-3 text-[18px] text-[#b7a16a]">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span class="mx-1">-</span>
-                <span class="text-[#7c6a3b]">Blog</span>
+                <span class="text-[#7c6a3b]">{{ $blog['pageTitle'] }}</span>
             </div>
 
             <h1 class="mb-10 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-14 md:text-[56px]">
-                Blog
+                {{ $blog['pageTitle'] }}
             </h1>
+
+            @if ($blog['pageDescription'])
+                <div class="mb-10 max-w-215 text-[16px] leading-[1.8] text-[#766f63]">
+                    {!! $blog['pageDescription'] !!}
+                </div>
+            @endif
 
             @if ($blogQuery->have_posts())
                 <div class="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
@@ -73,7 +79,7 @@ Template Name: Blog Template
                             <div class="mt-5">
                                 <a href="{{ get_permalink() }}"
                                     class="inline-flex min-h-11 items-center justify-center bg-[#F5F5F5] px-5 py-3 text-[16px] font-medium uppercase tracking-[0.03em] text-[#4a3910] transition hover:bg-[#DAD5C6] active:bg-[#423616]">
-                                    Read more
+                                    {{ $blog['readMoreText'] }}
                                 </a>
                             </div>
                         </article>
@@ -95,7 +101,7 @@ Template Name: Blog Template
                 @php(wp_reset_postdata())
             @else
                 <div class="py-10">
-                    <p class="text-[18px] text-[#6f675a]">No posts found.</p>
+                    <p class="text-[18px] text-[#6f675a]">{{ $blog['noPostsText'] }}</p>
                 </div>
             @endif
         </div>

@@ -6,62 +6,43 @@ use Roots\Acorn\View\Composer;
 
 class Post extends Composer
 {
-    /**
-     * List of views served by this composer.
-     *
-     * @var array
-     */
     protected static $views = [
-        'partials.page-header',
-        'partials.content',
-        'partials.content-*',
+        'single-post',
     ];
 
-    /**
-     * Retrieve the post title.
-     */
-    public function title(): string
+    public function with()
     {
-        if ($this->view->name() !== 'partials.page-header') {
-            return get_the_title();
-        }
-
-        if (is_home()) {
-            if ($home = get_option('page_for_posts', true)) {
-                return get_the_title($home);
-            }
-
-            return __('Latest Posts', 'sage');
-        }
-
-        if (is_archive()) {
-            return get_the_archive_title();
-        }
-
-        if (is_search()) {
-            return sprintf(
-                /* translators: %s is replaced with the search query */
-                __('Search Results for %s', 'sage'),
-                get_search_query()
-            );
-        }
-
-        if (is_404()) {
-            return __('Not Found', 'sage');
-        }
-
-        return get_the_title();
+        return [
+            'post' => $this->getPostData(),
+        ];
     }
 
-    /**
-     * Retrieve the pagination links.
-     */
-    public function pagination(): string
+    private function getPostData()
     {
-        return wp_link_pages([
-            'echo' => 0,
-            'before' => '<p>'.__('Pages:', 'sage'),
-            'after' => '</p>',
-        ]);
+        $postId = get_the_ID();
+
+        return [
+            'title' => get_the_title(),
+            'date' => get_the_date('c'),
+            'dateFormatted' => strtoupper(get_the_date('M j, Y')),
+            'content' => $this->getPostContent($postId),
+            'thumbnail' => get_the_post_thumbnail(get_the_ID(), 'large', [
+                'class' => 'h-auto w-full object-cover',
+                'loading' => 'eager',
+            ]),
+            'blogUrl' => get_permalink(get_option('page_for_posts') ?: home_url('/blog')),
+        ];
+    }
+
+    private function getPostContent($postId)
+    {
+        if (function_exists('get_field')) {
+            $wysiwygContent = \get_field('post_content_wysiwyg', $postId);
+            if (!empty($wysiwygContent)) {
+                return $wysiwygContent;
+            }
+        }
+
+        return get_the_content();
     }
 }

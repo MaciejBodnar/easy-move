@@ -1,23 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        $wysiwygContent = get_field('post_content_wysiwyg') ?: get_the_content();
-    @endphp
-
     <article @php(post_class('bg-[#f6f6f4]'))>
         <div class="mx-auto max-w-295 px-6 pb-16 pt-10 md:px-8 md:pb-20 md:pt-12 lg:px-10 lg:pb-24">
             <div class="mb-8 text-[18px] leading-relaxed text-[#9f926f]">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span> - </span>
 
-                <a href="{{ get_permalink(get_option('page_for_posts')) ?: home_url('/blog') }}"
+                <a href="{{ $post['blogUrl'] }}"
                     class="transition hover:opacity-80">
                     Blog
                 </a>
                 <span> - </span>
 
-                <span class="text-[#8a7d61]">{{ get_the_title() }}</span>
+                <span class="text-[#8a7d61]">{{ $post['title'] }}</span>
             </div>
 
             <div class="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start lg:gap-14">
@@ -30,24 +26,21 @@
                                 d="M8 7V3m8 4V3m-9 8h10m-13 9h16a2 2 0 002-2V7a2 2 0 00-2-2H4a2 2 0 00-2 2v11a2 2 0 002 2z" />
                         </svg>
 
-                        <time datetime="{{ get_the_date('c') }}">
-                            {{ strtoupper(get_the_date('M j, Y')) }}
+                        <time datetime="{{ $post['date'] }}">
+                            {{ $post['dateFormatted'] }}
                         </time>
                     </div>
 
                     <h1
                         class="max-w-130 text-[40px] font-light leading-[1.08] tracking-[-0.03em] text-[#4a3910] sm:text-[48px] md:text-[58px] lg:text-[62px]">
-                        {{ get_the_title() }}
+                        {{ $post['title'] }}
                     </h1>
                 </div>
 
                 <div>
-                    @if (has_post_thumbnail())
+                    @if ($post['thumbnail'])
                         <div class="overflow-hidden bg-[#eae4da]">
-                            {!! get_the_post_thumbnail(get_the_ID(), 'large', [
-                                'class' => 'h-auto w-full object-cover',
-                                'loading' => 'eager',
-                            ]) !!}
+                            {!! $post['thumbnail'] !!}
                         </div>
                     @endif
                 </div>
@@ -66,7 +59,7 @@
           prose-li:text-[15px] prose-li:leading-[1.9] prose-li:text-[#6d675e]
           prose-ol:pl-6 prose-ul:pl-6
           prose-blockquote:border-l-[#d8b15a] prose-blockquote:text-[#6d675e]">
-                    {!! $wysiwygContent !!}
+                    {!! $post['content'] !!}
                 </div>
             </div>
         </div>

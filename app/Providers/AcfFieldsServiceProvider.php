@@ -1142,5 +1142,43 @@ class AcfFieldsServiceProvider extends ServiceProvider
                 ],
             ],
         ]);
+
+        acf_add_local_field_group([
+            'key' => 'group_blog_post',
+            'title' => 'Blog Post',
+            'location' => [
+                [
+                    [
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => 'post',
+                    ],
+                ],
+            ],
+            'menu_order' => 4,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => [],
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => false,
+            'fields' => [
+                [
+                    'key' => 'field_post_content_wysiwyg',
+                    'label' => 'Post Content',
+                    'name' => 'post_content_wysiwyg',
+                    'type' => 'wysiwyg',
+                    'instructions' => 'Main post content. Falls back to the default WordPress editor if not set.',
+                    'required' => 0,
+                    'toolbar' => 'full',
+                    'media_upload' => 1,
+                    'default_value' => '',
+                    'tabs' => 'all',
+                    'delay' => 1,
+                ],
+            ],
+        ]);
     }
 }

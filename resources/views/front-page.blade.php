@@ -728,8 +728,13 @@
     </section>
     <section class="relative overflow-hidden">
         <div class="absolute inset-0">
-            <img src="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2000&auto=format&fit=crop"
-                alt="Aerial view of homes" class="h-full w-full object-cover" />
+            <video class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata"
+                poster="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2000&auto=format&fit=crop"
+                aria-hidden="true">
+                <source
+                    src="{{ esc_url(get_theme_file_uri('resources/videos/british-suburban-neighbourhood-from-above-haslin-2026-01-22-05-23-35-utc_output.mp4')) }}"
+                    type="video/mp4">
+            </video>
             <div class="absolute inset-0 bg-[rgba(73,56,19,0.58)]"></div>
         </div>
 

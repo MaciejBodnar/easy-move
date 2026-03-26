@@ -178,7 +178,7 @@
             <div class="mt-10 border-t border-[#ccb98d] pt-8">
                 <div
                     class="flex flex-col gap-4 text-[16px] leading-[1.6] text-[#b9a067] md:flex-row md:items-center md:justify-between">
-                    <p>{{ $copyrightText }}</p>
+                    <p>{!! $copyrightText !!}</p>
 
                     <a href="{{ esc_url($privacyUrl) }}" class="transition hover:text-[#8f7438]">
                         {{ $privacyLabel }}

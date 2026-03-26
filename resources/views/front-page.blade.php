@@ -17,63 +17,127 @@
                 <a href="tel:{{ $phoneHref }}"
                     class="inline-flex items-center gap-2 text-[15px] transition hover:text-white">
                     <i class="fa-solid fa-phone text-[14px]"></i>
-                    <span>{{ $phone }}</span>
+                    <span class="hidden md:block">{{ $phone }}</span>
                 </a>
 
                 <a href="mailto:{{ $email }}"
                     class="inline-flex items-center gap-2 text-[15px] transition hover:text-white">
                     <i class="fa-solid fa-envelope text-[14px]"></i>
-                    <span>{{ $email }}</span>
+                    <span class="hidden md:block">{{ $email }}</span>
                 </a>
             </div>
 
-            <div class="hidden items-center gap-5 md:flex">
-                @if (!empty($main['contact']['socialLinks']['facebook']))
+            <div class="items-center gap-16 md:gap-5 flex">
+                <div class="flex gap-5">
                     <a href="{{ esc_url($main['contact']['socialLinks']['facebook']) }}" aria-label="Facebook"
                         class="text-[#d2bb7b] transition hover:text-white">
                         <i class="fa-brands fa-facebook-f text-[15px]"></i>
                     </a>
-                @endif
 
-                @if (!empty($main['contact']['socialLinks']['instagram']))
                     <a href="{{ esc_url($main['contact']['socialLinks']['instagram']) }}" aria-label="Instagram"
                         class="text-[#d2bb7b] transition hover:text-white">
                         <i class="fa-brands fa-instagram text-[15px]"></i>
                     </a>
-                @endif
 
-                @if (!empty($main['contact']['socialLinks']['linkedin']))
                     <a href="{{ esc_url($main['contact']['socialLinks']['linkedin']) }}" aria-label="LinkedIn"
                         class="text-[#d2bb7b] transition hover:text-white">
                         <i class="fa-brands fa-linkedin-in text-[15px]"></i>
                     </a>
-                @endif
-
-                <div class="flex items-center gap-2 text-[15px] text-[#e8e0c6]">
-                    <img src="https://kapowaz.github.io/circle-flags/flags/uk.svg" alt="Easy Move Financial logo"
-                        class="h-5 w-auto object-contain" />
-                    <span>eng</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
                 </div>
+
+                @php
+                    $languageOptions = [];
+                    $currentLanguage = null;
+
+                    if (function_exists('pll_the_languages')) {
+                        $languageOptions = pll_the_languages([
+                            'raw' => 1,
+                            'hide_if_empty' => 0,
+                            'hide_if_no_translation' => 0,
+                        ]);
+
+                        if (!is_array($languageOptions)) {
+                            $languageOptions = [];
+                        }
+
+                        foreach ($languageOptions as $languageOption) {
+                            if (!empty($languageOption['current_lang'])) {
+                                $currentLanguage = $languageOption;
+                                break;
+                            }
+                        }
+
+                        if (!$currentLanguage && !empty($languageOptions)) {
+                            $currentLanguage = reset($languageOptions);
+                        }
+                    }
+                @endphp
+
+                @if (!empty($languageOptions) && !empty($currentLanguage))
+                    @php
+                        $currentLanguageSlug = strtolower($currentLanguage['slug'] ?? 'eng');
+                        $currentFlagCode = $currentLanguageSlug === 'en' ? 'uk' : explode('-', $currentLanguageSlug)[0];
+                        $currentFlagUrl = "https://kapowaz.github.io/circle-flags/flags/{$currentFlagCode}.svg";
+                    @endphp
+                    <details class="relative">
+                        <summary
+                            class="flex list-none cursor-pointer items-center gap-2 text-[15px] text-[#e8e0c6] transition hover:text-white [&::-webkit-details-marker]:hidden">
+                            <img src="{{ esc_url($currentFlagUrl) }}"
+                                alt="{{ esc_attr(($currentLanguage['name'] ?? ($currentLanguage['slug'] ?? 'Current language')) . ' flag') }}"
+                                class="h-5 w-auto object-contain" />
+
+                            <span>{{ strtoupper($currentLanguage['slug'] ?? 'eng') }}</span>
+
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </summary>
+
+                        <div
+                            class="absolute right-0 top-full z-40 mt-2 min-w-36 border border-[#d2bb7b]/30 bg-[#3d2f0d]/95 p-1 shadow-[0_10px_24px_rgba(0,0,0,0.35)]">
+                            <ul class="space-y-1">
+                                @foreach ($languageOptions as $languageOption)
+                                    @php
+                                        $isCurrentLanguage = !empty($languageOption['current_lang']);
+                                        $languageSlug = strtolower($languageOption['slug'] ?? '');
+                                        $flagCode = $languageSlug === 'en' ? 'uk' : explode('-', $languageSlug)[0];
+                                        $flagUrl = "https://kapowaz.github.io/circle-flags/flags/{$flagCode}.svg";
+                                    @endphp
+                                    <li>
+                                        <a href="{{ esc_url($languageOption['url'] ?? '#') }}"
+                                            @if ($isCurrentLanguage) aria-current="true" @endif
+                                            class="flex items-center gap-2 px-2 py-1.5 text-[14px] transition {{ $isCurrentLanguage ? 'bg-[#f9cf6c] text-[#3d2e12]' : 'text-[#e8e0c6] hover:bg-[#f9cf6c] hover:text-[#3d2e12]' }}">
+                                            <img src="{{ esc_url($flagUrl) }}"
+                                                alt="{{ esc_attr(($languageOption['name'] ?? ($languageOption['slug'] ?? 'Language')) . ' flag') }}"
+                                                class="h-4 w-auto object-contain" />
+
+                                            <span>{{ strtoupper($languageOption['slug'] ?? '') }}</span>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </details>
+                @else
+                    <div class="flex items-center gap-2 text-[15px] text-[#e8e0c6]">
+                        <img src="https://kapowaz.github.io/circle-flags/flags/uk.svg" alt="English language flag"
+                            class="h-5 w-auto object-contain" />
+                        <span>ENG</span>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
     <section id="splitHero" class="relative h-screen min-h-175 overflow-hidden bg-[#2c2418] text-white">
         <div class="absolute inset-0">
             <div
-                class="pointer-events-none absolute left-0 right-0 top-0 z-30 flex items-start justify-between px-8 pt-8 md:px-12 lg:px-14">
-                @if (!empty($main['hero']['logo_fin']))
-                    <img src="{{ esc_url($main['hero']['logo_fin']) }}" alt="Easy Move Financial logo"
-                        class="h-20 w-auto object-contain" />
-                @endif
+                class="hidden pointer-events-none absolute left-0 right-0 top-0 z-30 md:flex items-start justify-between px-8 pt-8 md:px-12 lg:px-14">
+                <img src="{{ esc_url($main['hero']['logo_fin']) }}" alt="Easy Move Financial logo"
+                    class="h-10 md:h-10 lg:h-20 w-auto object-contain" />
 
-                @if (!empty($main['hero']['logo_pro']))
-                    <img src="{{ esc_url($main['hero']['logo_pro']) }}" alt="Easy Move Protection logo"
-                        class="h-20 w-auto object-contain" />
-                @endif
+                <img src="{{ esc_url($main['hero']['logo_pro']) }}" alt="Easy Move Protection logo"
+                    class="h-10 md:h-10 lg:h-20 w-auto object-contain" />
 
                 <div class="hidden" aria-hidden="true">
                     <span id="openLogoTop">EASYMOVE</span>
@@ -100,8 +164,20 @@
                                 $heroMenuChildren = [];
 
                                 if (has_nav_menu('primary_navigation')) {
+                                    $currentLang = function_exists('pll_current_language')
+                                        ? pll_current_language('slug')
+                                        : '';
                                     $locations = get_nav_menu_locations();
                                     $menuId = $locations['primary_navigation'] ?? 0;
+
+                                    if ($menuId && $currentLang && function_exists('pll_get_term')) {
+                                        $translatedMenuId = (int) pll_get_term((int) $menuId, $currentLang);
+
+                                        if ($translatedMenuId > 0) {
+                                            $menuId = $translatedMenuId;
+                                        }
+                                    }
+
                                     $menuItems = $menuId ? wp_get_nav_menu_items($menuId) : [];
 
                                     if (!empty($menuItems)) {
@@ -201,7 +277,7 @@
                         </div>
                     </div>
 
-                    <div id="openContentWrap" class="mt-auto mb-8 max-w-110">
+                    <div id="openContentWrap" class="mt-auto mb-8 max-w-110 hidden md:block">
                         <div id="openEyebrow" class="mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">MORTGAGES
                         </div>
 
@@ -222,7 +298,7 @@
             </article>
             <article id="closedPanel"
                 class="hero-panel absolute right-0 top-0 z-10 overflow-hidden bg-[linear-gradient(90deg,#2b220f_0%,#3a2d14_100%)]">
-                <div class="relative z-10 flex h-full flex-col px-8 pt-8 pb-10 md:px-12 lg:px-14">
+                <div class="relative z-10 hidden md:flex h-full flex-col px-8 pt-8 pb-10 md:px-12 lg:px-14">
                     <div class="mt-auto mb-8 max-w-[320px]">
                         <div id="closedEyebrow" class="mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">
                             INSURANCE
@@ -323,7 +399,7 @@
                 </h2>
             </div>
 
-            <div class="max-w-130 pt-2 text-[18px] leading-8 text-[#c1a15a]">
+            <div class="max-w-130 pt-2 text-[18px] leading-8 text-[#c1a15a] pb-20">
                 <ul class="space-y-1">
                     @forelse ($main['confused']['bullets'] ?? [] as $bullet)
                         <li class="flex items-start gap-4">
@@ -355,106 +431,265 @@
     </section>
 
     <section class="relative mt-14 bg-[#3c2c05] pb-0 pt-27.5 md:mt-50 md:pt-37.5 lg:pt-45">
-        <div
-            class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] px-6 md:px-8 lg:px-10">
+        <div class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] md:px-8 lg:px-10">
             <div class="overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
                 <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1600&auto=format&fit=crop"
                     alt="Mortgage advisor meeting with clients" class="h-55 w-full object-cover md:h-80 lg:h-90">
             </div>
         </div>
 
-        <div class="mx-auto max-w-275 px-6 md:px-8 lg:px-10">
+        <div class="mx-auto max-w-275 px-6 md:px-8 lg:px-10 mt-26 md:mt-32 lg:mt-40">
             <div class="text-center">
                 <h2 class="text-[42px] font-light leading-tight text-white md:text-[56px]">
                     {{ $main['whyChooseUs']['heading'] ?? 'Why choose us?' }}
                 </h2>
             </div>
 
-            <div class="mt-14 grid grid-cols-1 gap-10 pb-14 md:mt-16 md:grid-cols-3 md:gap-6 lg:gap-10 lg:pb-16">
-                @forelse ($main['whyChooseUs']['features'] ?? [] as $feature)
-                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                        <div class="mb-5 flex justify-center md:justify-start">
-                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
-                                </svg>
+            <div class="mt-14 md:mt-16">
+                <!-- Desktop Grid (hidden on mobile) -->
+                <div class="hidden md:grid grid-cols-3 gap-6 lg:gap-10 pb-14 lg:pb-16">
+                    @forelse ($main['whyChooseUs']['features'] ?? [] as $feature)
+                        <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                            <div class="mb-5 flex justify-center md:justify-start">
+                                <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                    <img src="{{ esc_url($feature['icon'] ?? '') }}" alt=""
+                                        class="h-11 w-11 object-contain" />
+                                </div>
                             </div>
+
+                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                                {{ $feature['title'] ?? '' }}
+                            </h3>
+
+                            <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                                {{ $feature['description'] ?? '' }}
+                            </p>
+                        </div>
+                    @empty
+                        <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                            <div class="mb-5 flex justify-center md:justify-start">
+                                <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                                We listen
+                            </h3>
+
+                            <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                                Your goals, your story, your future.
+                            </p>
                         </div>
 
-                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                            {{ $feature['title'] ?? '' }}
-                        </h3>
-
-                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                            {{ $feature['description'] ?? '' }}
-                        </p>
-                    </div>
-                @empty
-                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                        <div class="mb-5 flex justify-center md:justify-start">
-                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
-                                </svg>
+                        <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                            <div class="mb-5 flex justify-center md:justify-start">
+                                <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 6.75h.008v.008H12V6.75zM10.5 10.5h1.5v4.5h1.5M3.75 15.75l4.28-1.07a2.25 2.25 0 011.01 0l2.46.615a2.25 2.25 0 00.91 0l4.688-1.172a1.875 1.875 0 012.322 1.819V16.5a1.5 1.5 0 01-1.136 1.455l-6.14 1.535a6.75 6.75 0 01-2.877.07l-5.518-1.104V15.75zM7.5 15V9.75A2.25 2.25 0 019.75 7.5h4.5a2.25 2.25 0 012.25 2.25V12" />
+                                    </svg>
+                                </div>
                             </div>
+
+                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                                We simplify
+                            </h3>
+
+                            <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                                Clear advice, no jargon, tailored options.
+                            </p>
                         </div>
 
-                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                            We listen
-                        </h3>
-
-                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                            Your goals, your story, your future.
-                        </p>
-                    </div>
-
-                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                        <div class="mb-5 flex justify-center md:justify-start">
-                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 6.75h.008v.008H12V6.75zM10.5 10.5h1.5v4.5h1.5M3.75 15.75l4.28-1.07a2.25 2.25 0 011.01 0l2.46.615a2.25 2.25 0 00.91 0l4.688-1.172a1.875 1.875 0 012.322 1.819V16.5a1.5 1.5 0 01-1.136 1.455l-6.14 1.535a6.75 6.75 0 01-2.877.07l-5.518-1.104V15.75zM7.5 15V9.75A2.25 2.25 0 019.75 7.5h4.5a2.25 2.25 0 012.25 2.25V12" />
-                                </svg>
+                        <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
+                            <div class="mb-5 flex justify-center md:justify-start">
+                                <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M12 3v18M12 5.25h6.878a.75.75 0 01.53 1.28L16.5 9.438l2.908 2.908a.75.75 0 01-.53 1.28H12m0-8.376H6.375a.75.75 0 00-.53 1.28L8.25 9l-2.405 2.47a.75.75 0 00.53 1.28H12" />
+                                    </svg>
+                                </div>
                             </div>
+
+                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                                We guide
+                            </h3>
+
+                            <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                                From application to approval (and beyond).
+                            </p>
                         </div>
+                    @endforelse
+                </div>
 
-                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                            We simplify
-                        </h3>
-
-                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                            Clear advice, no jargon, tailored options.
-                        </p>
+                <!-- Mobile Carousel (shown only on mobile) -->
+                <div class="md:hidden">
+                    <!-- Slide Indicator Bar -->
+                    <div class="mb-6 flex" id="slideIndicators">
                     </div>
 
-                    <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
-                        <div class="mb-5 flex justify-center md:justify-start">
-                            <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 3v18M12 5.25h6.878a.75.75 0 01.53 1.28L16.5 9.438l2.908 2.908a.75.75 0 01-.53 1.28H12m0-8.376H6.375a.75.75 0 00-.53 1.28L8.25 9l-2.405 2.47a.75.75 0 00.53 1.28H12" />
-                                </svg>
-                            </div>
+                    <div class="relative overflow-hidden touch-pan-y">
+                        <div class="flex transition-transform duration-500" id="featuresCarousel"
+                            style="transform: translateX(0)">
+                            @forelse ($main['whyChooseUs']['features'] ?? [] as $feature)
+                                <div
+                                    class="w-full flex-shrink-0 md:border-t border-[rgba(232,194,98,0.28)] pt-8 pb-10 text-center px-4">
+                                    <div class="mb-5 flex justify-center">
+                                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                            <img src="{{ esc_url($feature['icon'] ?? '') }}" alt=""
+                                                class="h-11 w-11 object-contain" />
+                                        </div>
+                                    </div>
+
+                                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                                        {{ $feature['title'] ?? '' }}
+                                    </h3>
+
+                                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
+                                        {{ $feature['description'] ?? '' }}
+                                    </p>
+                                </div>
+                            @empty
+                                <div
+                                    class="w-full flex-shrink-0 md:border-t border-[rgba(232,194,98,0.28)] pt-8 pb-10 text-center px-4">
+                                    <div class="mb-5 flex justify-center">
+                                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">We
+                                        listen</h3>
+                                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">Your goals, your story, your
+                                        future.</p>
+                                </div>
+
+                                <div
+                                    class="w-full flex-shrink-0 md:border-t border-[rgba(232,194,98,0.28)] pt-8 pb-10 text-center px-4">
+                                    <div class="mb-5 flex justify-center">
+                                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 6.75h.008v.008H12V6.75zM10.5 10.5h1.5v4.5h1.5M3.75 15.75l4.28-1.07a2.25 2.25 0 011.01 0l2.46.615a2.25 2.25 0 00.91 0l4.688-1.172a1.875 1.875 0 012.322 1.819V16.5a1.5 1.5 0 01-1.136 1.455l-6.14 1.535a6.75 6.75 0 01-2.877.07l-5.518-1.104V15.75zM7.5 15V9.75A2.25 2.25 0 019.75 7.5h4.5a2.25 2.25 0 012.25 2.25V12" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">We
+                                        simplify</h3>
+                                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">Clear advice, no jargon, tailored
+                                        options.</p>
+                                </div>
+
+                                <div
+                                    class="w-full flex-shrink-0 border-t border-[rgba(232,194,98,0.28)] pt-8 pb-10 text-center px-4">
+                                    <div class="mb-5 flex justify-center">
+                                        <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 3v18M12 5.25h6.878a.75.75 0 01.53 1.28L16.5 9.438l2.908 2.908a.75.75 0 01-.53 1.28H12m0-8.376H6.375a.75.75 0 00-.53 1.28L8.25 9l-2.405 2.47a.75.75 0 00.53 1.28H12" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">We
+                                        guide</h3>
+                                    <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">From application to approval (and
+                                        beyond).</p>
+                                </div>
+                            @endforelse
                         </div>
-
-                        <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                            We guide
-                        </h3>
-
-                        <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                            From application to approval (and beyond).
-                        </p>
                     </div>
-                @endforelse
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const carousel = document.getElementById('featuresCarousel');
+                            const indicatorsContainer = document.getElementById('slideIndicators');
+                            const carouselContainer = carousel.parentElement;
+
+                            const items = carousel.querySelectorAll('[class*="flex-shrink-0"]');
+                            const totalItems = items.length;
+                            let currentIndex = 0;
+                            let touchStartX = 0;
+                            let touchEndX = 0;
+
+                            // Create slide indicator segments
+                            for (let i = 0; i < totalItems; i++) {
+                                const segment = document.createElement('div');
+                                segment.className =
+                                    `flex-1 h-0.5 rounded-full transition-all ${i === 0 ? 'bg-[#F9CF6C]' : 'bg-[rgba(228,191,98,0.2)]'}`;
+                                segment.setAttribute('data-slide', i);
+                                indicatorsContainer.appendChild(segment);
+                            }
+
+                            const updateCarousel = () => {
+                                const offset = currentIndex * -100;
+                                carousel.style.transform = `translateX(${offset}%)`;
+
+                                // Update indicator segments
+                                const segments = indicatorsContainer.querySelectorAll('div');
+                                segments.forEach((segment, index) => {
+                                    if (index === currentIndex) {
+                                        segment.className = 'flex-1 h-0.5 rounded-full transition-all bg-[#F9CF6C]';
+                                    } else {
+                                        segment.className =
+                                            'flex-1 h-0.5 rounded-full transition-all bg-[rgba(228,191,98,0.2)]';
+                                    }
+                                });
+                            };
+
+                            // Touch swipe handlers
+                            carouselContainer.addEventListener('touchstart', (e) => {
+                                touchStartX = e.changedTouches[0].screenX;
+                            }, false);
+
+                            carouselContainer.addEventListener('touchend', (e) => {
+                                touchEndX = e.changedTouches[0].screenX;
+                                handleSwipe();
+                            }, false);
+
+                            const handleSwipe = () => {
+                                const swipeThreshold = 50; // minimum distance for a swipe
+                                const diff = touchStartX - touchEndX;
+
+                                if (Math.abs(diff) > swipeThreshold) {
+                                    if (diff > 0) {
+                                        // Swiped left - go to next slide (infinite loop)
+                                        currentIndex = (currentIndex + 1) % totalItems;
+                                        updateCarousel();
+                                    } else {
+                                        // Swiped right - go to previous slide (infinite loop)
+                                        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+                                        updateCarousel();
+                                    }
+                                }
+                            };
+
+                            // Click on segments to jump to slide
+                            indicatorsContainer.querySelectorAll('div').forEach((segment) => {
+                                segment.addEventListener('click', () => {
+                                    currentIndex = parseInt(segment.getAttribute('data-slide'));
+                                    updateCarousel();
+                                });
+                            });
+
+                            // Initialize
+                            updateCarousel();
+                        });
+                    </script>
+                </div>
             </div>
 
-            <div class="bg-[#e4bf62] px-5 py-5 md:px-8">
+            <div class="bg-[#F9CF6C] px-5 py-5 md:px-8">
                 <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
                     <span class="text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                         Give us a call
@@ -478,7 +713,7 @@
             </div>
         </div>
     </section>
-    <section class="bg-[#efefef] text-[#3d2e12]">
+    <section class="text-[#3d2e12]">
         <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
             <h2 class="text-center text-[42px] font-light leading-[1.1] tracking-[-0.02em] md:text-[58px]">
                 {{ $main['reviews']['heading'] ?? 'What our customers are saying…' }}
@@ -486,7 +721,7 @@
 
             <div class="mt-12 md:mt-16">
                 <div class="reviews-plugin-wrap relative">
-                    {!! do_shortcode($main['reviews']['shortcode'] ?? '[your_reviews_plugin_shortcode_here]') !!}
+                    {!! do_shortcode('[trustindex no-registration=google]') !!}
                 </div>
             </div>
         </div>
@@ -508,7 +743,7 @@
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ esc_url($main['protect']['buttons']['mortgage'] ?? '#') }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
-                        Mortgage
+                        Mortgage1
                     </a>
 
                     <a href="{{ esc_url($main['protect']['buttons']['insurance'] ?? '#') }}"
@@ -527,7 +762,7 @@
         ]);
     @endphp
 
-    <section class="bg-[#efefef] text-[#3d2e12]">
+    <section class="text-[#3d2e12]">
         <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
             <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
@@ -601,14 +836,12 @@
         </div>
 
         <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
-            <div
-                class="select-none text-[180px] font-light tracking-[0.18em] text-[#e0b84f] md:text-[260px] lg:text-[340px]">
-                B M
-            </div>
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop"
+                alt="Close-up of a house exterior" class="h-full w-full object-cover">
         </div>
 
         <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">
-            <div class="grid grid-cols-2 gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
+            <div class="grid gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
                 @forelse ($main['statistics'] ?? [] as $statistic)
                     <div>
                         <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">

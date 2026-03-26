@@ -27,7 +27,7 @@ class Service extends Composer
             'parentTitle' => $this->getParentTitle($postId),
             'parentUrl' => $this->getParentUrl($postId),
             'intro' => $this->getIntroData($postId),
-            'highlight' => $this->getAcfFieldSafe('highlight_text', $postId, 'LET US PAVE THE PATH TO YOUR DREAM HOME WITH CLARITY, CONFIDENCE AND PEACE OF MIND!'),
+            'highlight' => $this->getAcfFieldSafe('highlight_text', $postId, ''),
             'heroImage' => $this->getHeroImage($postId),
             'relatedServices' => $this->getRelatedServices($postId),
             'cta' => $this->getCtaData($postId),
@@ -36,9 +36,9 @@ class Service extends Composer
 
     private function getIntroData($postId)
     {
-        $introLeftDefault = 'First-time home buying shouldn\'t be shrouded in mystery! We understand the complexities of navigating the mortgage process. Our team of dedicated professionals will break down your financing options into clear and concise terms, ensuring you make informed decisions towards achieving homeownership. Buying a home is a significant financial decision, and we\'re here to help you make an informed one.';
+        $introLeftDefault = '';
 
-        $introRightDefault = 'We have extensive experience in helping first-time homebuyers and experienced homeowners achieve their financial goals. We take the time to understand your unique financial situation and goals, tailoring our recommendations to fit your needs. We work with a variety of lenders to offer you a wide range of mortgage products, ensuring you find the best fit for your circumstances. We handle all the paperwork and negotiations, making the mortgage process as smooth and stress-free as possible.';
+        $introRightDefault = '';
 
         return [
             'left' => $this->getAcfFieldSafe('intro_left', $postId, $introLeftDefault),

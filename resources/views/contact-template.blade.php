@@ -93,6 +93,21 @@ Template Name: Contact Template
             </div>
         </div>
     </section>
+    <section class="relative overflow-hidden min-h-135">
+        <div class="absolute inset-0">
+            <img src={{ $contact['banner']['image'] }} alt="Aerial view of homes" class="h-full w-full object-cover" />
+            <div class="absolute inset-0 bg-[rgba(73,56,19,0.58)]"></div>
+        </div>
+
+        <div
+            class="relative z-10 mx-auto flex min-h-90 max-w-181.5 items-center justify-center px-6 py-16 text-center md:min-h-135 md:px-10 lg:px-16">
+            <div class="max-w-215">
+                <h2 class="text-[42px] font-light leading-[1.15] text-white md:text-[60px]">
+                    {!! $contact['banner']['content'] !!}
+                </h2>
+            </div>
+        </div>
+    </section>
 @endsection
 
 

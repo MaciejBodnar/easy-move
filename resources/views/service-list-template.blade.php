@@ -13,7 +13,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <section class="bg-[#efefef] text-[#3d2e12]">
+    <section class="text-[#3d2e12]">
         <div class="mx-auto max-w-260 px-6 py-14 md:px-10 md:py-16 lg:px-12 lg:py-20">
             <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#8b7a57]">
                 <ol class="flex flex-wrap items-center gap-1">
@@ -53,7 +53,7 @@
 
                     <article
                         class="grid gap-20 md:grid-cols-[280px_minmax(0,1fr)] md:gap-34 lg:grid-cols-[320px_minmax(0,1fr)]">
-                        <div class="overflow-hidden bg-[#ddd]">
+                        <div class="overflow-hidden">
                             @if ($itemImage)
                                 <img src="{{ esc_url($itemImage) }}" alt="{{ esc_attr($itemTitle) }}"
                                     class="h-65 w-full md:w-87.5 object-cover md:h-96" />

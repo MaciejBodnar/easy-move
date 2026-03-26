@@ -31,6 +31,10 @@ class AcfFieldsServiceProvider extends ServiceProvider
      */
     public function registerFieldGroups(): void
     {
+        $this->registerOptionsPages();
+
+        $this->registerHeaderFooterOptionsGroup();
+
         acf_add_local_field_group([
             'key' => 'group_front_page',
             'title' => 'Front Page',
@@ -1410,6 +1414,361 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'type' => 'text',
                     'required' => 0,
                     'default_value' => 'No posts found.',
+                ],
+            ],
+        ]);
+    }
+
+    private function registerOptionsPages(): void
+    {
+        if (! function_exists('acf_add_options_page')) {
+            return;
+        }
+
+        acf_add_options_page([
+            'page_title' => 'Theme Settings',
+            'menu_title' => 'Theme Settings',
+            'menu_slug' => 'theme-settings',
+            'capability' => 'edit_posts',
+            'redirect' => false,
+            'position' => 58,
+            'icon_url' => 'dashicons-admin-generic',
+        ]);
+    }
+
+    private function registerHeaderFooterOptionsGroup(): void
+    {
+        acf_add_local_field_group([
+            'key' => 'group_theme_header_footer',
+            'title' => 'Header & Footer Settings',
+            'location' => [
+                [
+                    [
+                        'param' => 'options_page',
+                        'operator' => '==',
+                        'value' => 'theme-settings',
+                    ],
+                ],
+            ],
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'fields' => [
+                [
+                    'key' => 'tab_hf_shared',
+                    'label' => 'Shared: Phone, Email, Socials',
+                    'name' => 'tab_hf_shared',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_hf_shared_phone',
+                    'label' => 'Default Phone Number',
+                    'name' => 'hf_shared_phone',
+                    'type' => 'text',
+                    'default_value' => '07555 641 081',
+                ],
+                [
+                    'key' => 'field_hf_shared_email',
+                    'label' => 'Default Email Address',
+                    'name' => 'hf_shared_email',
+                    'type' => 'email',
+                    'default_value' => 'tomasz@emove-fs.co.uk',
+                ],
+                [
+                    'key' => 'field_hf_shared_socials',
+                    'label' => 'Social Links',
+                    'name' => 'hf_shared_socials',
+                    'type' => 'repeater',
+                    'layout' => 'table',
+                    'button_label' => 'Add Social Link',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_hf_shared_social_label',
+                            'label' => 'Label',
+                            'name' => 'label',
+                            'type' => 'text',
+                            'default_value' => 'Facebook',
+                            'wrapper' => ['width' => '25'],
+                        ],
+                        [
+                            'key' => 'field_hf_shared_social_url',
+                            'label' => 'URL',
+                            'name' => 'url',
+                            'type' => 'url',
+                            'wrapper' => ['width' => '45'],
+                        ],
+                        [
+                            'key' => 'field_hf_shared_social_icon',
+                            'label' => 'Icon Class',
+                            'name' => 'icon_class',
+                            'type' => 'text',
+                            'instructions' => 'Example: fa-brands fa-facebook-f',
+                            'default_value' => 'fa-brands fa-facebook-f',
+                            'wrapper' => ['width' => '30'],
+                        ],
+                    ],
+                ],
+                [
+                    'key' => 'tab_hf_pl_header',
+                    'label' => 'Polish Header',
+                    'name' => 'tab_hf_pl_header',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_hf_pl_header_phone',
+                    'label' => 'Phone Override',
+                    'name' => 'hf_pl_header_phone',
+                    'type' => 'text',
+                    'instructions' => 'Optional. If empty, shared default phone is used.',
+                ],
+                [
+                    'key' => 'field_hf_pl_header_email',
+                    'label' => 'Email Override',
+                    'name' => 'hf_pl_header_email',
+                    'type' => 'email',
+                    'instructions' => 'Optional. If empty, shared default email is used.',
+                ],
+                [
+                    'key' => 'field_hf_pl_header_logo',
+                    'label' => 'Header Logo',
+                    'name' => 'hf_pl_header_logo',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'preview_size' => 'thumbnail',
+                ],
+                [
+                    'key' => 'tab_hf_pl_footer',
+                    'label' => 'Polish Footer',
+                    'name' => 'tab_hf_pl_footer',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_office_title',
+                    'label' => 'Office Block Title',
+                    'name' => 'hf_pl_footer_office_title',
+                    'type' => 'text',
+                    'default_value' => 'Head Office',
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_office_address',
+                    'label' => 'Office Address',
+                    'name' => 'hf_pl_footer_office_address',
+                    'type' => 'textarea',
+                    'instructions' => 'HTML like <br> is allowed.',
+                    'rows' => 3,
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_columns',
+                    'label' => 'Footer Columns',
+                    'name' => 'hf_pl_footer_columns',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Footer Column',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_hf_pl_footer_column_title',
+                            'label' => 'Column Title',
+                            'name' => 'title',
+                            'type' => 'text',
+                        ],
+                        [
+                            'key' => 'field_hf_pl_footer_column_links',
+                            'label' => 'Links',
+                            'name' => 'links',
+                            'type' => 'repeater',
+                            'layout' => 'table',
+                            'button_label' => 'Add Link',
+                            'sub_fields' => [
+                                [
+                                    'key' => 'field_hf_pl_footer_column_link_label',
+                                    'label' => 'Label',
+                                    'name' => 'label',
+                                    'type' => 'text',
+                                    'wrapper' => ['width' => '40'],
+                                ],
+                                [
+                                    'key' => 'field_hf_pl_footer_column_link_url',
+                                    'label' => 'URL',
+                                    'name' => 'url',
+                                    'type' => 'url',
+                                    'wrapper' => ['width' => '60'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_legal',
+                    'label' => 'Legal Paragraphs',
+                    'name' => 'hf_pl_footer_legal',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Paragraph',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_hf_pl_footer_legal_text',
+                            'label' => 'Paragraph',
+                            'name' => 'text',
+                            'type' => 'textarea',
+                            'rows' => 3,
+                        ],
+                    ],
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_copyright',
+                    'label' => 'Copyright Text',
+                    'name' => 'hf_pl_footer_copyright',
+                    'type' => 'text',
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_privacy_label',
+                    'label' => 'Privacy Link Label',
+                    'name' => 'hf_pl_footer_privacy_label',
+                    'type' => 'text',
+                    'default_value' => 'Privacy Policy',
+                ],
+                [
+                    'key' => 'field_hf_pl_footer_privacy_url',
+                    'label' => 'Privacy Link URL',
+                    'name' => 'hf_pl_footer_privacy_url',
+                    'type' => 'url',
+                ],
+                [
+                    'key' => 'tab_hf_en_header',
+                    'label' => 'English Header',
+                    'name' => 'tab_hf_en_header',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_hf_en_header_phone',
+                    'label' => 'Phone Override',
+                    'name' => 'hf_en_header_phone',
+                    'type' => 'text',
+                    'instructions' => 'Optional. If empty, shared default phone is used.',
+                ],
+                [
+                    'key' => 'field_hf_en_header_email',
+                    'label' => 'Email Override',
+                    'name' => 'hf_en_header_email',
+                    'type' => 'email',
+                    'instructions' => 'Optional. If empty, shared default email is used.',
+                ],
+                [
+                    'key' => 'field_hf_en_header_logo',
+                    'label' => 'Header Logo',
+                    'name' => 'hf_en_header_logo',
+                    'type' => 'image',
+                    'return_format' => 'url',
+                    'preview_size' => 'thumbnail',
+                ],
+                [
+                    'key' => 'tab_hf_en_footer',
+                    'label' => 'English Footer',
+                    'name' => 'tab_hf_en_footer',
+                    'type' => 'tab',
+                    'placement' => 'top',
+                    'endpoint' => 1,
+                ],
+                [
+                    'key' => 'field_hf_en_footer_office_title',
+                    'label' => 'Office Block Title',
+                    'name' => 'hf_en_footer_office_title',
+                    'type' => 'text',
+                    'default_value' => 'Head Office',
+                ],
+                [
+                    'key' => 'field_hf_en_footer_office_address',
+                    'label' => 'Office Address',
+                    'name' => 'hf_en_footer_office_address',
+                    'type' => 'textarea',
+                    'instructions' => 'HTML like <br> is allowed.',
+                    'rows' => 3,
+                ],
+                [
+                    'key' => 'field_hf_en_footer_columns',
+                    'label' => 'Footer Columns',
+                    'name' => 'hf_en_footer_columns',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Footer Column',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_hf_en_footer_column_title',
+                            'label' => 'Column Title',
+                            'name' => 'title',
+                            'type' => 'text',
+                        ],
+                        [
+                            'key' => 'field_hf_en_footer_column_links',
+                            'label' => 'Links',
+                            'name' => 'links',
+                            'type' => 'repeater',
+                            'layout' => 'table',
+                            'button_label' => 'Add Link',
+                            'sub_fields' => [
+                                [
+                                    'key' => 'field_hf_en_footer_column_link_label',
+                                    'label' => 'Label',
+                                    'name' => 'label',
+                                    'type' => 'text',
+                                    'wrapper' => ['width' => '40'],
+                                ],
+                                [
+                                    'key' => 'field_hf_en_footer_column_link_url',
+                                    'label' => 'URL',
+                                    'name' => 'url',
+                                    'type' => 'url',
+                                    'wrapper' => ['width' => '60'],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                [
+                    'key' => 'field_hf_en_footer_legal',
+                    'label' => 'Legal Paragraphs',
+                    'name' => 'hf_en_footer_legal',
+                    'type' => 'repeater',
+                    'layout' => 'block',
+                    'button_label' => 'Add Paragraph',
+                    'sub_fields' => [
+                        [
+                            'key' => 'field_hf_en_footer_legal_text',
+                            'label' => 'Paragraph',
+                            'name' => 'text',
+                            'type' => 'textarea',
+                            'rows' => 3,
+                        ],
+                    ],
+                ],
+                [
+                    'key' => 'field_hf_en_footer_copyright',
+                    'label' => 'Copyright Text',
+                    'name' => 'hf_en_footer_copyright',
+                    'type' => 'text',
+                ],
+                [
+                    'key' => 'field_hf_en_footer_privacy_label',
+                    'label' => 'Privacy Link Label',
+                    'name' => 'hf_en_footer_privacy_label',
+                    'type' => 'text',
+                    'default_value' => 'Privacy Policy',
+                ],
+                [
+                    'key' => 'field_hf_en_footer_privacy_url',
+                    'label' => 'Privacy Link URL',
+                    'name' => 'hf_en_footer_privacy_url',
+                    'type' => 'url',
                 ],
             ],
         ]);

@@ -45,19 +45,17 @@
                 </div>
             </div>
 
-            <div class="mt-10 max-w-215 lg:mt-12">
+            <div class="mt-10 w-full lg:mt-12">
                 <div
                     class="blog-post-content prose prose-neutral max-w-none
-          prose-p:text-[15px] prose-p:leading-[1.9] prose-p:text-[#6d675e]
           prose-headings:font-normal prose-headings:text-[#b78d2f]
-          prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-[20px]
-          prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-[18px]
+          prose-h2:mt-10 prose-h2:mb-4 prose-h2:text-[28px]
+          prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-[24px]
           prose-strong:text-[#5f5648]
           prose-a:text-[#b78d2f] hover:prose-a:text-[#8f6a18]
           prose-ul:my-5 prose-ol:my-5
-          prose-li:text-[15px] prose-li:leading-[1.9] prose-li:text-[#6d675e]
-          prose-ol:pl-6 prose-ul:pl-6
-          prose-blockquote:border-l-[#d8b15a] prose-blockquote:text-[#6d675e]">
+          prose-ol:pl-8 prose-ul:pl-8
+          prose-blockquote:border-l-[#d8b15a]">
                     {!! $post['content'] !!}
                 </div>
             </div>

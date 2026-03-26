@@ -24,6 +24,7 @@ class Contact extends Composer
         return [
             'heading' => $this->getAcfFieldSafe('contact_page_heading', $postId, 'Contact'),
             'office' => $this->getOfficeData($postId),
+            'banner' => $this->getBannerData(),
             'phone' => $this->getAcfFieldSafe('contact_phone', $postId, '07555 641 081'),
             'email' => $this->getAcfFieldSafe('contact_email', $postId, 'tomasz@emove-fs.co.uk'),
             'socialLinks' => $this->getSocialLinksData($postId),
@@ -48,6 +49,13 @@ class Contact extends Composer
             'linkedin' => $this->getAcfFieldSafe('social_linkedin', $postId, '#'),
         ];
     }
+    private function getBannerData()
+    {
+        return [
+            'image' => $this->getAcfImageSafe('contact_banner_image', null, 'full', get_template_directory_uri() . "/resources/images/bottomBanner.png"),
+            'content' => $this->getAcfFieldSafe('contact_banner_content', null, 'We can\'t wait to hear from you!'),
+        ];
+    }
 
     private function getAcfFieldSafe($field_name, $post_id = false, $fallback = null)
     {
@@ -56,5 +64,29 @@ class Contact extends Composer
             return !empty($value) ? $value : $fallback;
         }
         return $fallback;
+    }
+    private function getAcfImageSafe($field_name, $post_id = false, $size = 'full', $fallback_url = '')
+    {
+        if (function_exists('get_field')) {
+            $image = \get_field($field_name, $post_id);
+
+            if ($image) {
+                if (is_array($image) && isset($image['url'])) {
+                    return $image['url'];
+                } elseif (is_string($image)) {
+                    return wp_get_attachment_image_url($image, $size) ?: $image;
+                } elseif (is_numeric($image)) {
+                    $url = \wp_get_attachment_image_url($image, $size);
+
+                    if (!$url) {
+                        $url = \wp_get_attachment_url($image);
+                    }
+
+                    return $url ?: $fallback_url;
+                }
+            }
+        }
+
+        return $fallback_url;
     }
 }

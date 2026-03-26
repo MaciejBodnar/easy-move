@@ -5,16 +5,16 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bg-[#f6f6f4] text-[#4b3b12]">
+    <div class="text-[#4b3b12]">
         <section class="mx-auto max-w-275 px-6 pb-0 pt-10 md:px-8 md:pt-14 lg:px-10">
             <div class="mb-4 text-[18px] text-[#b7a16a] md:mb-6">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
                 <span class="mx-1">-</span>
-                <span class="text-[#7c6a3b]">About us</span>
+                <span class="text-[#7c6a3b]">{{ $about['pageTitle'] }}</span>
             </div>
 
             <h1 class="mb-10 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-14 md:text-[56px]">
-                {{ $about['pageTitle'] ?? 'About us' }}
+                {{ $about['pageTitle'] }}
             </h1>
 
             <div class="grid grid-cols-1 gap-y-10 gap-x-12 md:grid-cols-2 lg:gap-x-20">
@@ -59,11 +59,10 @@
         </section>
 
         <section class="relative mt-50 bg-[#3c2c05] pb-0 pt-27.5 lg:pt-45">
-            <div
-                class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] px-6 md:px-8 lg:px-10">
+            <div class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] md:px-8 lg:px-10">
                 <div class="overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
-                    <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1600&auto=format&fit=crop"
-                        alt="Mortgage advisor meeting with clients" class="h-55 w-full object-cover md:h-80 lg:h-90">
+                    <img src="{{ $about['heroImage'] }}" alt="Mortgage advisor meeting with clients"
+                        class="h-55 w-full object-cover md:h-80 lg:h-90">
                 </div>
             </div>
 
@@ -79,20 +78,16 @@
                         <div class="border-t border-[rgba(232,194,98,0.28)] pt-8 text-center md:text-left">
                             <div class="mb-5 flex justify-center md:justify-start">
                                 <div class="flex h-14 w-14 items-center justify-center text-[#f0c75b]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-11 w-11" fill="none"
-                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M8.625 9h6.75M8.625 12.75h4.5M7.5 19.5l-3 1.5V6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v7.5a2.25 2.25 0 01-2.25 2.25H10.5L7.5 19.5z" />
-                                    </svg>
+                                    <img src="{{ $feature['icon'] }}" alt="{{ $feature['title'] }}" class="h-11 w-11">
                                 </div>
                             </div>
 
                             <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
-                                {{ $feature['title'] ?? '' }}
+                                {{ $feature['title'] }}
                             </h3>
 
                             <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
-                                {{ $feature['description'] ?? '' }}
+                                {{ $feature['description'] }}
                             </p>
                         </div>
                     @empty
@@ -161,22 +156,17 @@
                 <div class="bg-[#e4bf62] px-5 py-5 md:px-8">
                     <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
                         <span class="text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
-                            Give us a call
+                            {{ $about['contact']['heading'] }}
                         </span>
 
-                        @php
-                            $aboutPhone = $about['contact']['phone'] ?? '07555 641 081';
-                            $aboutPhoneHref = preg_replace('/\s+/', '', $aboutPhone);
-                        @endphp
-
-                        <a href="tel:{{ $aboutPhoneHref }}"
+                        <a href="tel:{{ $about['contact']['phone'] }}"
                             class="inline-flex items-center gap-2 text-[16px] font-medium text-[#4a3910] transition hover:opacity-80">
                             <i class="fa-solid fa-phone text-[14px]"></i>
-                            {{ $aboutPhone }}
+                            {{ $about['contact']['phone'] }}
                         </a>
 
                         <span class="text-[15px] text-[#4a3910]">
-                            {{ $about['contact']['hours'] ?? 'Open Mon-Fri, 9:00-17:00' }}
+                            {{ $about['contact']['hours'] }}
                         </span>
                     </div>
                 </div>
@@ -192,7 +182,7 @@
                 </div>
 
                 <div class="relative mt-10 md:mt-14">
-                    {!! do_shortcode($about['testimonials']['shortcode'] ?? '[your-testimonials-plugin-shortcode]') !!}
+                    {!! do_shortcode('[trustindex no-registration=google]') !!}
                 </div>
             </div>
 
@@ -202,10 +192,7 @@
                 </div>
 
                 <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
-                    <div
-                        class="select-none text-[180px] font-light tracking-[0.18em] text-[#e0b84f] md:text-[260px] lg:text-[340px]">
-                        B M
-                    </div>
+                    <img src="{{ $about['statisticsBackgroundImage'] }}" alt="Happy customers" class="w-full object-cover">
                 </div>
 
                 <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">

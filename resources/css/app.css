@@ -49,13 +49,39 @@ a {
     color: #b78d2f;
   }
 
-  .blog-post-content ul,
+  .blog-post-content h2 {
+    font-size: 28px;
+  }
+
+  .blog-post-content h3 {
+    font-size: 24px;
+  }
+
+  .blog-post-content p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #6d675e;
+  }
+
+  .blog-post-content ul {
+    padding-left: 2rem;
+    list-style-type: circle;
+  }
+
   .blog-post-content ol {
-    padding-left: 1.25rem;
+    padding-left: 2rem;
+    list-style: decimal;
+  }
+
+  .blog-post-content li {
+    font-size: 18px;
+    line-height: 1.9;
+    color: #6d675e;
   }
 
   .blog-post-content li::marker {
     color: #8c816d;
+    font-size: 18px;
   }
 }
 
@@ -74,4 +100,13 @@ a {
   .footer-link-block:hover {
     color: #efc75d;
   }
+}
+
+
+.ti-platform-icon {
+  display: none !important;
+}
+
+.ti-controls-line {
+  margin: 0, 0, 0, 0 !important;
 }

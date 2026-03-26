@@ -3,14 +3,14 @@
 --}}
 
 @php
-    $homeUrl = home_url(‘ / ’);
-    $homeLabel = get_bloginfo(‘name’);
+    $homeUrl = home_url(' / ');
+    $homeLabel = 'Home';
 @endphp
 
 @extends('layouts.app')
 
 @section('content')
-    <section class="bg-[#efefef] text-[#3d2e12]">
+    <section class="text-[#3d2e12]">
         <div class="mx-auto max-w-260 px-6 pt-14 pb-0 md:px-10 md:pt-16 lg:px-12 lg:pt-20">
             <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#b9a36b]">
                 <ol class="flex flex-wrap items-center gap-1">
@@ -44,7 +44,8 @@
                 </h1>
             </header>
 
-            <div class="mt-12 grid gap-8 md:mt-14 md:grid-cols-2 md:gap-10 lg:gap-14">
+            <div
+                class="mt-12 grid gap-8 md:mt-14 {{ (bool) $service['intro']['left'] && (bool) $service['intro']['right'] ? 'md:grid-cols-2' : 'md:grid-cols-1' }} md:gap-10 lg:gap-14">
                 <div class="text-[15px] leading-8 text-[#6d6047]">
                     <p>{{ $service['intro']['left'] }}</p>
                 </div>
@@ -61,7 +62,7 @@
             </div>
 
             <div class="relative z-10 mt-12 md:mt-16">
-                <div class="overflow-hidden bg-[#ddd]">
+                <div class="overflow-hidden ">
                     @if ($service['heroImage'])
                         <img src="{{ esc_url($service['heroImage']) }}" alt="{{ esc_attr($service['pageTitle']) }}"
                             class="h-65 w-full object-cover md:h-90" />
@@ -81,7 +82,7 @@
             class="-mt-12 bg-[linear-gradient(90deg,#2f2309_0%,#4a360a_50%,#2f2309_100%)] pt-24 pb-16 md:-mt-16 md:pt-32 md:pb-20">
             <div class="mx-auto max-w-260 px-6 md:px-10 lg:px-12">
                 <h2 class="text-center text-[42px] font-light leading-none text-[#e6c15a] md:text-[58px]">
-                    More mortgages!
+                    {{ $service['relatedServicesHeading'] }}
                 </h2>
 
                 <div class="mt-12 grid gap-8 md:mt-14 md:grid-cols-3 md:gap-4 lg:gap-6">
@@ -100,8 +101,7 @@
                                 <div class="pointer-events-none absolute top-1 left-1 h-96 w-full bg-[#F9CF6C]"
                                     aria-hidden="true"></div>
 
-                                <a href="{{ esc_url($url) }}"
-                                    class="relative z-10 block h-96 w-full overflow-hidden bg-[#ddd]">
+                                <a href="{{ esc_url($url) }}" class="relative z-10 block h-96 w-full overflow-hidden">
                                     @if ($image)
                                         <img src="{{ esc_url($image) }}" alt="{{ esc_attr($title) }}"
                                             class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
@@ -143,18 +143,18 @@
             class="relative z-10 mx-auto flex min-h-90 max-w-7xl items-center justify-center px-6 py-16 text-center md:min-h-135 md:px-10 lg:px-16">
             <div class="max-w-215">
                 <h2 class="text-[42px] font-light leading-[1.15] text-white md:text-[60px]">
-                    {!! $service[‘cta’][‘heading’] !!}
+                    {!! $service['cta']['heading'] !!}
                 </h2>
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="{{ esc_url($service[‘cta’][‘mortgageUrl’]) }}"
+                    <a href="{{ esc_url($service['cta']['mortgageUrl']) }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
-                        {{ $service[‘cta’][‘mortgageText’] }}
+                        {{ $service['cta']['mortgageText'] }}
                     </a>
 
-                    <a href="{{ esc_url($service[‘cta’][‘insuranceUrl’]) }}"
+                    <a href="{{ esc_url($service['cta']['insuranceUrl']) }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
-                        {{ $service[‘cta’][‘insuranceText’] }}
+                        {{ $service['cta']['insuranceText'] }}
                     </a>
                 </div>
             </div>

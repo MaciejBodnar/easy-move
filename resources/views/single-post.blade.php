@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <article @php(post_class('bg-[#f6f6f4]'))>
+    <article @php(post_class(''))>
         <div class="mx-auto max-w-295 px-6 pb-16 pt-10 md:px-8 md:pb-20 md:pt-12 lg:px-10 lg:pb-24">
             <div class="mb-8 text-[18px] leading-relaxed text-[#9f926f]">
                 <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>

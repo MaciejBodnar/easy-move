@@ -55,11 +55,26 @@ document.addEventListener('DOMContentLoaded', () => {
     },
   };
 
+  const openImageStage = document.getElementById('openImageStage');
+  const forcedMortgageMedia =
+    openImageStage?.dataset?.mortgageMedia?.trim() || '';
+  const forcedInsuranceMedia =
+    openImageStage?.dataset?.insuranceMedia?.trim() || '';
+
+  if (forcedMortgageMedia) {
+    data.mortgages.image = forcedMortgageMedia;
+  }
+
+  if (forcedInsuranceMedia) {
+    data.insurance.image = forcedInsuranceMedia;
+  }
+
   const els = {
     openImageA: document.getElementById('openImageA'),
     openImageB: document.getElementById('openImageB'),
     openLogoTop: document.getElementById('openLogoTop'),
     openLogoBottom: document.getElementById('openLogoBottom'),
+    openMobileLabel: document.getElementById('openMobileLabel'),
     openEyebrow: document.getElementById('openEyebrow'),
     openTitle: document.getElementById('openTitle'),
     openText: document.getElementById('openText'),
@@ -86,10 +101,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const imageLayers = [els.openImageA, els.openImageB];
 
+  function isVideoSource(src) {
+    return /\.(mp4|mov|webm|ogg)(\?.*)?$/i.test(src || '');
+  }
+
   function preloadImage(src) {
     return new Promise((resolve) => {
       if (!src) {
         resolve();
+        return;
+      }
+
+      if (isVideoSource(src)) {
+        const video = document.createElement('video');
+        let settled = false;
+
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          resolve();
+        };
+
+        video.preload = 'metadata';
+        video.muted = true;
+        video.playsInline = true;
+        video.onloadeddata = finish;
+        video.onerror = finish;
+        video.src = src;
+        video.load();
+
         return;
       }
 
@@ -113,14 +153,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function setLayerSource(layer, src) {
+    if (!layer || !src) return;
+
+    if (layer.tagName === 'VIDEO') {
+      if (layer.dataset.src !== src) {
+        layer.src = src;
+        layer.load();
+      }
+
+      layer.dataset.src = src;
+      layer.muted = true;
+      layer.loop = true;
+      layer.playsInline = true;
+
+      const playPromise = layer.play();
+      if (playPromise && typeof playPromise.catch === 'function') {
+        playPromise.catch(() => {});
+      }
+
+      return;
+    }
+
+    layer.src = src;
+    layer.dataset.src = src;
+  }
+
   function setOpenImageInstant(src) {
     if (!src) return;
 
     const activeLayer = imageLayers[activeImageIndex];
     const idleLayer = imageLayers[activeImageIndex === 0 ? 1 : 0];
 
-    activeLayer.src = src;
-    activeLayer.dataset.src = src;
+    setLayerSource(activeLayer, src);
     activeLayer.classList.add('is-active');
 
     idleLayer.classList.remove('is-active');
@@ -145,8 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      nextLayer.src = src;
-      nextLayer.dataset.src = src;
+      setLayerSource(nextLayer, src);
 
       requestAnimationFrame(() => {
         nextLayer.classList.add('is-active');
@@ -159,6 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function fillOpen(item) {
     els.openLogoTop.textContent = item.logoTop || '';
     els.openLogoBottom.textContent = item.logoBottom || '';
+    if (els.openMobileLabel) {
+      els.openMobileLabel.textContent = item.eyebrow || '';
+    }
     els.openEyebrow.textContent = item.eyebrow || '';
     els.openTitle.innerHTML = item.title || '';
     els.openText.innerHTML = item.text || '';

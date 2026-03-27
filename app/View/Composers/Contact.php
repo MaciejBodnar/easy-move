@@ -24,7 +24,7 @@ class Contact extends Composer
         return [
             'heading' => $this->getAcfFieldSafe('contact_page_heading', $postId, 'Contact'),
             'office' => $this->getOfficeData($postId),
-            'banner' => $this->getBannerData(),
+            'banner' => $this->getBannerData($postId),
             'phone' => $this->getAcfFieldSafe('contact_phone', $postId, '07555 641 081'),
             'email' => $this->getAcfFieldSafe('contact_email', $postId, 'tomasz@emove-fs.co.uk'),
             'socialLinks' => $this->getSocialLinksData($postId),
@@ -49,11 +49,11 @@ class Contact extends Composer
             'linkedin' => $this->getAcfFieldSafe('social_linkedin', $postId, '#'),
         ];
     }
-    private function getBannerData()
+    private function getBannerData($postId)
     {
         return [
-            'image' => $this->getAcfImageSafe('contact_banner_image', null, 'full', get_template_directory_uri() . "/resources/images/bottomBanner.png"),
-            'content' => $this->getAcfFieldSafe('contact_banner_content', null, 'We can\'t wait to hear from you!'),
+            'image' => $this->getAcfImageSafe('contact_banner_image', $postId, 'full', get_template_directory_uri() . "/resources/images/bottomBanner.png"),
+            'content' => $this->getAcfFieldSafe('contact_banner_content', $postId, 'We can\'t wait to hear from you!'),
         ];
     }
 

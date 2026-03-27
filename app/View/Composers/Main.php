@@ -156,6 +156,8 @@ class Main extends Composer
             'buttons' => [
                 'mortgage' => $this->formatUrl($this->getAcfFieldSafe('protect_mortgage_url', $postId, '#')),
                 'insurance' => $this->formatUrl($this->getAcfFieldSafe('protect_insurance_url', $postId, '#')),
+                'mortgageText' => $this->getAcfFieldSafe('protect_mortgage_text', $postId, 'Mortgage'),
+                'insuranceText' => $this->getAcfFieldSafe('protect_insurance_text', $postId, 'Insurance'),
             ],
         ];
     }
@@ -202,6 +204,8 @@ class Main extends Composer
         return [
             'heading' => $this->getAcfFieldSafe('blog_heading', $postId, 'Blog & Articles'),
             'postsCount' => (int) $this->getAcfFieldSafe('blog_posts_count', $postId, 3),
+            'readMoreText' => $this->getAcfFieldSafe('front_blog_read_more_text', $postId, 'Read more'),
+            'archiveButtonText' => $this->getAcfFieldSafe('front_blog_archive_button_text', $postId, 'See all articles'),
         ];
     }
 

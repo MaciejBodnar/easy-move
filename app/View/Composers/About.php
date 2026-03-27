@@ -23,6 +23,12 @@ class About extends Composer
 
         return [
             'pageTitle' => $this->getAcfFieldSafe('about_page_title', $postId, 'About us'),
+            'heroImage' => $this->getAcfImageSafe(
+                'about_hero_image',
+                $postId,
+                'full',
+                'https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1600&auto=format&fit=crop'
+            ),
             'whyUs' => [
                 'heading' => $this->getAcfFieldSafe('about_why_us_heading', $postId, 'Why us?'),
                 'text' => $this->getAcfFieldSafe('about_why_us_text', $postId, ''),
@@ -41,9 +47,16 @@ class About extends Composer
                 'features' => $this->getAboutFeaturesData($postId),
             ],
             'contact' => [
+                'heading' => $this->getAcfFieldSafe('about_contact_heading', $postId, 'Give us a call'),
                 'phone' => $this->getAcfFieldSafe('about_contact_phone', $postId, '07555 641 081'),
                 'hours' => $this->getAcfFieldSafe('about_contact_hours', $postId, 'Open Mon-Fri, 9:00-17:00'),
             ],
+            'statisticsBackgroundImage' => $this->getAcfImageSafe(
+                'about_statistics_background_image',
+                $postId,
+                'full',
+                'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop'
+            ),
             'statistics' => $this->getAboutStatisticsData($postId),
             'testimonials' => [
                 'heading' => $this->getAcfFieldSafe('about_testimonials_heading', $postId, 'What our customers are saying…'),
@@ -115,5 +128,34 @@ class About extends Composer
             return !empty($value) ? $value : $fallback;
         }
         return $fallback;
+    }
+
+    private function getAcfImageSafe($field_name, $post_id = false, $size = 'full', $fallback_url = '')
+    {
+        if (function_exists('get_field')) {
+            $image = \get_field($field_name, $post_id);
+
+            if ($image) {
+                if (is_array($image) && isset($image['url'])) {
+                    return $image['url'];
+                }
+
+                if (is_string($image)) {
+                    return wp_get_attachment_image_url($image, $size) ?: $image;
+                }
+
+                if (is_numeric($image)) {
+                    $url = \wp_get_attachment_image_url($image, $size);
+
+                    if (!$url) {
+                        $url = \wp_get_attachment_url($image);
+                    }
+
+                    return $url ?: $fallback_url;
+                }
+            }
+        }
+
+        return $fallback_url;
     }
 }

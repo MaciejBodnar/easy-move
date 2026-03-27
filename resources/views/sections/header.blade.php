@@ -165,7 +165,7 @@
     </div>
 
     <div class="header-gradient border-t border-[rgba(255,255,255,0.08)]">
-        <div class="mx-auto flex max-w-350 items-center gap-20 px-4 py-6 md:px-6 lg:px-10">
+        <div class="mx-auto flex justify-between max-w-350 items-center gap-20 px-4 py-6 md:px-6 lg:px-10">
             <a href="{{ home_url('/') }}" class="shrink-0">
                 <img src="{{ esc_url($headerLogo) }}" alt="Easy Move Logo">
             </a>
@@ -184,7 +184,7 @@
             </div>
 
             <button type="button" @click="toggleMobile()"
-                class="inline-flex h-11 w-11 items-center justify-center text-white lg:hidden" aria-label="Toggle menu"
+                class="inline-flex h-11 w-11 items-center text-white lg:hidden" aria-label="Toggle menu"
                 :aria-expanded="mobileOpen ? 'true' : 'false'">
                 <svg x-show="!mobileOpen" xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
@@ -212,7 +212,7 @@
                 ]) !!}
             @endif
 
-            <div class="mt-6 flex items-center gap-5 border-t border-[rgba(214,190,126,0.2)] pt-5 text-[#d2bb7b]">
+            <div class="mt-6 flex items-center gap-5 pt-5 text-[#d2bb7b]">
                 @foreach ($socialLinks as $socialLink)
                     <a href="{{ esc_url($socialLink['url'] ?? '#') }}"
                         aria-label="{{ esc_attr($socialLink['label'] ?? 'Social') }}"

@@ -110,3 +110,233 @@ a {
 .ti-controls-line {
   margin: 0, 0, 0, 0 !important;
 }
+
+/* =========================
+   TRUSTINDEX REVIEWS - DESKTOP STYLE
+   ========================= */
+
+.reviews-plugin-wrap .ti-widget.ti-goog {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-widget-container,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-reviews-container,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-reviews-container-wrapper {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* slider area */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-reviews-container {
+  position: relative;
+  padding: 0 56px !important; /* room for left/right arrows */
+}
+
+/* make cards small and inline like screenshot */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-review-item {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 14px !important;
+  box-sizing: border-box !important;
+  vertical-align: top !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-inner {
+  padding: 0 !important;
+  background: transparent !important;
+  min-height: 0 !important;
+}
+
+/* content */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-review-content {
+  padding: 0 !important;
+  margin: 0 0 8px !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-stars {
+  display: flex !important;
+  gap: 2px;
+  margin: 0 0 8px !important;
+  line-height: 1;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-star {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-review-text {
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+  color: #3b332b !important;
+  margin: 0 !important;
+
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 6 !important;
+  overflow: hidden !important;
+
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* author/date */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-review-header {
+  margin-top: 10px !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-profile-details {
+  display: block !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-name {
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  color: #b6872b !important;
+  margin: 0 0 3px !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-date {
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+  color: #8b8b8b !important;
+  margin: 0 !important;
+}
+
+/* hide extras */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-read-more,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-platform-icon,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-controls-line {
+  display: none !important;
+}
+
+/* arrows */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-controls {
+  display: block !important;
+}
+
+.ti-widget.ti-goog .ti-controls {
+  position: relative !important;
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-prev,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-next {
+  width: 80px !important;
+  height: 80px !important;
+  border: 1px solid #c7b79d !important;
+  border-radius: 50% !important;
+  background: #f7f4ef !important;
+  position: absolute !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* left arrow */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-prev {
+  left: 0 !important;
+}
+
+/* right arrow */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-next {
+  right: 0 !important;
+}
+
+/* remove default arrow shapes if plugin adds them weirdly */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-prev:before,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-next:before,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-prev:after,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-next:after {
+  content: "" !important;
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid #8d7758;
+  border-right: 1.5px solid #8d7758;
+}
+
+/* custom chevrons */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-prev:after {
+  left: 12px;
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-next:after {
+  right: 12px;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* remove odd shapes */
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-review-header::before,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-review-content::before,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-inner::before,
+.reviews-plugin-wrap .ti-widget.ti-goog .ti-inner::after {
+  display: none !important;
+  content: none !important;
+}
+
+
+
+/* tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-reviews-container {
+    padding: 0 44px !important;
+  }
+
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-review-item {
+    width: 33.333% !important;
+    min-width: 33.333% !important;
+    max-width: 33.333% !important;
+    padding: 0 10px !important;
+  }
+}
+
+/* mobile */
+@media (max-width: 767px) {
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-reviews-container {
+    padding: 0 36px !important;
+  }
+  .ti-widget.ti-goog .ti-next {
+    display: none !important;
+  }
+  .ti-widget.ti-goog .ti-prev {
+    display: none !important;
+}
+
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-review-item {
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-review-text {
+    font-size: 14px !important;
+    -webkit-line-clamp: 5 !important;
+  }
+
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-name {
+    font-size: 14px !important;
+  }
+
+  .reviews-plugin-wrap .ti-widget.ti-goog .ti-date {
+    font-size: 13px !important;
+  }
+}
+.ti-review-header {
+  padding: 20px !important;
+}
+
+.ti-profile-details {
+  padding: 20px !important;
+}

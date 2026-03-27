@@ -7,7 +7,7 @@ echo "📦 Building Tailwind CSS and assets..."
 npm run build
 
 # Create deployment folder name with timestamp
-DEPLOY_FOLDER="clin-city-$(date +%Y%m%d-%H%M)"
+DEPLOY_FOLDER="easy-move-$(date +%Y%m%d-%H%M)"
 
 echo "📁 Creating deployment folder: $DEPLOY_FOLDER"
 mkdir -p "$DEPLOY_FOLDER"

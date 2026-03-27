@@ -4,7 +4,8 @@ import laravel from 'laravel-vite-plugin';
 import { wordpressPlugin, wordpressThemeJson } from '@roots/vite-plugin';
 
 export default defineConfig({
-  base: '/wp-content/themes/easy-move/public/build/',
+  // Use relative asset URLs so deployed theme directory/path changes do not break webfont loading.
+  base: './',
   plugins: [
     tailwindcss(),
     laravel({

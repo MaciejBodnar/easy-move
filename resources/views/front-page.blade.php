@@ -132,12 +132,12 @@
     <section id="splitHero" class="relative h-screen min-h-175 overflow-hidden bg-[#2c2418] text-white">
         <div class="absolute inset-0">
             <div
-                class="hidden pointer-events-none absolute left-0 right-0 top-0 z-30 md:flex items-start justify-between px-8 pt-8 md:px-12 lg:px-14">
+                class="pointer-events-none absolute left-0 right-0 top-0 z-30 hidden items-start justify-between px-8 pt-8 md:flex md:px-12 lg:px-14">
                 <img src="{{ esc_url($main['hero']['logo_fin']) }}" alt="Easy Move Financial logo"
-                    class="h-10 md:h-10 lg:h-20 w-auto object-contain" />
+                    class="h-10 w-auto object-contain lg:h-20" />
 
                 <img src="{{ esc_url($main['hero']['logo_pro']) }}" alt="Easy Move Protection logo"
-                    class="h-10 md:h-10 lg:h-20 w-auto object-contain" />
+                    class="h-10 w-auto object-contain lg:h-20" />
 
                 <div class="hidden" aria-hidden="true">
                     <span id="openLogoTop">EASYMOVE</span>
@@ -149,16 +149,30 @@
 
             <article id="openPanel" class="hero-panel absolute left-0 top-0 z-20 overflow-hidden">
                 <div class="absolute inset-0">
-                    <div id="openImageStage" class="absolute inset-0">
-                        <img id="openImageA" src="" alt="" class="hero-image is-active" />
-                        <img id="openImageB" src="" alt="" class="hero-image" />
+                    <div id="openImageStage" class="absolute inset-0"
+                        data-mortgage-media="{{ esc_url(get_theme_file_uri('resources/videos/0_Wooden_Wall_Wood_Paneling_1920x1080_output.mp4')) }}"
+                        data-insurance-media="{{ esc_url(get_theme_file_uri('resources/videos/GettyImages-1399210432_output.mov')) }}">
+                        <video id="openImageA" class="hero-image is-active" autoplay muted loop playsinline
+                            preload="metadata" aria-hidden="true"></video>
+                        <video id="openImageB" class="hero-image" autoplay muted loop playsinline preload="metadata"
+                            aria-hidden="true"></video>
                     </div>
                     <div class="absolute inset-0 bg-[rgba(73,56,19,0.58)]"></div>
                 </div>
 
-                <div class="relative z-10 flex h-full flex-col px-8 pt-8 pb-10 md:px-12 lg:px-14">
+                <div id="openPanelContent" class="relative z-10 flex h-full flex-col px-8 pt-8 pb-10 md:px-12 lg:px-14">
                     <div class="flex items-start justify-between">
                         <div id="openTopWrap" class="w-full">
+                            <div class="md:hidden flex w-full items-center justify-center py-2">
+                                <img src="{{ esc_url($main['hero']['logo_fin']) }}" alt="Easy Move Financial logo"
+                                    class="h-18 min-h-18 w-auto object-contain" />
+                            </div>
+
+                            <div id="openMobileLabel"
+                                class="md:hidden text-center text-[18px] uppercase tracking-[0.22em] text-white/90">
+                                MORTGAGES
+                            </div>
+
                             @php
                                 $heroMenuItems = [];
                                 $heroMenuChildren = [];
@@ -219,10 +233,16 @@
                                                 $itemClass[] = 'text-[#e6c15a]';
                                             }
 
-                                            if (strpos($itemTitleLower, 'mortgage') !== false) {
+                                            if (
+                                                strpos($itemTitleLower, 'mortgage') !== false ||
+                                                strpos($itemTitleLower, 'kredyt') !== false
+                                            ) {
                                                 $menuGroup = 'mortgage';
                                                 $itemClass[] = 'menu-service';
-                                            } elseif (strpos($itemTitleLower, 'insurance') !== false) {
+                                            } elseif (
+                                                strpos($itemTitleLower, 'insurance') !== false ||
+                                                strpos($itemTitleLower, 'ubezpieczenia') !== false
+                                            ) {
                                                 $menuGroup = 'insurance';
                                             }
                                         @endphp
@@ -299,7 +319,12 @@
             <article id="closedPanel"
                 class="hero-panel absolute right-0 top-0 z-10 overflow-hidden bg-[linear-gradient(90deg,#2b220f_0%,#3a2d14_100%)]">
                 <div class="relative z-10 hidden md:flex h-full flex-col px-8 pt-8 pb-10 md:px-12 lg:px-14">
-                    <div class="mt-auto mb-8 max-w-[320px]">
+                    <div class="max-w-[320px] md:mt-auto md:mb-8">
+                        <div class="md:hidden mb-2 flex w-full items-center justify-center py-2">
+                            <img src="{{ esc_url($main['hero']['logo_pro']) }}" alt="Easy Move Protection logo"
+                                class="h-9 w-auto object-contain" />
+                        </div>
+
                         <div id="closedEyebrow" class="mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">
                             INSURANCE
                         </div>
@@ -721,7 +746,7 @@
 
             <div class="mt-12 md:mt-16">
                 <div class="reviews-plugin-wrap relative">
-                    {!! do_shortcode('[trustindex no-registration=google]') !!}
+                    {!! do_shortcode($main['reviews']['shortcode'] ?? '[trustindex no-registration=google]') !!}
                 </div>
             </div>
         </div>
@@ -748,12 +773,12 @@
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ esc_url($main['protect']['buttons']['mortgage'] ?? '#') }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
-                        Mortgage1
+                        {{ $main['protect']['buttons']['mortgageText'] ?? 'Mortgage' }}
                     </a>
 
                     <a href="{{ esc_url($main['protect']['buttons']['insurance'] ?? '#') }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
-                        Insurance
+                        {{ $main['protect']['buttons']['insuranceText'] ?? 'Insurance' }}
                     </a>
                 </div>
             </div>
@@ -777,12 +802,13 @@
                 </div>
             </div>
 
-            <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+            <div
+                class="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 md:grid md:gap-8 md:overflow-visible md:pb-0 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($latestPosts as $post)
                     @php setup_postdata($post); @endphp
 
                     <article
-                        class="group border-t-4 border-t-[#F9CF6C] min-h-125 min-w-62.5 overflow-hidden bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] flex flex-col transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)]">
+                        class="group w-[86%] shrink-0 snap-start border-t-4 border-t-[#F9CF6C] min-h-125 overflow-hidden bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] flex flex-col transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)] md:w-auto md:shrink md:snap-none">
                         <a href="{{ get_permalink($post) }}" class="block">
                             <div class="aspect-16/10 overflow-hidden p-10">
                                 @if (has_post_thumbnail($post))
@@ -821,7 +847,7 @@
 
                             <a href="{{ get_permalink($post) }}"
                                 class="mt-6 inline-flex items-center text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:text-[#b89a56]">
-                                Read more
+                                {{ $main['blog']['readMoreText'] ?? 'Read more' }}
                             </a>
                         </div>
                     </article>
@@ -831,7 +857,7 @@
             </div>
             <a href="{{ get_permalink(get_option('page_for_posts')) }}"
                 class="inline-flex mt-15 bg-[#423616] items-center text-[16px] uppercase tracking-[0.08em] text-white py-5 px-10 transition hover:bg-[#B8A26E] active:bg-[#F9CF6C]">
-                See all articles
+                {{ $main['blog']['archiveButtonText'] ?? 'See all articles' }}
             </a>
         </div>
     </section>

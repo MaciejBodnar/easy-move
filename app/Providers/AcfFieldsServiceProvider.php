@@ -431,6 +431,15 @@ class AcfFieldsServiceProvider extends ServiceProvider
                             'required' => 0,
                             'rows' => 2,
                         ],
+                        [
+                            'key' => 'field_feature_icon',
+                            'label' => 'Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'required' => 0,
+                            'return_format' => 'url',
+                            'preview_size' => 'thumbnail',
+                        ],
                     ],
                 ],
                 // TAB: Protect Together
@@ -470,6 +479,15 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'default_value' => '#',
                 ],
                 [
+                    'key' => 'field_protect_mortgage_text',
+                    'label' => 'Mortgage Button Text',
+                    'name' => 'protect_mortgage_text',
+                    'type' => 'text',
+                    'instructions' => 'Label for the Mortgage CTA button',
+                    'required' => 0,
+                    'default_value' => 'Mortgage',
+                ],
+                [
                     'key' => 'field_protect_insurance_url',
                     'label' => 'Insurance Button URL',
                     'name' => 'protect_insurance_url',
@@ -477,6 +495,15 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'instructions' => 'URL for the Insurance button',
                     'required' => 0,
                     'default_value' => '#',
+                ],
+                [
+                    'key' => 'field_protect_insurance_text',
+                    'label' => 'Insurance Button Text',
+                    'name' => 'protect_insurance_text',
+                    'type' => 'text',
+                    'instructions' => 'Label for the Insurance CTA button',
+                    'required' => 0,
+                    'default_value' => 'Insurance',
                 ],
                 // TAB: Statistics
                 [
@@ -572,6 +599,22 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'min' => 1,
                     'max' => 12,
                 ],
+                [
+                    'key' => 'field_front_blog_read_more_text',
+                    'label' => 'Front Blog Card Button Text',
+                    'name' => 'front_blog_read_more_text',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Read more',
+                ],
+                [
+                    'key' => 'field_front_blog_archive_button_text',
+                    'label' => 'Front Blog Archive Button Text',
+                    'name' => 'front_blog_archive_button_text',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'See all articles',
+                ],
             ],
         ]);
 
@@ -618,6 +661,16 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'instructions' => 'Main page title',
                     'required' => 0,
                     'default_value' => 'About us',
+                ],
+                [
+                    'key' => 'field_about_hero_image',
+                    'label' => 'Hero Image',
+                    'name' => 'about_hero_image',
+                    'type' => 'image',
+                    'instructions' => 'Top image used in the About page dark section.',
+                    'required' => 0,
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
                 ],
                 // TAB: Why Us Section
                 [
@@ -758,6 +811,15 @@ class AcfFieldsServiceProvider extends ServiceProvider
                             'required' => 0,
                             'rows' => 2,
                         ],
+                        [
+                            'key' => 'field_about_feature_icon',
+                            'label' => 'Icon',
+                            'name' => 'icon',
+                            'type' => 'image',
+                            'required' => 0,
+                            'return_format' => 'url',
+                            'preview_size' => 'thumbnail',
+                        ],
                     ],
                 ],
                 // TAB: Contact & Statistics
@@ -779,6 +841,15 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'default_value' => '07555 641 081',
                 ],
                 [
+                    'key' => 'field_about_contact_heading',
+                    'label' => 'Contact CTA Heading',
+                    'name' => 'about_contact_heading',
+                    'type' => 'text',
+                    'instructions' => 'Heading shown above phone and opening hours',
+                    'required' => 0,
+                    'default_value' => 'Give us a call',
+                ],
+                [
                     'key' => 'field_about_contact_hours',
                     'label' => 'Business Hours',
                     'name' => 'about_contact_hours',
@@ -786,6 +857,16 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'instructions' => 'Business hours displayed in contact CTA',
                     'required' => 0,
                     'default_value' => 'Open Mon-Fri, 9:00-17:00',
+                ],
+                [
+                    'key' => 'field_about_statistics_background_image',
+                    'label' => 'Statistics Background Image',
+                    'name' => 'about_statistics_background_image',
+                    'type' => 'image',
+                    'instructions' => 'Background image used behind statistics section.',
+                    'required' => 0,
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
                 ],
                 [
                     'key' => 'field_about_statistics',
@@ -991,6 +1072,14 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'endpoint' => 0,
                 ],
                 [
+                    'key' => 'field_service_page_title',
+                    'label' => 'Page Title Override',
+                    'name' => 'page_title',
+                    'type' => 'text',
+                    'instructions' => 'Optional page title override. Falls back to page title when empty.',
+                    'required' => 0,
+                ],
+                [
                     'key' => 'field_service_intro_left',
                     'label' => 'Intro Left',
                     'name' => 'intro_left',
@@ -1046,6 +1135,14 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'type' => 'tab',
                     'placement' => 'top',
                     'endpoint' => 0,
+                ],
+                [
+                    'key' => 'field_service_related_services_heading',
+                    'label' => 'Related Services Heading',
+                    'name' => 'related_services_heading',
+                    'type' => 'text',
+                    'required' => 0,
+                    'default_value' => 'Related services',
                 ],
                 [
                     'key' => 'field_service_related_services',
@@ -1268,7 +1365,7 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'endpoint' => 0,
                 ],
                 [
-                    'key' => 'field_contact_phone',
+                    'key' => 'field_contact_template_phone',
                     'label' => 'Phone Number',
                     'name' => 'contact_phone',
                     'type' => 'text',
@@ -1276,7 +1373,7 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'default_value' => '07555 641 081',
                 ],
                 [
-                    'key' => 'field_contact_email',
+                    'key' => 'field_contact_template_email',
                     'label' => 'Email Address',
                     'name' => 'contact_email',
                     'type' => 'email',
@@ -1296,21 +1393,21 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'key' => 'field_contact_social_facebook',
                     'label' => 'Facebook URL',
                     'name' => 'social_facebook',
-                    'type' => 'text',
+                    'type' => 'url',
                     'required' => 0,
                 ],
                 [
                     'key' => 'field_contact_social_instagram',
                     'label' => 'Instagram URL',
                     'name' => 'social_instagram',
-                    'type' => 'text',
+                    'type' => 'url',
                     'required' => 0,
                 ],
                 [
                     'key' => 'field_contact_social_linkedin',
                     'label' => 'LinkedIn URL',
                     'name' => 'social_linkedin',
-                    'type' => 'text',
+                    'type' => 'url',
                     'required' => 0,
                 ],
                 // TAB: Contact Form
@@ -1338,6 +1435,26 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'instructions' => 'Shortcode for your contact form plugin (e.g., Contact Form 7)',
                     'required' => 0,
                     'default_value' => '[contact-form-7 id="98d3aa4" title="Contact"]',
+                ],
+                [
+                    'key' => 'field_contact_banner_image',
+                    'label' => 'Bottom Banner Image',
+                    'name' => 'contact_banner_image',
+                    'type' => 'image',
+                    'instructions' => 'Background image fallback for the bottom banner section.',
+                    'required' => 0,
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
+                ],
+                [
+                    'key' => 'field_contact_banner_content',
+                    'label' => 'Bottom Banner Content',
+                    'name' => 'contact_banner_content',
+                    'type' => 'textarea',
+                    'instructions' => 'Heading text shown on the bottom banner section.',
+                    'required' => 0,
+                    'rows' => 3,
+                    'default_value' => 'We can\'t wait to hear from you!',
                 ],
             ],
         ]);
@@ -1414,6 +1531,51 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'type' => 'text',
                     'required' => 0,
                     'default_value' => 'No posts found.',
+                ],
+            ],
+        ]);
+
+        acf_add_local_field_group([
+            'key' => 'group_privacy_policy',
+            'title' => 'Privacy Policy Template',
+            'location' => [
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'privacy-policy.blade.php',
+                    ],
+                ],
+                [
+                    [
+                        'param' => 'page_template',
+                        'operator' => '==',
+                        'value' => 'privacy-policy',
+                    ],
+                ],
+            ],
+            'menu_order' => 7,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => [],
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => false,
+            'fields' => [
+                [
+                    'key' => 'field_policy_page_content',
+                    'label' => 'Policy Content',
+                    'name' => 'policy_page_content',
+                    'type' => 'wysiwyg',
+                    'instructions' => 'Main content rendered on the privacy policy page.',
+                    'required' => 0,
+                    'toolbar' => 'full',
+                    'media_upload' => 0,
+                    'default_value' => '',
+                    'tabs' => 'all',
+                    'delay' => 1,
                 ],
             ],
         ]);

@@ -167,7 +167,7 @@
         </div>
     </div>
 
-    <div class="bg-[#f6f6f4] text-[#b9a067]">
+    <div class=" text-[#b9a067]">
         <div class="mx-auto max-w-295 px-6 py-10 md:px-8 md:py-12 lg:px-10 lg:py-14">
             <div class="max-w-270 text-[16px] leading-[1.75] md:text-[17px]">
                 @foreach ($legalParagraphs as $legalParagraph)

@@ -251,13 +251,26 @@
       display: none;
     }
 
+    #openPanelContent {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+
+    #openPanelContent > div:first-child {
+      width: 100%;
+    }
+
     #openTopWrap {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 8px;
     }
 
     /* Ensure closed panel content is also centered */

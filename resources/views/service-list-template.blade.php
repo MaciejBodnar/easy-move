@@ -15,20 +15,27 @@
 @section('content')
     <section class="text-[#3d2e12]">
         <div class="mx-auto max-w-260 px-6 py-14 md:px-10 md:py-16 lg:px-12 lg:py-20">
-            <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#8b7a57]">
+            <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#b9a36b]">
                 <ol class="flex flex-wrap items-center gap-1">
                     <li>
-                        <a href="{{ $homeUrl }}" class="transition hover:text-[#b89a56]">
-                            {{ $homeLabel }}
+                        <a href="{{ $homeUrl }}" class="transition hover:text-[#3d2e12]">
+                            {{ get_the_title(get_option('page_on_front')) }}
                         </a>
                     </li>
 
-                    @if (!empty($services['pageTitle']))
+                    @if ($service['parentTitle'] && $service['parentUrl'])
                         <li aria-hidden="true">-</li>
-                        <li class="text-[#6d6047]">
-                            {{ $services['pageTitle'] }}
+                        <li>
+                            <a href="{{ $service['parentUrl'] }}" class="transition hover:text-[#3d2e12]">
+                                {{ $service['parentTitle'] }}
+                            </a>
                         </li>
                     @endif
+
+                    <li aria-hidden="true">-</li>
+                    <li class="text-[#8b7a57]">
+                        {{ get_the_title() }}
+                    </li>
                 </ol>
             </nav>
 

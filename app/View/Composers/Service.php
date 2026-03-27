@@ -22,13 +22,14 @@ class Service extends Composer
         $postId = get_the_ID();
 
         return [
-            'pageTitle' => get_the_title(),
+            'pageTitle' => $this->getAcfFieldSafe('page_title', $postId, get_the_title($postId)),
             'parentId' => wp_get_post_parent_id($postId),
             'parentTitle' => $this->getParentTitle($postId),
             'parentUrl' => $this->getParentUrl($postId),
             'intro' => $this->getIntroData($postId),
             'highlight' => $this->getAcfFieldSafe('highlight_text', $postId, ''),
             'heroImage' => $this->getHeroImage($postId),
+            'relatedServicesHeading' => $this->getAcfFieldSafe('related_services_heading', $postId, 'Related services'),
             'relatedServices' => $this->getRelatedServices($postId),
             'cta' => $this->getCtaData($postId),
         ];

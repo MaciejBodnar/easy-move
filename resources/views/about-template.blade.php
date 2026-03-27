@@ -7,11 +7,29 @@
 @section('content')
     <div class="text-[#4b3b12]">
         <section class="mx-auto max-w-275 px-6 pb-0 pt-10 md:px-8 md:pt-14 lg:px-10">
-            <div class="mb-4 text-[18px] text-[#b7a16a] md:mb-6">
-                <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
-                <span class="mx-1">-</span>
-                <span class="text-[#7c6a3b]">{{ $about['pageTitle'] }}</span>
-            </div>
+            <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#b9a36b]">
+                <ol class="flex flex-wrap items-center gap-1">
+                    <li>
+                        <a href="{{ $homeUrl }}" class="transition hover:text-[#3d2e12]">
+                            {{ get_the_title(get_option('page_on_front')) }}
+                        </a>
+                    </li>
+
+                    @if ($service['parentTitle'] && $service['parentUrl'])
+                        <li aria-hidden="true">-</li>
+                        <li>
+                            <a href="{{ $service['parentUrl'] }}" class="transition hover:text-[#3d2e12]">
+                                {{ $service['parentTitle'] }}
+                            </a>
+                        </li>
+                    @endif
+
+                    <li aria-hidden="true">-</li>
+                    <li class="text-[#8b7a57]">
+                        {{ get_the_title() }}
+                    </li>
+                </ol>
+            </nav>
 
             <h1 class="mb-10 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-14 md:text-[56px]">
                 {{ $about['pageTitle'] }}
@@ -58,7 +76,7 @@
             </div>
         </section>
 
-        <section class="relative mt-50 bg-[#3c2c05] pb-0 pt-27.5 lg:pt-45">
+        <section class="relative mt-14 bg-[#3c2c05] pb-0 pt-27.5 md:mt-50 md:pt-37.5 lg:pt-45">
             <div class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] md:px-8 lg:px-10">
                 <div class="overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
                     <img src="{{ $about['heroImage'] }}" alt="Mortgage advisor meeting with clients"
@@ -66,7 +84,7 @@
                 </div>
             </div>
 
-            <div class="mx-auto max-w-275 px-6 md:px-8 lg:px-10">
+            <div class="mx-auto max-w-275 px-6 md:px-8 lg:px-10 mt-26 md:mt-32 lg:mt-40">
                 <div class="text-center">
                     <h2 class="text-[42px] font-light leading-tight text-white md:text-[56px]">
                         {{ $about['whyChoose']['heading'] ?? 'Why choose us?' }}
@@ -172,7 +190,7 @@
                 </div>
             </div>
         </section>
-        <section class="bg-[#f6f6f4]">
+        <section class="">
             <div class="mx-auto max-w-350 px-6 pb-16 pt-16 md:px-8 md:pb-20 md:pt-20 lg:px-10 lg:pb-24">
                 <div class="mx-auto max-w-245 text-center">
                     <h2
@@ -182,7 +200,7 @@
                 </div>
 
                 <div class="relative mt-10 md:mt-14">
-                    {!! do_shortcode('[trustindex no-registration=google]') !!}
+                    {!! do_shortcode($about['testimonials']['shortcode'] ?? '[trustindex no-registration=google]') !!}
                 </div>
             </div>
 
@@ -196,7 +214,7 @@
                 </div>
 
                 <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">
-                    <div class="grid grid-cols-2 gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
+                    <div class="grid gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
                         @forelse ($about['statistics'] ?? [] as $statistic)
                             <div>
                                 <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">

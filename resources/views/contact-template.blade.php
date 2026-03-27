@@ -95,12 +95,23 @@ Template Name: Contact Template
     </section>
     <section class="relative overflow-hidden min-h-135">
         <div class="absolute inset-0">
-            <img src={{ $contact['banner']['image'] }} alt="Aerial view of homes" class="h-full w-full object-cover" />
+            @if (!empty($contact['banner']['image']))
+                <img src="{{ esc_url($contact['banner']['image']) }}" alt="Contact banner"
+                    class="h-full w-full object-cover" />
+            @else
+                <video class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata"
+                    poster="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2000&auto=format&fit=crop"
+                    aria-hidden="true">
+                    <source
+                        src="{{ esc_url(get_theme_file_uri('resources/videos/british-suburban-neighbourhood-from-above-haslin-2026-01-22-05-23-35-utc_output.mp4')) }}"
+                        type="video/mp4">
+                </video>
+            @endif
             <div class="absolute inset-0 bg-[rgba(73,56,19,0.58)]"></div>
         </div>
 
         <div
-            class="relative z-10 mx-auto flex min-h-90 max-w-181.5 items-center justify-center px-6 py-16 text-center md:min-h-135 md:px-10 lg:px-16">
+            class="relative z-10 mx-auto flex min-h-135 max-w-181.5 items-center justify-center px-6 py-16 text-center md:min-h-135 md:px-10 lg:px-16">
             <div class="max-w-215">
                 <h2 class="text-[42px] font-light leading-[1.15] text-white md:text-[60px]">
                     {!! $contact['banner']['content'] !!}

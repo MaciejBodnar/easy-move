@@ -55,7 +55,7 @@ class About extends Composer
                 'about_statistics_background_image',
                 $postId,
                 'full',
-                'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop'
+                get_template_directory_uri() . '/resources/images/bannerLogo.png'
             ),
             'statistics' => $this->getAboutStatisticsData($postId),
             'testimonials' => [

@@ -184,7 +184,10 @@ class Main extends Composer
             ];
         }
 
-        return $statistics;
+        return [
+            $statistics,
+            'backgroundImage' => $this->getAcfImageSafe('statistics_background_image', $postId, 'full', get_template_directory_uri() . '/resources/images/bannerLogo.png'),
+        ];
     }
 
     private function getReviewsData()

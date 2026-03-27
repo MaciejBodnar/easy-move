@@ -862,13 +862,12 @@
         </div>
     </section>
     <section class="relative overflow-hidden bg-[#3c2c05]">
-        <div
-            class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(196,150,37,0.22),transparent_28%),radial-gradient(circle_at_50%_50%,rgba(196,150,37,0.18),transparent_30%),radial-gradient(circle_at_80%_50%,rgba(196,150,37,0.22),transparent_28%)]">
+        <div class="pointer-events-none absolute inset-0 bg-[#372C10]">
         </div>
 
         <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop"
-                alt="Close-up of a house exterior" class="h-full w-full object-cover">
+            <img src="{{ $main['statistics']['backgroundImage'] }}" alt="Close-up of a house exterior"
+                class="h-full w-full object-cover">
         </div>
 
         <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">

@@ -33,6 +33,10 @@ echo "   ✓ Copying images..."
 mkdir -p "$DEPLOY_FOLDER/resources"
 cp -r resources/images "$DEPLOY_FOLDER/resources/" 2>/dev/null || echo "⚠️  resources/images/ not found"
 
+echo "   ✓ Copying videos..."
+mkdir -p "$DEPLOY_FOLDER/resources"
+cp -r resources/videos "$DEPLOY_FOLDER/resources/" 2>/dev/null || echo "⚠️  resources/videos/ not found"
+
 echo "   ✓ Copying CSS source files..."
 cp -r resources/css "$DEPLOY_FOLDER/resources/" 2>/dev/null || echo "⚠️  resources/css/ not found"
 
@@ -61,6 +65,7 @@ echo "📋 Deployment folder includes:"
 echo "   ✓ functions.php, style.css, index.php"
 echo "   ✓ resources/views/ (Blade templates)"
 echo "   ✓ resources/images/ (Theme images)"
+echo "   ✓ resources/videos/ (Theme videos)"
 echo "   ✓ resources/css/ (CSS source files including app.css)"
 echo "   ✓ resources/js/ (JavaScript source files)"
 echo "   ✓ public/build/ (Built CSS/JS with Tailwind)"

@@ -205,11 +205,10 @@
             </div>
 
             <div class="relative overflow-hidden bg-[#3c2c05]">
-                <div
-                    class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(196,150,37,0.22),transparent_28%),radial-gradient(circle_at_50%_50%,rgba(196,150,37,0.18),transparent_30%),radial-gradient(circle_at_80%_50%,rgba(196,150,37,0.22),transparent_28%)]">
+                <div class="pointer-events-none absolute inset-0 bg-[#372C10]">
                 </div>
 
-                <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
+                <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
                     <img src="{{ $about['statisticsBackgroundImage'] }}" alt="Happy customers" class="w-full object-cover">
                 </div>
 

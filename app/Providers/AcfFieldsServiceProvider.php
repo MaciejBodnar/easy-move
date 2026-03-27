@@ -515,6 +515,17 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'endpoint' => 0,
                 ],
                 [
+                    'key' => 'field_statistics_background_image',
+                    'label' => 'Background Image',
+                    'name' => 'statistics_background_image',
+                    'type' => 'image',
+                    'instructions' => 'Background image for the statistics section.',
+                    'required' => 0,
+                    'return_format' => 'url',
+                    'preview_size' => 'medium',
+                ],
+
+                [
                     'key' => 'field_statistics',
                     'label' => 'Statistics',
                     'name' => 'statistics',

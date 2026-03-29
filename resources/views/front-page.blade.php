@@ -29,20 +29,12 @@
 
             <div class="items-center gap-16 md:gap-5 flex">
                 <div class="flex gap-5">
-                    <a href="{{ esc_url($main['contact']['socialLinks']['facebook']) }}" aria-label="Facebook"
-                        class="text-[#d2bb7b] transition hover:text-white">
-                        <i class="fa-brands fa-facebook-f text-[15px]"></i>
-                    </a>
-
-                    <a href="{{ esc_url($main['contact']['socialLinks']['instagram']) }}" aria-label="Instagram"
-                        class="text-[#d2bb7b] transition hover:text-white">
-                        <i class="fa-brands fa-instagram text-[15px]"></i>
-                    </a>
-
-                    <a href="{{ esc_url($main['contact']['socialLinks']['linkedin']) }}" aria-label="LinkedIn"
-                        class="text-[#d2bb7b] transition hover:text-white">
-                        <i class="fa-brands fa-linkedin-in text-[15px]"></i>
-                    </a>
+                    @foreach ($main['contact']['socialLinks'] as $socialLink)
+                        <a href="{{ esc_url($socialLink['url']) }}" aria-label='Social link'
+                            class="text-[#d2bb7b] transition hover:text-white">
+                            {!! $socialLink['icon_class'] !!}
+                        </a>
+                    @endforeach
                 </div>
 
                 @php
@@ -150,8 +142,8 @@
             <article id="openPanel" class="hero-panel absolute left-0 top-0 z-20 overflow-hidden">
                 <div class="absolute inset-0">
                     <div id="openImageStage" class="absolute inset-0"
-                        data-mortgage-media="{{ esc_url(get_theme_file_uri('resources/videos/0_Wooden_Wall_Wood_Paneling_1920x1080_output.mp4')) }}"
-                        data-insurance-media="{{ esc_url(get_theme_file_uri('resources/videos/GettyImages-1399210432_output.mov')) }}">
+                        data-mortgage-media="{{ esc_url($main['hero']['mortgages']['video']) }}"
+                        data-insurance-media="{{ esc_url($main['hero']['insurance']['video']) }}">
                         <video id="openImageA" class="hero-image is-active" autoplay muted loop playsinline
                             preload="metadata" aria-hidden="true"></video>
                         <video id="openImageB" class="hero-image" autoplay muted loop playsinline preload="metadata"
@@ -458,8 +450,8 @@
     <section class="relative mt-14 bg-[#3c2c05] pb-0 pt-27.5 md:mt-50 md:pt-37.5 lg:pt-45">
         <div class="absolute left-1/2 top-0 z-10 w-full max-w-275 -translate-x-1/2 -translate-y-[28%] md:px-8 lg:px-10">
             <div class="overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.18)]">
-                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=1600&auto=format&fit=crop"
-                    alt="Mortgage advisor meeting with clients" class="h-55 w-full object-cover md:h-80 lg:h-90">
+                <img src="{{ $main['whyChooseUs']['image'] }}" alt="Mortgage advisor meeting with clients"
+                    class="h-55 w-full object-cover md:h-80 lg:h-90">
             </div>
         </div>
 
@@ -717,7 +709,7 @@
             <div class="bg-[#F9CF6C] px-5 py-5 md:px-8">
                 <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
                     <span class="text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
-                        Give us a call
+                        {{ $main['contact']['heading'] ?? 'Get in touch' }}
                     </span>
 
                     @php
@@ -739,14 +731,14 @@
         </div>
     </section>
     <section class="text-[#3d2e12]">
-        <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
+        <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 md:px-8 md:pb-20 md:pt-20 lg:px-10 lg:pb-24">
             <h2 class="text-center text-[42px] font-light leading-[1.1] tracking-[-0.02em] md:text-[58px]">
                 {{ $main['reviews']['heading'] ?? 'What our customers are saying…' }}
             </h2>
 
-            <div class="mt-12 md:mt-16">
+            <div class="mt-12 md:mt-16 relative">
                 <div class="reviews-plugin-wrap relative">
-                    {!! do_shortcode($main['reviews']['shortcode'] ?? '[trustindex no-registration=google]') !!}
+                    {!! do_shortcode($main['reviews']['shortcode']) !!}
                 </div>
             </div>
         </div>
@@ -754,11 +746,9 @@
     <section class="relative overflow-hidden">
         <div class="absolute inset-0">
             <video class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata"
-                poster="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2000&auto=format&fit=crop"
+                poster="{{ $main['protect']['videoPoster'] ?? esc_url(get_theme_file_uri('resources/images/protect-video-poster.jpg')) }}"
                 aria-hidden="true">
-                <source
-                    src="{{ esc_url(get_theme_file_uri('resources/videos/british-suburban-neighbourhood-from-above-haslin-2026-01-22-05-23-35-utc_output.mp4')) }}"
-                    type="video/mp4">
+                <source src="{{ esc_url($main['protect']['video']) }}" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-[rgba(73,56,19,0.58)]"></div>
         </div>
@@ -805,13 +795,38 @@
             <div
                 class="mt-12 flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 md:grid md:gap-8 md:overflow-visible md:pb-0 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($latestPosts as $post)
-                    @php setup_postdata($post); @endphp
+                    @php
+                        setup_postdata($post);
+                        $postId = (int) ($post->ID ?? 0);
+                        $thumbnailOverride = function_exists('get_field')
+                            ? get_field('post_thumbnail_override', $postId)
+                            : null;
+                        $thumbnailOverrideId = 0;
+                        $thumbnailOverrideUrl = '';
+
+                        if (is_numeric($thumbnailOverride)) {
+                            $thumbnailOverrideId = (int) $thumbnailOverride;
+                        } elseif (is_array($thumbnailOverride)) {
+                            $thumbnailOverrideId = (int) ($thumbnailOverride['ID'] ?? ($thumbnailOverride['id'] ?? 0));
+                            $thumbnailOverrideUrl = (string) ($thumbnailOverride['url'] ?? '');
+                        } elseif (is_string($thumbnailOverride)) {
+                            $thumbnailOverrideUrl = $thumbnailOverride;
+                        }
+                    @endphp
 
                     <article
                         class="group w-[86%] shrink-0 snap-start border-t-4 border-t-[#F9CF6C] min-h-125 overflow-hidden bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] flex flex-col transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(0,0,0,0.08)] md:w-auto md:shrink md:snap-none">
                         <a href="{{ get_permalink($post) }}" class="block">
                             <div class="aspect-16/10 overflow-hidden p-10">
-                                @if (has_post_thumbnail($post))
+                                @if ($thumbnailOverrideId)
+                                    {!! wp_get_attachment_image($thumbnailOverrideId, 'large', false, [
+                                        'class' => 'h-full w-full min-h-56.5 object-cover transition duration-500 group-hover:scale-105',
+                                    ]) !!}
+                                @elseif ($thumbnailOverrideUrl)
+                                    <img src="{{ esc_url($thumbnailOverrideUrl) }}"
+                                        class="h-full w-full min-h-56.5 object-cover transition duration-500 group-hover:scale-105"
+                                        alt="{{ esc_attr(get_the_title($post)) }}" loading="lazy" />
+                                @elseif (has_post_thumbnail($post))
                                     {!! get_the_post_thumbnail($post, 'large', [
                                         'class' => 'h-full w-full min-h-56.5 object-cover transition duration-500 group-hover:scale-105',
                                     ]) !!}
@@ -865,14 +880,14 @@
         <div class="pointer-events-none absolute inset-0 bg-[#372C10]">
         </div>
 
-        <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.08]">
-            <img src="{{ $main['statistics']['backgroundImage'] }}" alt="Close-up of a house exterior"
+        <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <img src="{{ $main['statistics']['backgroundImage'] }}" alt="Happy customers"
                 class="h-full w-full object-cover">
         </div>
 
         <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">
             <div class="grid gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
-                @forelse ($main['statistics'] ?? [] as $statistic)
+                @forelse ($main['statistics']['items'] ?? [] as $statistic)
                     <div>
                         <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
                             {{ $statistic['number'] ?? '' }}
@@ -883,39 +898,9 @@
                     </div>
                 @empty
                     <div>
-                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                            15
-                        </div>
+                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">15</div>
                         <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                            Years of <br class="hidden sm:block"> experience
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                            100
-                        </div>
-                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                            Lenders available
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                            8000
-                        </div>
-                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                            Different <br class="hidden sm:block"> mortgages
-                        </p>
-                    </div>
-
-                    <div>
-                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
-                            100%
-                        </div>
-                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
-                            Happy <br class="hidden sm:block"> customers
-                        </p>
+                            Years of<br class="hidden sm:block"> experience</p>
                     </div>
                 @endforelse
             </div>

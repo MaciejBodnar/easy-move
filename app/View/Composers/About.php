@@ -22,6 +22,7 @@ class About extends Composer
         $postId = get_the_ID();
 
         return [
+            'breadcrumb' => $this->getBreadcrumbData($postId),
             'pageTitle' => $this->getAcfFieldSafe('about_page_title', $postId, 'About us'),
             'heroImage' => $this->getAcfImageSafe(
                 'about_hero_image',
@@ -60,8 +61,64 @@ class About extends Composer
             'statistics' => $this->getAboutStatisticsData($postId),
             'testimonials' => [
                 'heading' => $this->getAcfFieldSafe('about_testimonials_heading', $postId, 'What our customers are saying…'),
-                'shortcode' => $this->getAcfFieldSafe('about_testimonials_shortcode', $postId, '[your-testimonials-plugin-shortcode]'),
+                'shortcode' => $this->getAcfFieldSafe('about_testimonials_shortcode', $postId, '[trustindex no-registration=google]'),
             ],
+        ];
+    }
+
+    private function getBreadcrumbData($postId)
+    {
+        $items = [];
+
+        if (function_exists('get_field')) {
+            $breadcrumbRows = \get_field('about_breadcrumb_items', $postId);
+
+            if (is_array($breadcrumbRows)) {
+                foreach ($breadcrumbRows as $breadcrumbRow) {
+                    $label = trim((string) ($breadcrumbRow['label'] ?? ''));
+                    $url = $this->formatUrl((string) ($breadcrumbRow['url'] ?? ''));
+
+                    if ($label === '') {
+                        continue;
+                    }
+
+                    $items[] = [
+                        'label' => $label,
+                        'url' => $url,
+                    ];
+                }
+            }
+        }
+
+        if (empty($items)) {
+            $items[] = [
+                'label' => (string) get_the_title(get_option('page_on_front')) ?: 'Home',
+                'url' => home_url('/'),
+            ];
+
+            $parentId = wp_get_post_parent_id($postId);
+            if (!empty($parentId)) {
+                $items[] = [
+                    'label' => (string) get_the_title($parentId),
+                    'url' => (string) get_permalink($parentId),
+                ];
+            }
+        }
+
+        $currentLabel = (string) get_the_title($postId);
+        $lastItem = !empty($items) ? $items[count($items) - 1] : null;
+
+        if (!$lastItem || trim((string) ($lastItem['label'] ?? '')) !== $currentLabel) {
+            $items[] = [
+                'label' => $currentLabel,
+                'url' => '',
+            ];
+        } else {
+            $items[count($items) - 1]['url'] = '';
+        }
+
+        return [
+            'items' => $items,
         ];
     }
 
@@ -157,5 +214,27 @@ class About extends Composer
         }
 
         return $fallback_url;
+    }
+
+    private function formatUrl($url)
+    {
+        if (empty($url)) {
+            return $url;
+        }
+
+        if (strpos($url, '/') === 0) {
+            return \home_url($url);
+        }
+
+        if (
+            !preg_match("~^(?:f|ht)tps?://~i", $url) &&
+            strpos($url, 'mailto:') !== 0 &&
+            strpos($url, 'tel:') !== 0 &&
+            strpos($url, '#') !== 0
+        ) {
+            return 'https://' . $url;
+        }
+
+        return $url;
     }
 }

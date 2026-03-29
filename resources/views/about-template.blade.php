@@ -9,25 +9,24 @@
         <section class="mx-auto max-w-275 px-6 pb-0 pt-10 md:px-8 md:pt-14 lg:px-10">
             <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#b9a36b]">
                 <ol class="flex flex-wrap items-center gap-1">
-                    <li>
-                        <a href="{{ $homeUrl }}" class="transition hover:text-[#3d2e12]">
-                            {{ get_the_title(get_option('page_on_front')) }}
-                        </a>
-                    </li>
-
-                    @if ($service['parentTitle'] && $service['parentUrl'])
-                        <li aria-hidden="true">-</li>
+                    @php
+                        $breadcrumbItems = $about['breadcrumb']['items'] ?? [];
+                        $lastBreadcrumbIndex = count($breadcrumbItems) - 1;
+                    @endphp
+                    @foreach ($breadcrumbItems as $index => $breadcrumbItem)
+                        @if ($index > 0)
+                            <li aria-hidden="true">-</li>
+                        @endif
                         <li>
-                            <a href="{{ $service['parentUrl'] }}" class="transition hover:text-[#3d2e12]">
-                                {{ $service['parentTitle'] }}
-                            </a>
+                            @if ($index === $lastBreadcrumbIndex)
+                                <span class="text-[#8b7a57]">{{ $breadcrumbItem['label'] ?? '' }}</span>
+                            @else
+                                <a href="{{ $breadcrumbItem['url'] ?? '#' }}" class="transition hover:text-[#3d2e12]">
+                                    {{ $breadcrumbItem['label'] ?? '' }}
+                                </a>
+                            @endif
                         </li>
-                    @endif
-
-                    <li aria-hidden="true">-</li>
-                    <li class="text-[#8b7a57]">
-                        {{ get_the_title() }}
-                    </li>
+                    @endforeach
                 </ol>
             </nav>
 
@@ -191,7 +190,7 @@
             </div>
         </section>
         <section class="">
-            <div class="mx-auto max-w-350 px-6 pb-16 pt-16 md:px-8 md:pb-20 md:pt-20 lg:px-10 lg:pb-24">
+            <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 md:px-8 md:pb-20 md:pt-20 lg:px-10 lg:pb-24">
                 <div class="mx-auto max-w-245 text-center">
                     <h2
                         class="text-[38px] font-light leading-tight tracking-[-0.02em] text-[#4a3910] md:text-[56px] lg:text-[64px]">
@@ -209,7 +208,8 @@
                 </div>
 
                 <div class="pointer-events-none absolute inset-0 flex items-center justify-center">
-                    <img src="{{ $about['statisticsBackgroundImage'] }}" alt="Happy customers" class="w-full object-cover">
+                    <img src="{{ $about['statisticsBackgroundImage'] }}" alt="Happy customers"
+                        class="h-full w-full object-cover">
                 </div>
 
                 <div class="relative mx-auto max-w-300 px-6 py-14 md:px-8 md:py-20 lg:px-10 lg:py-24">

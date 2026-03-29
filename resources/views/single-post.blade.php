@@ -1,21 +1,29 @@
 @extends('layouts.app')
 
+@php
+    $breadcrumbItems = $post['breadcrumb']['items'] ?? [];
+    $lastBreadcrumbIndex = count($breadcrumbItems) - 1;
+@endphp
 @section('content')
     <article @php(post_class(''))>
         <div class="mx-auto max-w-295 px-6 pb-16 pt-10 md:px-8 md:pb-20 md:pt-12 lg:px-10 lg:pb-24">
             <div class="mb-8 text-[18px] leading-relaxed text-[#9f926f]">
-                <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
-                <span> - </span>
+                @foreach ($breadcrumbItems as $index => $breadcrumbItem)
+                    @if ($index > 0)
+                        <span> - </span>
+                    @endif
 
-                <a href="{{ $post['blogUrl'] }}" class="transition hover:opacity-80">
-                    Blog
-                </a>
-                <span> - </span>
-
-                <span class="text-[#8a7d61]">{{ $post['title'] }}</span>
+                    @if ($index === $lastBreadcrumbIndex)
+                        <span class="text-[#8a7d61]">{{ $breadcrumbItem['label'] ?? '' }}</span>
+                    @else
+                        <a href="{{ $breadcrumbItem['url'] ?? '#' }}" class="transition hover:opacity-80">
+                            {{ $breadcrumbItem['label'] ?? '' }}
+                        </a>
+                    @endif
+                @endforeach
             </div>
 
-            <div class="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_420px] lg:items-start lg:gap-14">
+            <div class="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_540px] lg:items-start lg:gap-14">
                 <div>
                     <div
                         class="mb-4 flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.04em] text-[#9a9488]">

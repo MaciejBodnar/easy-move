@@ -23,9 +23,9 @@
 
     if (empty($socialLinks) || !is_array($socialLinks)) {
         $socialLinks = [
-            ['label' => 'Facebook', 'url' => '#', 'icon_class' => 'fa-brands fa-facebook-f'],
-            ['label' => 'Instagram', 'url' => '#', 'icon_class' => 'fa-brands fa-instagram'],
-            ['label' => 'LinkedIn', 'url' => '#', 'icon_class' => 'fa-brands fa-linkedin-in'],
+            ['label' => 'Facebook', 'url' => '#', 'icon_class' => '<i class="fa-brands fa-facebook-f"></i>'],
+            ['label' => 'Instagram', 'url' => '#', 'icon_class' => '<i class="fa-brands fa-instagram"></i>'],
+            ['label' => 'LinkedIn', 'url' => '#', 'icon_class' => '<i class="fa-brands fa-linkedin-in"></i>'],
         ];
     }
 
@@ -136,8 +136,7 @@
                                 <a href="{{ esc_url($socialLink['url'] ?? '#') }}"
                                     aria-label="{{ esc_attr($socialLink['label'] ?? 'Social') }}"
                                     class="transition hover:text-[#efc75d]">
-                                    <i
-                                        class="{{ esc_attr($socialLink['icon_class'] ?? 'fa-solid fa-link') }} text-[16px]"></i>
+                                    {!! $socialLink['icon_class'] !!}
                                 </a>
                             @endforeach
                         </div>

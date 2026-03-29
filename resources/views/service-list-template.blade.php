@@ -2,14 +2,6 @@
   Template Name: Service List Template
 --}}
 
-@php
-    /**
-     * Generic reusable breadcrumb items
-     */
-    $homeUrl = home_url('/');
-    $homeLabel = get_bloginfo('name');
-@endphp
-
 @extends('layouts.app')
 
 @section('content')
@@ -17,25 +9,24 @@
         <div class="mx-auto max-w-260 px-6 py-14 md:px-10 md:py-16 lg:px-12 lg:py-20">
             <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#b9a36b]">
                 <ol class="flex flex-wrap items-center gap-1">
-                    <li>
-                        <a href="{{ $homeUrl }}" class="transition hover:text-[#3d2e12]">
-                            {{ get_the_title(get_option('page_on_front')) }}
-                        </a>
-                    </li>
-
-                    @if ($service['parentTitle'] && $service['parentUrl'])
-                        <li aria-hidden="true">-</li>
+                    @php
+                        $breadcrumbItems = $services['breadcrumb']['items'] ?? [];
+                        $lastBreadcrumbIndex = count($breadcrumbItems) - 1;
+                    @endphp
+                    @foreach ($breadcrumbItems as $index => $breadcrumbItem)
+                        @if ($index > 0)
+                            <li aria-hidden="true">-</li>
+                        @endif
                         <li>
-                            <a href="{{ $service['parentUrl'] }}" class="transition hover:text-[#3d2e12]">
-                                {{ $service['parentTitle'] }}
-                            </a>
+                            @if ($index === $lastBreadcrumbIndex)
+                                <span class="text-[#8b7a57]">{{ $breadcrumbItem['label'] ?? '' }}</span>
+                            @else
+                                <a href="{{ $breadcrumbItem['url'] ?? '#' }}" class="transition hover:text-[#3d2e12]">
+                                    {{ $breadcrumbItem['label'] ?? '' }}
+                                </a>
+                            @endif
                         </li>
-                    @endif
-
-                    <li aria-hidden="true">-</li>
-                    <li class="text-[#8b7a57]">
-                        {{ get_the_title() }}
-                    </li>
+                    @endforeach
                 </ol>
             </nav>
 

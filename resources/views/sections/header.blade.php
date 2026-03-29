@@ -39,17 +39,17 @@
             [
                 'label' => 'Facebook',
                 'url' => '#',
-                'icon_class' => 'fa-brands fa-facebook-f',
+                'icon_class' => '<i class="fa-brands fa-facebook-f"></i>',
             ],
             [
                 'label' => 'Instagram',
                 'url' => '#',
-                'icon_class' => 'fa-brands fa-instagram',
+                'icon_class' => '<i class="fa-brands fa-instagram"></i>',
             ],
             [
                 'label' => 'LinkedIn',
                 'url' => '#',
-                'icon_class' => 'fa-brands fa-linkedin-in',
+                'icon_class' => '<i class="fa-brands fa-linkedin-in"></i>',
             ],
         ];
     }
@@ -103,7 +103,7 @@
                     <a href="{{ esc_url($socialLink['url'] ?? '#') }}"
                         aria-label="{{ esc_attr($socialLink['label'] ?? 'Social') }}"
                         class="text-[#d2bb7b] transition hover:text-white">
-                        <i class="{{ esc_attr($socialLink['icon_class'] ?? 'fa-solid fa-link') }} text-[15px]"></i>
+                        {!! $socialLink['icon_class'] !!}
                     </a>
                 @endforeach
 
@@ -217,7 +217,7 @@
                     <a href="{{ esc_url($socialLink['url'] ?? '#') }}"
                         aria-label="{{ esc_attr($socialLink['label'] ?? 'Social') }}"
                         class="transition hover:text-white">
-                        <i class="{{ esc_attr($socialLink['icon_class'] ?? 'fa-solid fa-link') }} text-[15px]"></i>
+                        {!! $socialLink['icon_class'] !!}
                     </a>
                 @endforeach
 

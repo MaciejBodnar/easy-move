@@ -19,9 +19,23 @@ Template Name: Blog Template
     <section class="">
         <div class="mx-auto max-w-295 px-6 pb-16 pt-10 md:px-8 md:pb-20 md:pt-14 lg:px-10 lg:pb-24">
             <div class="mb-3 text-[18px] text-[#b7a16a]">
-                <a href="{{ home_url('/') }}" class="transition hover:opacity-80">Home</a>
-                <span class="mx-1">-</span>
-                <span class="text-[#7c6a3b]">{{ $blog['pageTitle'] }}</span>
+                @php
+                    $breadcrumbItems = $blog['breadcrumb']['items'] ?? [];
+                    $lastBreadcrumbIndex = count($breadcrumbItems) - 1;
+                @endphp
+                @foreach ($breadcrumbItems as $index => $breadcrumbItem)
+                    @if ($index > 0)
+                        <span class="mx-1">-</span>
+                    @endif
+
+                    @if ($index === $lastBreadcrumbIndex)
+                        <span class="text-[#7c6a3b]">{{ $breadcrumbItem['label'] ?? '' }}</span>
+                    @else
+                        <a href="{{ $breadcrumbItem['url'] ?? '#' }}" class="transition hover:opacity-80">
+                            {{ $breadcrumbItem['label'] ?? '' }}
+                        </a>
+                    @endif
+                @endforeach
             </div>
 
             <h1 class="mb-10 text-[40px] font-light leading-none tracking-[-0.02em] text-[#4a3910] md:mb-14 md:text-[56px]">
@@ -37,7 +51,28 @@ Template Name: Blog Template
             @if ($blogQuery->have_posts())
                 <div class="grid grid-cols-1 gap-x-4 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-5 lg:gap-y-12">
                     @while ($blogQuery->have_posts())
-                        @php($blogQuery->the_post())
+                        @php
+                            $blogQuery->the_post();
+                        @endphp
+                        @php
+                            $postId = get_the_ID();
+                            $thumbnailOverrideField = $blog['thumbnailOverrideField'] ?? 'post_thumbnail_override';
+                            $thumbnailOverride = function_exists('get_field')
+                                ? get_field($thumbnailOverrideField, $postId)
+                                : null;
+                            $thumbnailOverrideId = 0;
+                            $thumbnailOverrideUrl = '';
+
+                            if (is_numeric($thumbnailOverride)) {
+                                $thumbnailOverrideId = (int) $thumbnailOverride;
+                            } elseif (is_array($thumbnailOverride)) {
+                                $thumbnailOverrideId =
+                                    (int) ($thumbnailOverride['ID'] ?? ($thumbnailOverride['id'] ?? 0));
+                                $thumbnailOverrideUrl = (string) ($thumbnailOverride['url'] ?? '');
+                            } elseif (is_string($thumbnailOverride)) {
+                                $thumbnailOverrideUrl = $thumbnailOverride;
+                            }
+                        @endphp
                         <article @php(post_class('group'))>
                             <a href="{{ get_permalink() }}" class="block">
                                 <div class="relative">
@@ -45,7 +80,17 @@ Template Name: Blog Template
                                     <div class="pointer-events-none absolute top-1 left-2 h-55 md:h-50 lg:h-51.25 w-[calc(100%-0.25rem)] bg-[#F9CF6C] z-0"
                                         aria-hidden="true"></div>
 
-                                    @if (has_post_thumbnail())
+                                    @if ($thumbnailOverrideId)
+                                        {!! wp_get_attachment_image($thumbnailOverrideId, 'large', false, [
+                                            'class' =>
+                                                'h-[220px] relative z-10 w-full object-cover transition duration-500 group-hover:scale-[1.03] md:h-[200px] lg:h-[205px]',
+                                            'loading' => 'lazy',
+                                        ]) !!}
+                                    @elseif ($thumbnailOverrideUrl)
+                                        <img src="{{ esc_url($thumbnailOverrideUrl) }}"
+                                            class="h-[220px] relative z-10 w-full object-cover transition duration-500 group-hover:scale-[1.03] md:h-[200px] lg:h-[205px]"
+                                            alt="{{ esc_attr(get_the_title()) }}" loading="lazy" />
+                                    @elseif (has_post_thumbnail())
                                         {!! get_the_post_thumbnail(get_the_ID(), 'large', [
                                             'class' =>
                                                 'h-[220px] relative z-10 w-full object-cover transition duration-500 group-hover:scale-[1.03] md:h-[200px] lg:h-[205px]',

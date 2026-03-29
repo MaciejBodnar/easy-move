@@ -2,11 +2,6 @@
   Template Name: Service Template
 --}}
 
-@php
-    $homeUrl = home_url(' / ');
-    $homeLabel = 'Home';
-@endphp
-
 @extends('layouts.app')
 
 @section('content')
@@ -14,29 +9,28 @@
         <div class="mx-auto max-w-260 px-6 pt-14 pb-0 md:px-10 md:pt-16 lg:px-12 lg:pt-20">
             <nav aria-label="Breadcrumb" class="mb-4 text-[18px] leading-none text-[#b9a36b]">
                 <ol class="flex flex-wrap items-center gap-1">
-                    <li>
-                        <a href="{{ $homeUrl }}" class="transition hover:text-[#3d2e12]">
-                            {{ get_the_title(get_option('page_on_front')) }}
-                        </a>
-                    </li>
-
-                    @if ($service['parentTitle'] && $service['parentUrl'])
-                        <li aria-hidden="true">-</li>
+                    @php
+                        $breadcrumbItems = $service['breadcrumb']['items'] ?? [];
+                        $lastBreadcrumbIndex = count($breadcrumbItems) - 1;
+                    @endphp
+                    @foreach ($breadcrumbItems as $index => $breadcrumbItem)
+                        @if ($index > 0)
+                            <li aria-hidden="true">-</li>
+                        @endif
                         <li>
-                            <a href="{{ $service['parentUrl'] }}" class="transition hover:text-[#3d2e12]">
-                                {{ $service['parentTitle'] }}
-                            </a>
+                            @if ($index === $lastBreadcrumbIndex)
+                                <span class="text-[#8b7a57]">{{ $breadcrumbItem['label'] ?? '' }}</span>
+                            @else
+                                <a href="{{ $breadcrumbItem['url'] ?? '#' }}" class="transition hover:text-[#3d2e12]">
+                                    {{ $breadcrumbItem['label'] ?? '' }}
+                                </a>
+                            @endif
                         </li>
-                    @endif
-
-                    <li aria-hidden="true">-</li>
-                    <li class="text-[#8b7a57]">
-                        {{ get_the_title() }}
-                    </li>
+                    @endforeach
                 </ol>
             </nav>
 
-            <header class="max-w-195">
+            <header class="max-w-full">
                 <h1 class="text-[44px] font-light leading-[1.05] tracking-[-0.02em] md:text-[64px]">
                     {{ $service['pageTitle'] }}
                 </h1>
@@ -45,11 +39,11 @@
             <div
                 class="mt-12 grid gap-8 md:mt-14 {{ (bool) $service['intro']['left'] && (bool) $service['intro']['right'] ? 'md:grid-cols-2' : 'md:grid-cols-1' }} md:gap-10 lg:gap-14">
                 <div class="text-[15px] leading-8 text-[#6d6047]">
-                    <p>{{ $service['intro']['left'] }}</p>
+                    <p>{!! $service['intro']['left'] !!}</p>
                 </div>
 
                 <div class="text-[15px] leading-8 text-[#6d6047]">
-                    <p>{{ $service['intro']['right'] }}</p>
+                    <p>{!! $service['intro']['right'] !!}</p>
                 </div>
             </div>
 
@@ -133,11 +127,8 @@
     <section class="relative overflow-hidden">
         <div class="absolute inset-0">
             <video class="h-full w-full object-cover" autoplay muted loop playsinline preload="metadata"
-                poster="https://images.unsplash.com/photo-1460317442991-0ec209397118?q=80&w=2000&auto=format&fit=crop"
-                aria-hidden="true">
-                <source
-                    src="{{ esc_url(get_theme_file_uri('resources/videos/0_British_United_Kingdom_1920x1080_output.mp4')) }}"
-                    type="video/mp4">
+                poster="{{ $service['hero_mortgages_videoPoster'] }}" aria-hidden="true">
+                <source {{-- src="{{ esc_url(get_theme_file_uri('resources/videos/0_British_United_Kingdom_1920x1080_output.mp4')) }}" --}} src="{{ esc_url($service['hero_mortgages_video']) }}" type="video/mp4">
             </video>
             <div class="absolute inset-0 bg-[rgba(73,56,19,0.58)]"></div>
         </div>
@@ -150,14 +141,9 @@
                 </h2>
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="{{ esc_url($service['cta']['mortgageUrl']) }}"
+                    <a href="{{ esc_url($service['cta']['url']) }}"
                         class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
-                        {{ $service['cta']['mortgageText'] }}
-                    </a>
-
-                    <a href="{{ esc_url($service['cta']['insuranceUrl']) }}"
-                        class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
-                        {{ $service['cta']['insuranceText'] }}
+                        {{ $service['cta']['text'] }}
                     </a>
                 </div>
             </div>

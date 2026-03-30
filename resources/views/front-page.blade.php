@@ -411,7 +411,7 @@
     <section class="mx-auto max-w-7xl px-6 pt-16 md:px-10 md:pt-24 lg:px-16 lg:pt-28">
         <div class="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
             <div class="max-w-107.5">
-                <h2 class="text-[42px] font-light leading-[1.12] tracking-[-0.02em] md:text-[60px]">
+                <h2 class="text-[42px] font-light text-[#4a3910] leading-[1.12] tracking-[-0.02em] md:text-[60px]">
                     {!! $main['confused']['heading'] ?? 'Confused by mortgages?<br />Unsure about insurance?' !!}
                 </h2>
             </div>
@@ -732,7 +732,7 @@
     </section>
     <section class="text-[#3d2e12]">
         <div class="mx-auto max-w-7xl px-6 pb-16 pt-16 md:px-8 md:pb-20 md:pt-20 lg:px-10 lg:pb-24">
-            <h2 class="text-center text-[42px] font-light leading-[1.1] tracking-[-0.02em] md:text-[58px]">
+            <h2 class="text-center text-[42px] text-[#4a3910] font-light leading-[1.1] tracking-[-0.02em] md:text-[58px]">
                 {{ $main['reviews']['heading'] ?? 'What our customers are saying…' }}
             </h2>
 
@@ -786,7 +786,8 @@
         <div class="mx-auto max-w-7xl px-6 py-16 md:px-10 md:py-20 lg:px-16 lg:py-24">
             <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
                 <div>
-                    <h2 class="mt-3 text-[42px] font-light leading-[1.08] tracking-[-0.02em] md:text-[58px]">
+                    <h2
+                        class="mt-3 text-[42px] text-[#4a3910] font-light leading-[1.08] tracking-[-0.02em] md:text-[58px]">
                         {{ $main['blog']['heading'] ?? 'Blog & Articles' }}
                     </h2>
                 </div>
@@ -870,7 +871,7 @@
 
                 @php wp_reset_postdata(); @endphp
             </div>
-            <a href="{{ get_permalink(get_option('page_for_posts')) }}"
+            <a href="{{ $main['blog']['archiveButtonLink'] }}"
                 class="inline-flex mt-15 bg-[#423616] items-center text-[16px] uppercase tracking-[0.08em] text-white py-5 px-10 transition hover:bg-[#B8A26E] active:bg-[#F9CF6C]">
                 {{ $main['blog']['archiveButtonText'] ?? 'See all articles' }}
             </a>

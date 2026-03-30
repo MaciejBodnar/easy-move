@@ -586,6 +586,13 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'required' => 0,
                     'default_value' => 'See all articles',
                 ],
+                [
+                    'key' => 'field_front_blog_archive_button_link',
+                    'label' => 'Front Blog Archive Button Link',
+                    'name' => 'front_blog_archive_button_link',
+                    'type' => 'text',
+                    'required' => 0,
+                ],
             ],
         ]);
 

@@ -251,6 +251,7 @@ class Main extends Composer
             'postsCount' => (int) $this->getAcfFieldSafe('blog_posts_count', $postId, 3),
             'readMoreText' => $this->getAcfFieldSafe('front_blog_read_more_text', $postId, 'Read more'),
             'archiveButtonText' => $this->getAcfFieldSafe('front_blog_archive_button_text', $postId, 'See all articles'),
+            'archiveButtonLink' => $this->getAcfFieldSafe('front_blog_archive_button_link', $postId, "/blog"),
         ];
     }
 

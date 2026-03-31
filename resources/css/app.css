@@ -16,17 +16,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .semi-heading {
-  font-family: "temeraire-bold", sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-family: "area-extended", sans-serif;
+  font-weight: 800 !important;
   text-transform: uppercase;
 }
 
 .cta-button {
-  font-family: "temeraire-bold", sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  font-stretch: 150% !important;
+  font-family: "area-extended", sans-serif;
+  font-weight: 700 !important;
   text-transform: uppercase;
 }
 

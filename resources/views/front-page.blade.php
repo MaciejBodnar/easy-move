@@ -711,7 +711,7 @@
 
             <div class="bg-[#F9CF6C] px-5 py-5 md:px-8">
                 <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
-                    <p class="cta-button text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                    <p class="semi-heading text-[18px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                         {{ $main['contact']['heading'] ?? 'Get in touch' }}
                     </p>
 
@@ -865,7 +865,7 @@
                             </div>
 
                             <a href="{{ get_permalink($post) }}"
-                                class="mt-6 inline-flex items-center text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:text-[#b89a56]">
+                                class="cta-button mt-6 inline-flex items-center text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition hover:text-[#b89a56]">
                                 {{ $main['blog']['readMoreText'] ?? 'Read more' }}
                             </a>
                         </div>
@@ -897,7 +897,7 @@
                             {{ $statistic['number'] ?? '' }}
                         </h6>
                         <p
-                            class="cta-button mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                            class="semi-heading mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
                             {!! $statistic['label'] ?? '' !!}
                         </p>
                     </div>

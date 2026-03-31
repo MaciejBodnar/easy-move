@@ -37,8 +37,7 @@
             <div class="grid grid-cols-1 gap-y-10 gap-x-12 md:grid-cols-2 lg:gap-x-20">
                 <div>
                     <div class="mb-10">
-                        <h2
-                            class="semi-heading bold-heading mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                        <h2 class="semi-heading bold-heading mb-4 text-[20px] uppercase tracking-[0.08em] text-[#4a3910]">
                             {{ $about['whyUs']['heading'] ?? 'Why us?' }}
                         </h2>
                         <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
@@ -49,7 +48,7 @@
 
                     <div>
                         <h2
-                            class="semi-heading bold-heading mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                            class="semi-heading bold-heading mb-4 text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                             {{ $about['howWeHelp']['heading'] ?? 'How can we help?' }}
                         </h2>
                         <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
@@ -61,7 +60,7 @@
 
                 <div>
                     <h2
-                        class="semi-heading bold-heading mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                        class="semi-heading bold-heading mb-4 text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                         {{ $about['mission']['heading'] ?? 'Our mission' }}
                     </h2>
 
@@ -175,7 +174,7 @@
 
                 <div class="bg-[#e4bf62] px-5 py-5 md:px-8">
                     <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
-                        <span class="cta-button text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                        <span class="semi-heading text-[18px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                             {{ $about['contact']['heading'] }}
                         </span>
 
@@ -223,7 +222,7 @@
                                     {{ $statistic['number'] ?? '' }}
                                 </h6>
                                 <p
-                                    class="cta-button mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                                    class="semi-heading mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
                                     {!! $statistic['label'] ?? '' !!}
                                 </p>
                             </div>

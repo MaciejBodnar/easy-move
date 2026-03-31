@@ -11,7 +11,23 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: "temeraire", Georgia, serif;
+  font-family: "temeraire", serif;
+  font-weight: 900;
+}
+
+.semi-heading {
+  font-family: "temeraire-bold", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.cta-button {
+  font-family: "temeraire-bold", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  font-stretch: 150% !important;
+  text-transform: uppercase;
 }
 
 /* Material Icons font */

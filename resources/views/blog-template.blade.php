@@ -118,16 +118,16 @@ Template Name: Blog Template
                                 </time>
                             </div>
 
-                            <h2
+                            <p
                                 class="mt-3 max-w-[95%] text-[18px] font-normal leading-[1.55] text-[#6a6257] md:text-[17px] lg:text-[18px]">
                                 <a href="{{ get_permalink() }}" class="transition hover:text-[#F9CF6C]">
                                     {{ get_the_title() }}
                                 </a>
-                            </h2>
+                            </p>
 
                             <div class="mt-5">
                                 <a href="{{ get_permalink() }}"
-                                    class="inline-flex min-h-11 items-center justify-center bg-[#F5F5F5] px-5 py-3 text-[16px] font-medium uppercase tracking-[0.03em] text-[#4a3910] transition hover:bg-[#DAD5C6] active:bg-[#423616]">
+                                    class="semi-heading inline-flex min-h-11 items-center justify-center bg-[#F5F5F5] px-5 py-3 text-[16px] font-medium uppercase tracking-[0.03em] text-[#4a3910] transition hover:bg-[#DAD5C6] active:bg-[#423616]">
                                     {{ $blog['readMoreText'] }}
                                 </a>
                             </div>

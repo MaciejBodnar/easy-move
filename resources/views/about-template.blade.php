@@ -37,7 +37,8 @@
             <div class="grid grid-cols-1 gap-y-10 gap-x-12 md:grid-cols-2 lg:gap-x-20">
                 <div>
                     <div class="mb-10">
-                        <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                        <h2
+                            class="semi-heading bold-heading mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                             {{ $about['whyUs']['heading'] ?? 'Why us?' }}
                         </h2>
                         <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
@@ -47,7 +48,8 @@
                     </div>
 
                     <div>
-                        <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                        <h2
+                            class="semi-heading bold-heading mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                             {{ $about['howWeHelp']['heading'] ?? 'How can we help?' }}
                         </h2>
                         <p class="max-w-117.5 text-[17px] leading-[1.9] text-[#857867]">
@@ -58,7 +60,8 @@
                 </div>
 
                 <div>
-                    <h2 class="mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                    <h2
+                        class="semi-heading bold-heading mb-4 text-[24px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                         {{ $about['mission']['heading'] ?? 'Our mission' }}
                     </h2>
 
@@ -99,7 +102,7 @@
                                 </div>
                             </div>
 
-                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            <h3 class="semi-heading mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
                                 {{ $feature['title'] }}
                             </h3>
 
@@ -172,7 +175,7 @@
 
                 <div class="bg-[#e4bf62] px-5 py-5 md:px-8">
                     <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
-                        <span class="text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                        <span class="cta-button text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                             {{ $about['contact']['heading'] }}
                         </span>
 
@@ -216,19 +219,19 @@
                     <div class="grid gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
                         @forelse ($about['statistics'] ?? [] as $statistic)
                             <div>
-                                <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                                <h6 class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
                                     {{ $statistic['number'] ?? '' }}
-                                </div>
+                                </h6>
                                 <p
-                                    class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                                    class="cta-button mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
                                     {!! $statistic['label'] ?? '' !!}
                                 </p>
                             </div>
                         @empty
                             <div>
-                                <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                                <h6 class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
                                     15
-                                </div>
+                                </h6>
                                 <p
                                     class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
                                     Years of <br class="hidden sm:block"> experience

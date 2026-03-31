@@ -30,8 +30,8 @@
             <div class="items-center gap-16 md:gap-5 flex">
                 <div class="flex gap-5">
                     @foreach ($main['contact']['socialLinks'] as $socialLink)
-                        <a href="{{ esc_url($socialLink['url']) }}" aria-label='Social link'
-                            class="text-[#d2bb7b] transition hover:text-white">
+                        <a href="{{ esc_url($socialLink['url']) }}" target="_blank" rel="noopener noreferrer"
+                            aria-label='Social link' class="text-[#d2bb7b] transition hover:text-white">
                             {!! $socialLink['icon_class'] !!}
                         </a>
                     @endforeach
@@ -290,7 +290,9 @@
                     </div>
 
                     <div id="openContentWrap" class="mt-auto mb-8 max-w-110 hidden md:block">
-                        <div id="openEyebrow" class="mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">MORTGAGES
+                        <div id="openEyebrow"
+                            class="semi-heading mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">
+                            MORTGAGES
                         </div>
 
                         <h1 id="openTitle" class="text-[60px] font-light leading-[1.05] md:text-[56px]">
@@ -302,7 +304,7 @@
                         </p>
 
                         <a id="openButton" href="#"
-                            class="mt-8 inline-flex min-w-33 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#30281b] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
+                            class="cta-button mt-8 inline-flex min-w-33 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#30281b] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
                             Discover
                         </a>
                     </div>
@@ -317,7 +319,8 @@
                                 class="h-9 w-auto object-contain" />
                         </div>
 
-                        <div id="closedEyebrow" class="mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">
+                        <div id="closedEyebrow"
+                            class="semi-heading mb-3 text-[20px] uppercase tracking-[0.22em] text-white/90">
                             INSURANCE
                         </div>
 
@@ -330,7 +333,7 @@
                         </p>
 
                         <a id="closedButton" href="#"
-                            class="mt-8 inline-flex min-w-33 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#30281b] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
+                            class="cta-button mt-8 inline-flex min-w-33 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#30281b] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
                             Discover
                         </a>
                     </div>
@@ -474,9 +477,9 @@
                                 </div>
                             </div>
 
-                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            <p class="semi-heading mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
                                 {{ $feature['title'] ?? '' }}
-                            </h3>
+                            </p>
 
                             <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
                                 {{ $feature['description'] ?? '' }}
@@ -494,9 +497,9 @@
                                 </div>
                             </div>
 
-                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            <p class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
                                 We listen
-                            </h3>
+                            </p>
 
                             <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
                                 Your goals, your story, your future.
@@ -514,9 +517,9 @@
                                 </div>
                             </div>
 
-                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            <p class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
                                 We simplify
-                            </h3>
+                            </p>
 
                             <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
                                 Clear advice, no jargon, tailored options.
@@ -534,9 +537,9 @@
                                 </div>
                             </div>
 
-                            <h3 class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
+                            <p class="mb-3 text-[26px] font-medium uppercase tracking-[0.06em] text-white">
                                 We guide
-                            </h3>
+                            </p>
 
                             <p class="text-[16px] leading-[1.8] text-[#b7aa8a]">
                                 From application to approval (and beyond).
@@ -708,9 +711,9 @@
 
             <div class="bg-[#F9CF6C] px-5 py-5 md:px-8">
                 <div class="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-8">
-                    <span class="text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
+                    <p class="cta-button text-[20px] font-medium uppercase tracking-[0.08em] text-[#4a3910]">
                         {{ $main['contact']['heading'] ?? 'Get in touch' }}
-                    </span>
+                    </p>
 
                     @php
                         $contactPhone = $main['contact']['phone'] ?? '07555 641 081';
@@ -762,12 +765,12 @@
 
                 <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
                     <a href="{{ esc_url($main['protect']['buttons']['mortgage'] ?? '#') }}"
-                        class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
+                        class="cta-button inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-white hover:bg-[#DAD5C6] active:bg-[#BBAB79]">
                         {{ $main['protect']['buttons']['mortgageText'] ?? 'Mortgage' }}
                     </a>
 
                     <a href="{{ esc_url($main['protect']['buttons']['insurance'] ?? '#') }}"
-                        class="inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
+                        class="cta-button inline-flex min-w-35 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
                         {{ $main['protect']['buttons']['insuranceText'] ?? 'Insurance' }}
                     </a>
                 </div>
@@ -872,7 +875,7 @@
                 @php wp_reset_postdata(); @endphp
             </div>
             <a href="{{ $main['blog']['archiveButtonLink'] }}"
-                class="inline-flex mt-15 bg-[#423616] items-center text-[16px] uppercase tracking-[0.08em] text-white py-5 px-10 transition hover:bg-[#B8A26E] active:bg-[#F9CF6C]">
+                class="cta-button inline-flex mt-15 bg-[#423616] items-center text-[16px] uppercase tracking-[0.08em] text-white py-5 px-10 transition hover:bg-[#B8A26E] active:bg-[#F9CF6C]">
                 {{ $main['blog']['archiveButtonText'] ?? 'See all articles' }}
             </a>
         </div>
@@ -890,10 +893,11 @@
             <div class="grid gap-y-10 text-center md:grid-cols-4 md:gap-x-8">
                 @forelse ($main['statistics']['items'] ?? [] as $statistic)
                     <div>
-                        <div class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
+                        <h6 class="text-[48px] font-light leading-none text-[#f0c75b] md:text-[62px]">
                             {{ $statistic['number'] ?? '' }}
-                        </div>
-                        <p class="mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
+                        </h6>
+                        <p
+                            class="cta-button mt-4 text-[18px] uppercase leading-[1.45] tracking-[0.08em] text-white md:text-[20px]">
                             {!! $statistic['label'] ?? '' !!}
                         </p>
                     </div>

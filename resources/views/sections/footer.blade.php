@@ -93,6 +93,7 @@
     );
     $privacyLabel = $optionField("hf_{$langPrefix}_footer_privacy_label", 'Privacy Policy');
     $privacyUrl = $optionField("hf_{$langPrefix}_footer_privacy_url", home_url('/privacy-policy'));
+    $siteHost = wp_parse_url(home_url(), PHP_URL_HOST);
 @endphp
 
 <footer class="mt-auto">
@@ -133,7 +134,8 @@
 
                         <div class="flex items-center gap-5 pt-3 text-[#c7ad6a]">
                             @foreach ($socialLinks as $socialLink)
-                                <a href="{{ esc_url($socialLink['url'] ?? '#') }}"
+                                <a href="{{ esc_url($socialLink['url'] ?? '#') }}" target="_blank"
+                                    rel="noopener noreferrer"
                                     aria-label="{{ esc_attr($socialLink['label'] ?? 'Social') }}"
                                     class="transition hover:text-[#efc75d]">
                                     {!! $socialLink['icon_class'] !!}
@@ -154,7 +156,17 @@
 
                         <nav class="space-y-0">
                             @foreach ($columnLinks as $index => $columnLink)
-                                <a href="{{ esc_url($columnLink['url'] ?? '#') }}"
+                                @php
+                                    $linkUrl = $columnLink['url'] ?? '#';
+                                    $linkHost = wp_parse_url($linkUrl, PHP_URL_HOST);
+                                    $isExternal =
+                                        !empty($linkHost) &&
+                                        !empty($siteHost) &&
+                                        strcasecmp($linkHost, $siteHost) !== 0;
+                                @endphp
+
+                                <a href="{{ esc_url($linkUrl) }}"
+                                    @if ($isExternal) target="_blank" rel="noopener noreferrer" @endif
                                     class="footer-link-block {{ $index === count($columnLinks) - 1 ? 'border-b-0' : '' }}">
                                     {{ $columnLink['label'] ?? '' }}
                                 </a>

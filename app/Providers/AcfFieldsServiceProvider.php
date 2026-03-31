@@ -757,7 +757,7 @@ class AcfFieldsServiceProvider extends ServiceProvider
                     'key' => 'field_about_mission_text',
                     'label' => 'Full Description',
                     'name' => 'about_mission_text',
-                    'type' => 'wysiwyg',
+                    'type' => 'textarea',
                     'instructions' => 'Full mission statement description',
                     'required' => 0,
                     'default_value' => 'Empowering individuals and families to achieve their dreams of homeownership is at the heart of our mission. By offering personalised mortgage solutions tailored to your specific needs and goals, we strive to provide a seamless and rewarding experience. With a commitment to transparency, expertise and unwavering support, we aim to guide you through every step of the process, ensuring your journey to owning a home is as smooth and successful as possible.',

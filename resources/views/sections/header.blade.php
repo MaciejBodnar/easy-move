@@ -100,7 +100,7 @@
 
             <div class="hidden items-center gap-5 md:flex">
                 @foreach ($socialLinks as $socialLink)
-                    <a href="{{ esc_url($socialLink['url'] ?? '#') }}"
+                    <a href="{{ esc_url($socialLink['url'] ?? '#') }}" target="_blank" rel="noopener noreferrer"
                         aria-label="{{ esc_attr($socialLink['label'] ?? 'Social') }}"
                         class="text-[#d2bb7b] transition hover:text-white">
                         {!! $socialLink['icon_class'] !!}

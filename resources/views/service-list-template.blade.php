@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="flex flex-col justify-center pt-1 md:max-w-130">
-                            <h2 class="text-[20px] font-light uppercase tracking-[0.04em]">
+                            <h2 class="semi-heading text-[20px] font-light uppercase tracking-[0.04em]">
                                 {{ $itemTitle }}
                             </h2>
 
@@ -74,7 +74,7 @@
 
                             <div class="mt-6">
                                 <a href="{{ esc_url($buttonUrl) }}"
-                                    class="inline-flex min-w-33 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
+                                    class="cta-button inline-flex min-w-33 items-center justify-center px-6 py-3 text-[16px] uppercase tracking-[0.08em] text-[#3d2e12] transition bg-[#F9CF6C] hover:bg-[#DAD5C6] active:bg-white">
                                     {{ $buttonTitle }}
                                 </a>
                             </div>

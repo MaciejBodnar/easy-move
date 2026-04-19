@@ -46,14 +46,14 @@ a {
 	text-decoration: none !important;
 }
 
-.screen-reader-response {
+/* .screen-reader-response {
     display: none !important;
 }
 
 .wpcf7-form .hidden-fields-container,
 .wpcf7-form .wpcf7-response-output {
   display: none !important;
-}
+} */
 
 @layer components {
   .nav-links {
